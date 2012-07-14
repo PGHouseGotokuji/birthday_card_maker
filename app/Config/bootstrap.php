@@ -96,6 +96,36 @@
  *		'persistent' => true, // [optional] set this to false for non-persistent connections
  *	));
  */
+
+/*** アプリ別設定ファイル読み込み ***/
+require ROOT . DS . APP_DIR . DS . 'Config' . DS . 'app.php';
+
+/*** 環境設定 ***/
+if (!empty($_SERVER['CAKE_ENV_MODE']))  {
+    $ENV_MODE = $_SERVER['CAKE_ENV_MODE'];
+} else {
+    // ない場合にはserver.infoで設定した環境名を読み込む
+    $ENV_MODE = @file_get_contents(ENV_INFO_FILE);
+}
+// ファイル名や変数名に使う定数セット
+if ($ENV_MODE == 'pro'
+    || $ENV_MODE == 'stg'
+    || $ENV_MODE == 'dev') {
+        define('ENV_MODE', $ENV_MODE);
+} else {
+        // 万が一どの環境変数でもない場合は本番設定とする
+        define('ENV_MODE', 'pro');
+}
+// 開発環境時はデバッグモードを書き換える
+if (ENV_MODE == 'dev' || ENV_MODE == 'stg') {
+    Configure::write('debug', 2);
+}
+
+/*** アプリ環境別設定ファイル読み込み ***/
+require ROOT . DS . APP_DIR . DS . 'Config' . DS . 'apps' . DS . ENV_MODE . '.php';
+
+
+
 Cache::config('default', array('engine' => 'File'));
 
 /**
