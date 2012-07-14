@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <?= $this->Html->charset(); ?>
+    <title><?= h($title_for_layout); ?></title>
+    <?= $this->Html->meta('icon'); ?>
+    <?= $this->Html->css('base'); ?>
+    <?= $scripts_for_layout; ?>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+<? if (ENV_MODE == 'pro') { ?>
+
+
+<? } ?>
+
+    $(function(){
+        $('#flash-message-success').fadeIn(1000).delay(3000).fadeOut(1000);
+        if (window.location.hash == '#_=_') {
+            window.location.hash = '';
+        }
+    });
+</script>
+</head>
+<body>
+<? if (ENV_MODE != 'pro') { ?>
+<script>
+$(function(){
+    $('#disp-env-code').click(function(){
+        $('#home-bar-top').toggle();
+    });
+});
+</script>
+<div id="disp-env-code" style="top:0;right:10px;width:32px;height:16px;margin:0;padding:12px 5px 5px 5px;text-align:center;color:#FFF;font-weight:bold;font-size:12px;line-height:10px;background-color:#008000;border: solid 2px #fff;border-top:none;position:absolute;z-index:100000;border-bottom-right-radius:5px;border-bottom-left-radius:5px;cursor:pointer;"><?= ENV_MODE ?></div>
+<? } ?>
+    <div id="container">
+        <?= $this->Session->flash(); ?>
+        <div id="content">
+            <?= $content_for_layout; ?>
+        </div>
+        <div id="footer" class="whole-footer">
+            Copyright &copy; <?= date('Y'); ?> <?= PRODUCT_FROM ?> all rights reserved.
+        </div>
+        <? if (ENV_MODE != 'pro') { ?>
+        <hr>
+        <?= $this->element('sql_dump');  ?>
+        <? } ?>
+    </div>
+</body>
+</html>

@@ -1,35 +1,45 @@
 <?php
-/**
- * Application level Controller
- *
- * This file is application-wide controller file. You can put all
- * application-wide controller-related methods here.
- *
- * PHP 5
- *
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @package       app.Controller
- * @since         CakePHP(tm) v 0.2.9
- * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
- */
+Class AppController extends Controller
+{
+    var $ext = '.html';
 
-App::uses('Controller', 'Controller');
+    public function beforeFilter()
+    {
+        $this->loginUser = null;
 
-/**
- * Application Controller
- *
- * Add your application-wide methods in the class below, your controllers
- * will inherit them.
- *
- * @package       app.Controller
- * @link http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
- */
-class AppController extends Controller {
+        // ユーザーがログインしていたら配列に格納
+        if ($this->Session->check('auth.user')) {
+            $this->loginUser = $loginUser = $this->Session->read('auth.user');
+        }
+        $this->set(compact('loginUser'));
+    }
+
+    /**
+     * ユーザーログインチェック
+     *
+     * @access public
+     * @return void
+     */
+    public function userLoginCheck()
+    {
+        $actions = func_get_args();
+        foreach ($actions as $action) {
+            if ($this->action == $action && !$this->Session->check('auth.user')) {
+                // TODO ここ、ログイン画面できたらログイン画面へ飛ばすようにする
+                $this->redirect('/');
+            }
+        }
+    }
+
+    /**
+     * エラー画面
+     *
+     * @access public
+     */
+    public function error()
+    {
+       $this->set('title_for_layout', 'エラー ' . TITLE);
+       $this->set('title_for_page', 'エラー ' . TITLE);
+       $this->render('/Errors/error');
+    }
 }
