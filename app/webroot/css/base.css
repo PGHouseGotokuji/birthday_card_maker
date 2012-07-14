@@ -295,30 +295,17 @@ h4 {
  * コンテンツ全体の設定：
  ************************/
 #container {
-    width         : 1000px;
     margin        : 0 auto;
     margin-top    : 45px;
     margin-bottom : 45px;
 }
 
-.yatter-window {
-    width  : 500px;
-    height : 600px;
-    margin : 0 auto;
-    border : solid 1px #80FF80;
-}
 
-.yatter-line {
-    width  : 490px;
-    height : 50px;
-    margin : 5px auto;
-}
 
 /***************
  * headerの設定：
  ***************/
 #header {
-    width  : 1000px;
     height : 70px;
 }
 
@@ -411,7 +398,6 @@ h4 {
  * content内の設定：
  *******************/
 #content {
-    width : 1000px;
 }
 
 
@@ -420,7 +406,6 @@ h4 {
  * footerの設定：
  ***************/
 .whole-footer {
-    width         : 600px;
     margin        : 10px auto;
     padding       : 5px 0;
     text-align    : center;
