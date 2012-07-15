@@ -11,7 +11,7 @@ Class AppController extends Controller
         if ($this->Session->check('auth.user')) {
             $this->loginUser = $loginUser = $this->Session->read('auth.user');
         }
-        $this->set(compact('loginUser'));
+//        $this->set(compact('loginUser'));
     }
 
     /**
@@ -38,8 +38,8 @@ Class AppController extends Controller
      */
     public function error()
     {
-       $this->set('title_for_layout', 'エラー ' . TITLE);
-       $this->set('title_for_page', 'エラー ' . TITLE);
+//       $this->set('title_for_layout', 'エラー ' . TITLE);
+//       $this->set('title_for_page', 'エラー ' . TITLE);
        $this->render('/Errors/error');
     }
 }

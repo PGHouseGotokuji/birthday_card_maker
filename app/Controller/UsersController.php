@@ -2,7 +2,7 @@
 class UsersController extends AppController 
 {
 //    public $helpers  = array('Common', 'DispUser');
-    public $uses     = array('User');
+    public $uses     = array('User', 'Collaborator', 'Plan');
     var $components  = array('Security');
 
 
@@ -21,6 +21,7 @@ class UsersController extends AppController
      *
      * @access public
      */
+/*
     public function frontAddUser() 
     {
         $this->User->recursive = 0;
@@ -44,5 +45,29 @@ class UsersController extends AppController
 
         $this->set('title_for_layout', TITLE . ' ユーザー登録');
         $this->set('title_for_page', TITLE . '　ユーザー登録');
+    }
+*/
+
+    /**
+     * ユーザー情報取得
+     *
+     * @access public
+     */
+    public function getUser() 
+    {
+        $user = $this->loginUser;
+/*
+        $plan = $this->Plan->findByFromId($user['User']['id']);
+        if (!empty($plan)) {
+            $data = $user + $plan;
+        } else {
+            $data = $user;
+        }
+*/
+        return new CakeResponse(array('body' => json_encode($user)));
+
+//        $this->set(compact('user'));
+//        $this->set('title_for_layout', TITLE . ' マイページ');
+//        $this->set('title_for_page', TITLE . '　マイページ');
     }
 }

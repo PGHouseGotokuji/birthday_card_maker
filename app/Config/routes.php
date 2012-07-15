@@ -27,8 +27,21 @@
  */
 Router::connect('/',                  array('controller' => 'Pages', 'action' => 'index', 'home'));
 Router::connect('/fblogin',           array('controller' => 'Links', 'action' => 'fbLogin'));
+Router::connect('/get_user',          array('controller' => 'Users', 'action' => 'getUser'));
+Router::connect('/get_plan',          array('controller' => 'Plans', 'action' => 'getPlan'));
+Router::connect('/get_collaborator',  array('controller' => 'Collaborators', 'action' => 'getCollaborator'));
+
+// 誕生日ユーザーを登録するapi
+
+// facebookに投稿
+
+
+
+Router::connect('/postconfirm',       array('controller' => 'Posts', 'action' => 'confirm'));
+Router::connect('/postcard',          array('controller' => 'Posts', 'action' => 'postCard'));
 Router::connect('/logout',            array('controller' => 'auths', 'action' => 'userLogout'));
-Router::connect('/user/add',          array('controller' => 'users', 'action' => 'frontAddUser'));
+
+//Router::connect('/user/add',          array('controller' => 'users', 'action' => 'frontAddUser'));
 Router::connect('/error',             array('controller' => 'App', 'action' => 'error'));
 
 

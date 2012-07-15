@@ -21,7 +21,8 @@ class LinksController extends AppController {
         if (empty($_GET['code'])) {
             $state = sha1(uniqid(mt_rand(), true));
             $this->Session->write('fblogin.state', $state);
-            $this->Session->write('fblogin.ref', $this->referer());
+//            $this->Session->write('fblogin.ref', $this->referer());
+            $this->Session->write('fblogin.ref', '/mypage');
             $params = array(
                 'client_id'    => APP_ID,
                 'redirect_uri' => SITE_URL . '/fblogin',
@@ -83,16 +84,27 @@ exit;
 
             $loginUser['User']['id']              = $user['User']['id'];
             $loginUser['User']['username']        = $user['User']['username'];
-            $loginUser['User']['register_status'] = $user['User']['register_status'];
-            $loginUser['User']['gender']          = $user['User']['gender'];
+//            $loginUser['User']['register_status'] = $user['User']['register_status'];
+//            $loginUser['User']['gender']          = $user['User']['gender'];
             $loginUser['User']['fb_picture']      = $user['User']['fb_picture'];
             $this->Session->write('auth.user', $loginUser);
-            $this->set(compact('user'));
 
+return new CakeResponse(array('body' => json_encode($loginUser)));
+
+/*
+if () {
+
+}
+*/
+
+//            $this->set(compact('user'));
+
+/*
             if (empty($user['User']['password'])) {
                 $this->redirect(array('controller' => 'users', 'action' => 'frontAddUser'));
             }
             $this->Session->setFlash('ログインしました！', 'flash' . DS . 'success');
+*/
             $this->redirect($referer);
         }
     }
