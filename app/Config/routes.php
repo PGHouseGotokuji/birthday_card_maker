@@ -29,17 +29,23 @@ Router::connect('/',                  array('controller' => 'Pages', 'action' =>
 Router::connect('/fblogin',           array('controller' => 'Links', 'action' => 'fbLogin'));
 
 // ユーザー, プラン, 参加者取得api
-Router::connect('/get_user',          array('controller' => 'Users', 'action' => 'getUser'));
-Router::connect('/get_plan',          array('controller' => 'Plans', 'action' => 'getPlan'));
-Router::connect('/get_collaborators', array('controller' => 'Collaborators', 'action' => 'getCollaborators'));
+Router::connect('/get_user',                  array('controller' => 'Users', 'action' => 'getUser'));
+Router::connect('/get_plan',                  array('controller' => 'Plans', 'action' => 'getPlan'));
+Router::connect('/get_collaborators/:planId', array('controller' => 'Collaborators', 'action' => 'getCollaborators'), array(array('planId' => '[0-9]+')));
+
+// fbの友達取得
+Router::connect('/get_friends',       array('controller' => 'Users', 'action' => 'getFriends'));
 
 // 誕生日ユーザーを登録するapi
 Router::connect('/insertplan',        array('controller' => 'Plans', 'action' => 'insertPlan'));
 
+// 自分のタイムラインに投稿
+Router::connect('/post_fb_timeline',  array('controller' => 'Posts', 'action' => 'postFbTimeline'));
+
 // facebookに投稿
 Router::connect('/insertplan',        array('controller' => 'Plans', 'action' => 'insertPlan'));
 
-// 画像
+// 画像を生成
 Router::connect('/postconfirm',       array('controller' => 'Posts', 'action' => 'confirm'));
 Router::connect('/postcard',          array('controller' => 'Posts', 'action' => 'postCard'));
 

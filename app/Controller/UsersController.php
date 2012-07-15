@@ -56,18 +56,27 @@ class UsersController extends AppController
     public function getUser() 
     {
         $user = $this->loginUser;
-/*
-        $plan = $this->Plan->findByFromId($user['User']['id']);
-        if (!empty($plan)) {
-            $data = $user + $plan;
-        } else {
-            $data = $user;
-        }
-*/
         return new CakeResponse(array('body' => json_encode($user)));
 
-//        $this->set(compact('user'));
-//        $this->set('title_for_layout', TITLE . ' マイページ');
-//        $this->set('title_for_page', TITLE . '　マイページ');
+    }
+
+    /**
+     * ユーザーの友達情報取得
+     *
+     * @access public
+     */
+    public function getFriends() 
+    {
+//        $user = $this->loginUser;
+
+        $url = 'https://graph.facebook.com/me/friends?access_token=' . $user['User']['access_token'];
+        $fbFriends = json_decode(file_get_contents($url));
+
+foreach ($fbFriends->data as $key => $friend) {
+    $friend->fb_picture = 'https://graph.facebook.com/' . $friend->id . DS . 'picture';
+    $friends['Friend'][] = $friend;
+}
+
+        return new CakeResponse(array('body' => json_encode($friends)));
     }
 }

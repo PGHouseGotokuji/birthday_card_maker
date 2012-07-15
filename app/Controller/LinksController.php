@@ -87,6 +87,7 @@ exit;
 //            $loginUser['User']['register_status'] = $user['User']['register_status'];
 //            $loginUser['User']['gender']          = $user['User']['gender'];
             $loginUser['User']['fb_picture']      = $user['User']['fb_picture'];
+            $loginUser['User']['access_token']    = $access_token;
             $this->Session->write('auth.user', $loginUser);
 
 return new CakeResponse(array('body' => json_encode($loginUser)));

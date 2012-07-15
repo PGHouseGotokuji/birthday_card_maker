@@ -21,8 +21,9 @@ class CollaboratorsController extends AppController
      */
     public function getCollaborators() 
     {
-        $user          = $this->loginUser;
-        $plan          = $this->Plan->findByFromId($user['User']['id']);
+//        $user          = $this->loginUser;
+//        $plan          = $this->Plan->findByFromId($user['User']['id']);
+        $plan          = $this->Plan->findById($this->params['planId']);
         $collaborators = array();
         if (!empty($plan)) {
 
@@ -42,6 +43,8 @@ $innerJoin = array(
                 )
             ));
         }
+
+
 //        $collaborators['Count'] = count($collaborators);
         return new CakeResponse(array('body' => json_encode($collaborators)));
     }
