@@ -21,7 +21,6 @@ class LinksController extends AppController {
         if (empty($_GET['code'])) {
             $state = sha1(uniqid(mt_rand(), true));
             $this->Session->write('fblogin.state', $state);
-//            $this->Session->write('fblogin.ref', $this->referer());
             $this->Session->write('fblogin.ref', '/mypage');
             $params = array(
                 'client_id'    => APP_ID,
@@ -89,16 +88,6 @@ exit;
             $loginUser['User']['fb_picture']      = $user['User']['fb_picture'];
             $loginUser['User']['access_token']    = $access_token;
             $this->Session->write('auth.user', $loginUser);
-
-return new CakeResponse(array('body' => json_encode($loginUser)));
-
-/*
-if () {
-
-}
-*/
-
-//            $this->set(compact('user'));
 
 /*
             if (empty($user['User']['password'])) {

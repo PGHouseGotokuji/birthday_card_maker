@@ -5,9 +5,9 @@
     <?= $this->Html->charset(); ?>
     <title><?= h($title_for_layout); ?></title>
     <?= $this->Html->meta('icon'); ?>
-    <?= $this->Html->css('base'); ?>
     <?= $scripts_for_layout; ?>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<link rel="stylesheet" href="css/style.css"  />
+
     <script type="text/javascript">
 
 <? if (ENV_MODE == 'pro') { ?>
@@ -15,24 +15,10 @@
 
 <? } ?>
 
-    $(function(){
-        $('#flash-message-success').fadeIn(1000).delay(3000).fadeOut(1000);
-        if (window.location.hash == '#_=_') {
-            window.location.hash = '';
-        }
-    });
 </script>
 </head>
 <body>
 <? if (ENV_MODE != 'pro') { ?>
-<script>
-$(function(){
-    $('#disp-env-code').click(function(){
-        $('#home-bar-top').toggle();
-    });
-});
-</script>
-<div id="disp-env-code" style="top:0;right:10px;width:32px;height:16px;margin:0;padding:12px 5px 5px 5px;text-align:center;color:#FFF;font-weight:bold;font-size:12px;line-height:10px;background-color:#008000;border: solid 2px #fff;border-top:none;position:absolute;z-index:100000;border-bottom-right-radius:5px;border-bottom-left-radius:5px;cursor:pointer;"><?= ENV_MODE ?></div>
 <? } ?>
     <div id="container">
         <?= $this->Session->flash(); ?>

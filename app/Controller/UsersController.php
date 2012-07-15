@@ -79,4 +79,13 @@ foreach ($fbFriends->data as $key => $friend) {
 
         return new CakeResponse(array('body' => json_encode($friends)));
     }
+
+
+
+    public function mypage() 
+    {
+
+
+
+    }
 }

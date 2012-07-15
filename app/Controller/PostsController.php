@@ -81,7 +81,9 @@ exit;
   }
 }
 
+    }
 
+    public function timelinePosted() {
 
 
     }

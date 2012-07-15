@@ -33,6 +33,9 @@ Router::connect('/get_user',                  array('controller' => 'Users', 'ac
 Router::connect('/get_plan',                  array('controller' => 'Plans', 'action' => 'getPlan'));
 Router::connect('/get_collaborators/:planId', array('controller' => 'Collaborators', 'action' => 'getCollaborators'), array(array('planId' => '[0-9]+')));
 
+// マイページ取得
+Router::connect('/mypage',            array('controller' => 'Users', 'action' => 'mypage'));
+
 // fbの友達取得
 Router::connect('/get_friends',       array('controller' => 'Users', 'action' => 'getFriends'));
 
@@ -44,6 +47,7 @@ Router::connect('/post_fb_timeline',  array('controller' => 'Posts', 'action' =>
 
 // facebookに投稿
 Router::connect('/insertplan',        array('controller' => 'Plans', 'action' => 'insertPlan'));
+Router::connect('/timeline_posted',   array('controller' => 'Posts', 'action' => 'timelinePosted'));
 
 // 画像を生成
 Router::connect('/postconfirm',       array('controller' => 'Posts', 'action' => 'confirm'));
