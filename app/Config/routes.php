@@ -27,21 +27,28 @@
  */
 Router::connect('/',                  array('controller' => 'Pages', 'action' => 'index', 'home'));
 Router::connect('/fblogin',           array('controller' => 'Links', 'action' => 'fbLogin'));
+
+// ユーザー, プラン, 参加者取得api
 Router::connect('/get_user',          array('controller' => 'Users', 'action' => 'getUser'));
 Router::connect('/get_plan',          array('controller' => 'Plans', 'action' => 'getPlan'));
-Router::connect('/get_collaborator',  array('controller' => 'Collaborators', 'action' => 'getCollaborator'));
+Router::connect('/get_collaborators', array('controller' => 'Collaborators', 'action' => 'getCollaborators'));
 
 // 誕生日ユーザーを登録するapi
+Router::connect('/insertplan',        array('controller' => 'Plans', 'action' => 'insertPlan'));
 
 // facebookに投稿
+Router::connect('/insertplan',        array('controller' => 'Plans', 'action' => 'insertPlan'));
 
-
-
+// 画像
 Router::connect('/postconfirm',       array('controller' => 'Posts', 'action' => 'confirm'));
 Router::connect('/postcard',          array('controller' => 'Posts', 'action' => 'postCard'));
+
+// ログアウト
 Router::connect('/logout',            array('controller' => 'auths', 'action' => 'userLogout'));
 
 //Router::connect('/user/add',          array('controller' => 'users', 'action' => 'frontAddUser'));
+
+// エラー
 Router::connect('/error',             array('controller' => 'App', 'action' => 'error'));
 
 

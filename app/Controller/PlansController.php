@@ -1,10 +1,8 @@
 <?php
 class PlansController extends AppController 
 {
-//    public $helpers  = array('Common', 'DispUser');
     public $uses     = array('Plan');
     var $components  = array('Security');
-
 
     public function beforeFilter()
     {
@@ -26,4 +24,34 @@ class PlansController extends AppController
         $plan = $this->Plan->findByFromId($user['User']['id']);
         return new CakeResponse(array('body' => json_encode($plan)));
     }
+
+    /**
+     * 誕生日プラン登録
+     *
+     * @access public
+     */
+    public function insertPlan() 
+    {
+        $user     = $this->loginUser;
+        $response = false;
+        if (!empty($this->request->data)) {
+
+pr($this->request->data);
+exit;
+
+            $data = json_decode($this->request->data);
+
+pr($data);
+exit;
+
+            if ($this->Plan->save($data)) {
+                $response = true;
+            }
+        }
+
+exit;
+
+        return new CakeResponse(array('body' => json_encode($response)));
+    }
+
 }

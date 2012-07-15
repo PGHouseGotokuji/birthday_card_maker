@@ -1,7 +1,6 @@
 <?php
 class CollaboratorsController extends AppController 
 {
-//    public $helpers  = array('Common', 'DispUser');
     public $uses     = array('Plan', 'Collaborator');
     var $components  = array('Security');
 
@@ -16,21 +15,34 @@ class CollaboratorsController extends AppController
     }
 
     /**
-     * 誕生日プラン情報取得
+     * 誕生日に参加してくれる人たちの情報取得
      *
      * @access public
      */
-    public function getCollaborator() 
+    public function getCollaborators() 
     {
-        $user = $this->loginUser;
-//        $plan = $this->Plan->findByFromId($user['User']['id']);
+        $user          = $this->loginUser;
+        $plan          = $this->Plan->findByFromId($user['User']['id']);
+        $collaborators = array();
+        if (!empty($plan)) {
 
-$collaborator = $this->User->findById($user['User']['id']);
-
-
-pr($collaborator);
-exit;
-
-        return new CakeResponse(array('body' => json_encode($collaborator)));
+/*
+$innerJoin = array(
+    array(
+        'type'  => 'INNER',
+        'table' => '`users` `User`',
+        'conditions' => '`Collaborator`.`uid`=`User`.`id`'
+    )
+);
+*/
+            $collaborators = $this->Collaborator->find('all', array(
+//                'joins' => $innerJoin,
+                'conditions' => array(
+                    'plan_id' => $plan['Plan']['id']
+                )
+            ));
+        }
+//        $collaborators['Count'] = count($collaborators);
+        return new CakeResponse(array('body' => json_encode($collaborators)));
     }
 }
