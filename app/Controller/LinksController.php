@@ -2,7 +2,7 @@
 class LinksController extends AppController {
 
     public $name = 'Links';
-//    public $uses = array('User');
+    public $uses = array('User');
 
     public function beforeFilter()
     {
@@ -50,14 +50,14 @@ class LinksController extends AppController {
             $body = file_get_contents($url);
 
             parse_str($body);
-            $url = 'https://graph.facebook.com/me?access_token=' . $access_token . '&fields=name,gender,picture';
+            $url = 'https://graph.facebook.com/me?access_token=' . $access_token . '&fields=username,gender,picture';
             $me = json_decode(file_get_contents($url));
 
             $user = $this->User->find('first', array(
                 'conditions' => array('fb_id' => $me->id)
             ));
             if (empty($user)) {
-                $data['User']['username']        = $me->name;
+                $data['User']['username']        = $me->username;
                 $data['User']['register_status'] = 1;
                 if ($me->gender == 'male') {
                     $data['User']['gender']      = 1;
@@ -86,7 +86,6 @@ exit;
             $loginUser['User']['register_status'] = $user['User']['register_status'];
             $loginUser['User']['gender']          = $user['User']['gender'];
             $loginUser['User']['fb_picture']      = $user['User']['fb_picture'];
-            $loginUser['User']['route']           = 'fb';
             $this->Session->write('auth.user', $loginUser);
             $this->set(compact('user'));
 

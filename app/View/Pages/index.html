@@ -1,4 +1,14 @@
-<p><?= TITLE ?>は誕生日の人に友人の画像を集めて</p>
-<p>寄せ書きのように画像を組み合わせて投稿できるアプリです。</p>
+<div class="center">
+    <p><?= TITLE ?>は誕生日の人に友人の画像を集めて</p>
+    <p>寄せ書きのように画像を組み合わせて投稿できるアプリです。</p>
+</div>
 
-
+<? if (empty($loginUser)) { ?>
+<div class="submit-orange center">
+    <a class="button" href="/fblogin">Facebookログイン</a>
+</div>
+<? } else { ?>
+<div class="submit-orange center">
+    <a class="button" href="/logout">ログアウト</a>
+</div>
+<? } ?>

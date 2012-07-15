@@ -2,7 +2,7 @@
 Class PagesController extends AppController
 {
     public $name = 'Pages';
-//    public $uses = array('Yatter', 'YatterSum');
+    public $uses = array('User');
 
     public function beforeFileter()
     {

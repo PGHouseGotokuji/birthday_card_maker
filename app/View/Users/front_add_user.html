@@ -1,0 +1,49 @@
+<script>
+$(function(){
+    $('#UserUsername').focus();
+});
+</script>
+<h2><?= h($title_for_page) ?></h2>
+<?= $this->Form->create('User', array('type' => 'post', 'url' => '/user/add'));?>
+<div class="center">
+    <div class="green-message" style="text-align:center;margin-bottom:10px;"><?= !empty($addMessage) ? $addMessage : '' ?></div>
+    <table border="0" cellpadding="1" cellspacing="1">
+        <tr>
+            <th>
+                <?= $this->Form->label('username', 'username'); ?>
+            </th>
+            <td class="require">
+                <?= $this->Form->input('username', array('label' => false, 'value' => ((isset($user['User']['username'])) ? h($user['User']['username']) : ''))); ?>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <?= $this->Form->label('passwd_first', 'password'); ?>
+            </th>
+            <td class="require">
+                <?= $this->Form->input('passwd_first', array('type' => 'password', 'label' => false, 'value' => '')); ?>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <?= $this->Form->label('passwd_confirm', 'password(confirm)'); ?>
+            </th>
+            <td class="require">
+                <?= $this->Form->input('passwd_confirm', array('type' => 'password', 'label' => false, 'value' => '')); ?>
+                <? if (isset($passwdError)) { ?>
+                    <div class="error-msg"><?= $passwdError ?></div>
+                <? } ?>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                 <?= $this->Form->label('gender', 'gender(性別)'); ?>
+            </th>
+            <td class="require">
+                <?= $this->Form->radio('gender', User::$genderList, array('label' => false, 'legend' => false, 'separator' => '&nbsp;&nbsp;&nbsp;', 'value' => ((isset($user['User']['gender'])) ? h($user['User']['gender']) : ''))); ?>
+            </td>
+        </tr>
+    </table>
+    <?= $this->Form->submit('登録する', array('class' => 'submit-orange', 'style' => 'text-align:center;margin-top:20px;', 'div' => false)); ?>
+    <?= $this->Form->end(); ?>
+</div>

@@ -219,7 +219,7 @@ h4 {
 
 /*** flashデザイン ***/
 .flash-message {
-    width       : 600px;
+    width       : 400px;
     height      : 30px;
     background  : #D5FFDF;
     border-radius : 20px;
@@ -230,13 +230,14 @@ h4 {
 }
 
 .fm-success-icon {
-    background : url(../img/success_01.png) no-repeat;
+    background : url(../img/test-pass-icon.png) no-repeat;
+background-position : 10px 8px;
     width      : 35px;
     height     : 35px;
     float      : left;
 }
 .fm-error-icon {
-    background : url(../img/error.png) no-repeat;
+    background : url(../img/test-fail-icon.png) no-repeat;
     width      : 35px;
     height     : 35px;
     float      : left;
@@ -296,7 +297,7 @@ h4 {
  ************************/
 #container {
     margin        : 0 auto;
-    margin-top    : 45px;
+    margin-top    : 20px;
     margin-bottom : 45px;
 }
 
