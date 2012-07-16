@@ -26,6 +26,22 @@ class PlansController extends AppController
     }
 
     /**
+     * 誕生日プラン情報全件取得(そのうち使う予定)
+     *
+     * @access public
+     */
+    public function getPlans() 
+    {
+        $user = $this->loginUser;
+        $plans = $this->Plan->find('all', array(
+            'conditions' => array(
+                'from_id' => $user['User']['id']
+            )
+        ));
+        return new CakeResponse(array('body' => json_encode($plans)));
+    }
+
+    /**
      * 誕生日プラン登録
      *
      * @access public
@@ -44,6 +60,7 @@ class PlansController extends AppController
             $this->Plan->create();
             if ($this->Plan->save($data)) {
                 $response['Success'] = 'true';
+                $this->Session->write('planId', $this->Plan->id);
             }
         }
 
