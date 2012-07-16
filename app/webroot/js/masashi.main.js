@@ -8,13 +8,26 @@ $(function () {
 
     View.prototype = {
 
+        update: function(params) {
+            var content = _.template($(params.tplSelector).html(), params.data);
+            $(content).appendTo(params.appendSelector);
+        },
+
         updateOwner:function (owner) {
             var content = _.template($('#ownerTpl').html(), owner);
             $(content).appendTo('.content .owner');
         },
 
+        deleteOwner: function() {
+            $('.content .owner').remove();
+        },
+
         updatePlan:function (plan) {
             var content = _.template($('#planTpl').html(), plan);
+            $(content).appendTo('.content .card-left');
+        },
+
+        deletePlan:function (){
             $(content).appendTo('.content .card-left');
         },
 
