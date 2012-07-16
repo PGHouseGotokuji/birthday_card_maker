@@ -2,13 +2,107 @@
 <html lang="en-US">
 <head>
     <meta charset="UTF-8">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="js/lib/underscore-min.js"></script>
     <script type="text/javascript" src="js/masashi.main.js"></script>
     <script type="text/javascript" src="js/Connect.js"></script>
     <script type="text/javascript" src="js/Main.js"></script>
-    <title></title>
+        <!-- template -->
+<script type="text/template" id="ownerTpl">
+  <div class="owner-left">
+    <ul>
+      <li class="owner-img"><img src="<%-User.fb_picture%>" width="80" height="80" /></li>
+      <li class="owner-name">発起人：<br />
+<a href="#"><%-User.username%></a></li>
+    </ul>
+  </div>
+  <div class="owner-right">
+    <button>新規作成</button>
+  </div>
+</script>
+
+<script type="text/template" id="planTpl">
+    <ul>
+      <li class="target-img"><img src="<%-Plan.fb_picture%>" width="50" height="50" /></li>
+      <li class="target-name">贈る相手：<br />
+        <a href="#"><%-Plan.username%></a>さん</li>
+    </ul>
+</script>
+
+<script type="text/template" id="memberTpl">
+  <li><%-length%>人が協力しています</li>
+</script>
+
+<script type="text/template" id="selectFriendTpl">
+    <div class='select-friend'>
+        
+    </div>
+</script>
+
+<script type="text/template" id="friendInfoTpl">
+    <li class="friend-info"><a href="#">
+          <ul>
+            <li class="friend-img"><img src="<%-fb_picture%>"></li>
+            <li class="friend-name"><%-name%></li>
+          </ul>
+      </a> </li>
+</script>
+
+
+<script type="text/template" id="insertPlanSuccessTpl">
+    <div>
+        success
+    <div>
+</script>
+
+<script type="text/template" id="insertPlanErrorTpl">
+    <div>
+        error
+    <div>
+</script>
+
+
+
+    <link rel="stylesheet" href="/css/style.css">
+    <title>test</title>
 </head>
 <body>
-    
+    <div class="content">
+    <div class="owner clearfix">
+      <div class="owner-left">
+        <ul>
+          <li class="owner-img"></li>
+          <li class="owner-name"></li>
+        </ul>
+      </div>
+      <div class="owner-right">
+        
+      </div>
+    </div>
+    <!-- / .owner -->
+    <div class="card clearfix">
+      <div class="card-left">
+        <ul>
+          <li class="target-img"></li>
+          <li class="target-name"></li>
+        </ul>
+      </div>
+      <div class="card-right">
+        <ul class="members">
+        </ul>
+        <!--<div>
+          <li class="member-othoer"><a href="#">他6人</a></li>
+          <li>が協力しました。</li>
+        </div>-->
+        <div class="send-btn">
+            <button>カードを送る</button>
+        </div>
+      </div>
+    </div>
+    <div class="card-sample clearfix">
+        色紙イメージ
+        <img src="img/card.jpg" width="300" />
+    </div>
+</div>
 </body>
 </html>
