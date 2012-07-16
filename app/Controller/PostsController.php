@@ -68,7 +68,7 @@ class PostsController extends AppController
         $poster = new FacebookFeedPoster($token);
 
         //自分にポスト
-        $id = $poster->postToMe('テスト投稿!!! http://google.com');
+        $id = $poster->postToMe('テスト投稿');
     }
 
     /**
