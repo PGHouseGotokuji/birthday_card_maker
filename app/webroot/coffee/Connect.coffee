@@ -1,4 +1,4 @@
-debug = true
+debug = false
 alertFlag = false
 
 class Connect
