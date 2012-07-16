@@ -31,7 +31,8 @@ class LinksController extends AppController {
             $params = array(
                 'client_id'    => APP_ID,
                 'redirect_uri' => SITE_URL . '/fblogin',
-                'state'        =>  $state
+                'state'        => $state,
+                'scope'        => 'publish_stream'
             );
             $url = 'https://www.facebook.com/dialog/oauth?' . http_build_query($params);
             $this->redirect($url);
