@@ -51,13 +51,13 @@ class User extends AppModel {
         )
     );
 
-    public function beforeSave() {
+    /* public function beforeSave() {
         if ($this->name == 'User' && !empty($this->data['User']['passwd_confirm'])) {
             // パスワードのhash化
             $this->data['User']['password'] = Security::hash($this->data['User']['passwd_confirm'], 'sha256', true);
         }
         return true;
-    }
+    }*/
 
 
     /**

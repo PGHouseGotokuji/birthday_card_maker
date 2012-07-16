@@ -48,6 +48,8 @@ Router::connect('/insertplan',        array('controller' => 'Plans', 'action' =>
 Router::connect('/post_fb_timeline',  array('controller' => 'Posts', 'action' => 'postFbTimeline'));
 
 // 参加者がログインして参加
+Router::connect('/plan/:planId/collaborator/confirm', array('controller' => 'Collaborators', 'action' => 'confirm'), array(array('planId' => '[0-9]+')));
+Router::connect('/plan/:planId/collaborator/accept', array('controller' => 'Collaborators', 'action' => 'accept'), array(array('planId' => '[0-9]+')));
 Router::connect('/plan/:planId/collaborator', array('controller' => 'Collaborators', 'action' => 'joinCollaborator'), array(array('planId' => '[0-9]+')));
 
 // 画像を生成

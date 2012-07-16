@@ -69,4 +69,48 @@ exit;
 
 
     }
+
+
+    /**
+     * 投稿しますか？画面
+     */
+    public function confirm(){
+
+        $planId = $this->params['planId'];
+        if (empty($this->loginUser)) {
+            $this->Session->write('redirect', '/plan' . DS . $planId . DS . 'collaborator');
+            $this->redirect('/');
+            exit;
+        }
+    }
+
+    /**
+     * 許可！
+     */
+    public function accept(){
+
+        $planId = $this->params['planId'];
+        if (empty($this->loginUser)) {
+            $this->Session->write('redirect', '/plan' . DS . $planId . DS . 'collaborator');
+            $this->redirect('/');
+            exit;
+        }
+
+
+        $data = array();
+        $data['Collaborator'] = array();
+        $data['Collaborator']['plan_id'] = $planId;
+        $data['Collaborator']['uid'] = $this->loginUser['User']['id'];
+
+        //DBに挿入
+        $this->Collaborator->create();
+        if (!$this->Collaborator->save($data)) {
+            $this->Session->setFlash('処理中に問題が発生しました。', 'flash' . DS . 'error');
+            $this->redirect('/');
+        }else{
+
+        }
+
+
+    }
 }

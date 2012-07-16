@@ -7,7 +7,4 @@ class Collaborator extends AppModel {
     public $validate = array(
     );
 
-    public function beforeSave() {
-        return true;
-    }
 }
