@@ -13,7 +13,7 @@ $(function () {
 
         delete: function(selector){
             $(selector).remove();
-        }
+        },
 
         updateOwner:function (owner) {
             var content = _.template($('#ownerTpl').html(), owner);

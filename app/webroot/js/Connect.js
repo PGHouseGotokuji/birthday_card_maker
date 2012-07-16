@@ -6,15 +6,9 @@ debug = false;
 
 Connect = (function() {
 
-<<<<<<< HEAD
   function Connect() {
     this.getSuccess = __bind(this.getSuccess, this);
-
   }
-=======
-  // 増井チェックしました
-  function Connect() {}
->>>>>>> 1246f01d5b261bffaa3bab35b8a66ac87c489518
 
   Connect.prototype.get = function(url) {
     var res;
@@ -62,7 +56,7 @@ Connect = (function() {
       if (debug) {
         console.log(res);
       }
-      $("." + (owner - right)).bind('click', function() {
+      $(".owner-right").bind('click', function() {
         if (debug) {
           console.log("call getFriends");
         }
