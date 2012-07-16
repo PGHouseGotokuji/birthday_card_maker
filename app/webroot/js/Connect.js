@@ -2,7 +2,7 @@
 var Connect, alertFlag, debug,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-debug = true;
+debug = false;
 
 alertFlag = false;
 
