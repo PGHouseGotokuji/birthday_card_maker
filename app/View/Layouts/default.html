@@ -31,12 +31,10 @@
     <div id="wrapper">
         <div id="header">
             <div class="logo">HBM</div>
+            <div class="setting"><a href="/logout">ログアウト</a></div>
         </div>
         <div id="content clearfix">
             <?= $content_for_layout; ?>
-<? if (!empty($loginUser)) { ?>
-            <div class="setting"><a href="#">ログアウト</a></div>
-<? } ?>
         </div>
         <div id="footer">
             Copyright &copy; <?= date('Y'); ?> <?= PRODUCT_FROM ?><br />

@@ -4,7 +4,7 @@
  */
 
 /** 開発環境URL **/
-define('SITE_URL', 'http://dev.birthday-card-maker.com/');
+define('SITE_URL', 'http://dev.birthday-card-maker.com');
 
 /** Facebook **/
 define('APP_ID', '356898654378268');
