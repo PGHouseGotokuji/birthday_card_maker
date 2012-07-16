@@ -76,6 +76,35 @@ $innerJoin = array(
             $this->redirect('/');
             exit;
         }
+
+        $joins = array(
+            array(
+                'type'  => 'INNER',
+                'table' => '`users` `User`',
+                'conditions' => '`User`.`id`=`Plan`.`from_id`',
+            )
+        );
+        $plan = $this->Plan->find('first', array(
+            'fields' => array('Plan.*', 'User.*'),
+            'joins' => $joins,
+            'conditions' => array(
+                '`Plan`.`id`' => $planId
+            )
+        ));
+
+        if(empty($plan)){
+            die('id not found');
+            return;
+        }
+
+        $this->set('from_name', $plan['User']['username']);
+
+        $access_token = $this->loginUser['User']['access_token'];
+        $url = 'https://graph.facebook.com/' . $plan['Plan']['to_id'] . '?access_token=' . $access_token . '&fields=username,picture';
+        $target = json_decode(file_get_contents($url));
+
+        $this->set('to_name', $target->username);
+        $this->set('imageUrl', $target->picture);
     }
 
     /**
@@ -101,10 +130,36 @@ $innerJoin = array(
         if (!$this->Collaborator->save($data)) {
             $this->Session->setFlash('処理中に問題が発生しました。', 'flash' . DS . 'error');
             $this->redirect('/');
-        }else{
-
+            exit;
         }
 
 
+        $joins = array(
+            array(
+                'type'  => 'INNER',
+                'table' => '`users` `User`',
+                'conditions' => '`User`.`id`=`Plan`.`from_id`',
+            )
+        );
+        $plan = $this->Plan->find('first', array(
+            'fields' => array('Plan.*', 'User.*'),
+            'joins' => $joins,
+            'conditions' => array(
+                '`Plan`.`id`' => $planId
+            )
+        ));
+
+        if(empty($plan)){
+            die('id not found');
+            return;
+        }
+
+        $access_token = $this->loginUser['User']['access_token'];
+        $url = 'https://graph.facebook.com/' . $plan['Plan']['to_id'] . '?access_token=' . $access_token . '&fields=username,picture';
+        //print($url);
+        $target = json_decode(file_get_contents($url));
+
+        $this->set('name', $target->username);
+        $this->set('imageUrl', $target->picture);
     }
 }

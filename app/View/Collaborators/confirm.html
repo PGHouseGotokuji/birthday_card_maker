@@ -1,6 +1,6 @@
 <div class="flow-title">プロフィール画像提供を許可</div>
 <div class="flow-discription">
-    <a href="#">masashi sato</a>さんが<a href="#">shun sato</a>さんへ
+    <?php echo($from_name); ?>さんが<?php echo($to_name); ?>さんへ
     贈る色紙をつくるため、画像の提供を求めています。あなたのfacebookプロフィール画像の提供を許可しますか？<br />
     <br />
     色紙完成イメージ<?= $this->Html->image('card.jpg', array('width'=>'300')); ?></div>
