@@ -1,15 +1,41 @@
 <script type="text/template" id="ownerTpl">
+<div class="owner clearfix">
   <div class="owner-left">
     <ul>
       <li class="owner-img"><img src="<%-User.fb_picture%>" width="80" height="80" /></li>
       <li class="owner-name">発起人：<br />
+  </div>
 <a href="#"><%-User.username%></a></li>
     </ul>
-  </div>
+  
   <div class="owner-right">
     <button>新規作成</button>
   </div>
+  </div>
 </script>
+
+<script type="text/template" id="cardTpl">
+    <div class="card clearfix">
+      <div class="card-left">
+        <ul>
+          <li class="target-img"></li>
+          <li class="target-name"></li>
+        </ul>
+      </div>
+      <div class="card-right">
+        <ul class="members">
+        </ul>
+        <div class="send-btn">
+            <button>カードを送る</button>
+        </div>
+      </div>
+    </div>
+</script>
+
+<!--<div>
+          <li class="member-othoer"><a href="#">他6人</a></li>
+          <li>が協力しました。</li>
+        </div>-->
 
 <script type="text/template" id="planTpl">
     <ul>
@@ -20,7 +46,7 @@
 </script>
 
 <script type="text/template" id="memberTpl">
-  <li><%-length%>人が協力しています</li>
+  <li class='collaboratorPeople'><%-length%>人が協力しています</li>
 </script>
 
 <script type="text/template" id="selectFriendTpl">
@@ -38,7 +64,6 @@
       </a> </li>
 </script>
 
-
 <script type="text/template" id="insertPlanSuccessTpl">
     <div>
         success
@@ -50,50 +75,3 @@
         error
     <div>
 </script>
-
-
-
-
-
-
-
-
-    <div class="owner clearfix">
-      <div class="owner-left">
-        <ul>
-          <li class="owner-img"></li>
-          <li class="owner-name"></li>
-        </ul>
-      </div>
-      <div class="owner-right">
-
-      </div>
-    </div>
-    <!-- / .owner -->
-    <div class="card clearfix">
-      <div class="card-left">
-        <ul>
-          <li class="target-img"></li>
-          <li class="target-name"></li>
-        </ul>
-      </div>
-      <div class="card-right">
-        <ul class="members">
-        </ul>
-        <!--<div>
-          <li class="member-othoer"><a href="#">他6人</a></li>
-          <li>が協力しました。</li>
-        </div>-->
-        <div class="send-btn">
-            <button>カードを送る</button>
-        </div>
-      </div>
-    </div>
-    <div class="card-sample clearfix">
-        色紙イメージ
-        <img src="img/card.jpg" width="300" />
-    </div>
-
-
-
-
