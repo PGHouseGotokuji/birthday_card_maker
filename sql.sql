@@ -12,7 +12,6 @@ CREATE TABLE `users` (
   `gender` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `fb_id` bigint(20) unsigned DEFAULT NULL,
   `fb_picture` varchar(400) DEFAULT NULL,
-
   `memo` varchar(200) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
@@ -27,6 +26,8 @@ CREATE TABLE `plans` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `from_id` int(10) unsigned DEFAULT NULL, -- 発起人情報
   `to_id` int(10) unsigned DEFAULT NULL, -- 参加者情報
+  `username` varchar(50) NOT NULL,
+  `fb_picture` varchar(400) DEFAULT NULL,
   `memo` varchar(200) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,

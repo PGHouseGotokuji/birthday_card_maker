@@ -4,16 +4,16 @@ App::uses('FacebookFeedPoster', 'Lib');
 class PostsController extends AppController 
 {
     public $uses     = array('User', 'Plan', 'Collaborator');
-    var $components  = array('Security');
+//    var $components  = array('Security');
 
 
     public function beforeFilter()
     {
         parent::beforeFilter();
 
-        $this->Security->blackHoleCallback = 'error';
+//        $this->Security->blackHoleCallback = 'error';
 
-        $this->userLoginCheck('postCard');
+//        $this->userLoginCheck('postCard');
     }
 
     /**
