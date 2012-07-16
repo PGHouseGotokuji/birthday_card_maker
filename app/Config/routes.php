@@ -42,9 +42,12 @@ Router::connect('/get_friends',       array('controller' => 'Users', 'action' =>
 // 誕生日ユーザーを登録するapi
 Router::connect('/insert_plan',       array('controller' => 'Plans', 'action' => 'insertPlan'));
 
-// facebookに投稿
+// 自分のタイムラインへ投稿
 Router::connect('/plan/:planId/post/confirm_fb_timeline',  array('controller' => 'Posts', 'action' => 'confirmPostFbTimeline'), array(array('planId' => '[0-9]+')));
 Router::connect('/plan/:planId/post/post_fb_timeline',     array('controller' => 'Posts', 'action' => 'postFbTimeline'), array(array('planId' => '[0-9]+')));
+
+// 相手のタイムラインへ投稿
+Router::connect('/plan/:planId/post/facebook',  array('controller' => 'Posts', 'action' => 'postFbTimeline'));
 
 // 参加者がログインして参加
 Router::connect('/plan/:planId/collaborator/confirm', array('controller' => 'Collaborators', 'action' => 'confirm'), array(array('planId' => '[0-9]+')));
@@ -52,8 +55,8 @@ Router::connect('/plan/:planId/collaborator/accept', array('controller' => 'Coll
 Router::connect('/plan/:planId/collaborator', array('controller' => 'Collaborators', 'action' => 'joinCollaborator'), array(array('planId' => '[0-9]+')));
 
 // 画像を生成
-Router::connect('/postconfirm',       array('controller' => 'Posts', 'action' => 'confirm'));
-Router::connect('/postcard',          array('controller' => 'Posts', 'action' => 'postCard'));
+Router::connect('/plan/:planId/post/confirm',       array('controller' => 'Posts', 'action' => 'confirm'));
+Router::connect('/plan/:planId/card',          array('controller' => 'Posts', 'action' => 'postCard'));
 
 // ログアウト
 Router::connect('/logout',            array('controller' => 'auths', 'action' => 'userLogout'));

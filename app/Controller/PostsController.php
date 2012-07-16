@@ -6,6 +6,7 @@ class PostsController extends AppController
     public $uses     = array('User', 'Plan', 'Collaborator');
 //    var $components  = array('Security');
 
+    var $components  = array('PlanSupport');
 
     public function beforeFilter()
     {
@@ -74,25 +75,48 @@ class PostsController extends AppController
      */
     public function postFbTimeline() 
     {
-// 増井TODO テストしてないっす
-        $planId = !empty($this->Session->read('planId')) ? $this->Session->read('planId') : null;
+        $planId = $this->params['planId'];
+        if(empty($planId)){
+            die('planId required');
+            exit;
+        }
+
         $response['Success'] = 'false';
         $user   = $this->loginUser;
         $token  = $user['User']['access_token'];
         $poster = new FacebookFeedPoster($token);
 
-        //自分にポスト
-        if (!empty($planId)) {
-            $id = $poster->postToMe('テスト投稿が完了しました!! http://dev.birthday-card-maker.com/plan/' . $planId . '/collaborator');
-            if (!empty($id)) {
-                $response['Success'] = 'true';
-            }
+        $plan = $this->PlanSupport->findWithFromUser($this->Plan, $planId);
+        if(empty($plan)){
+            die('id not found');
+            return;
         }
-//        return new CakeResponse(array('body' => json_encode($response)));        
-        $this->set(compact($response));
-        $this->set('title_for_layout', '自分のタイムラインに投稿完了しました。');
-        $this->set('title_for_page', '自分のタイムラインに投稿完了しました。');
+
+        $access_token = $this->loginUser['User']['access_token'];
+        $target = $this->PlanSupport->getToUser($access_token, $plan);
+
+//上記の情報を利用して文章を作ること。
+
+        $content = 'Sato ShunさんがHiroki Masuiさんへ誕生日のお祝いカードを皆さんと作ろうとしています。http://birthdaycard.com/x53287xxx
+                    へアクセスして下さい。';
+
+
+        $id = $poster->postToMe('テスト投稿が完了しました!! http://dev.birthday-card-maker.com/plan/' . $planId . '/collaborator');
+        if (!empty($id)) {
+            $response['Success'] = 'true';
+        }
+
+        return new CakeResponse(array('body' => json_encode($response)));
     }
+
+
+    public function confirm(){
+
+        $planId = $this->params['planId'];
+        $this->set('planId', $planId);
+
+    }
+
 
     /**
      * 誕生日の人のタイムラインに投稿完了
