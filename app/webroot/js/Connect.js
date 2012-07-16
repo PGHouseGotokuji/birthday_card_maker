@@ -5,13 +5,8 @@ debug = true;
 
 Connect = (function() {
 
-<<<<<<< HEAD
+  // 増井チェックしました
   function Connect() {}
-=======
-  function Connect() {
-//    this.data = new ClassList();
-  }
->>>>>>> 42f46ece7ed55622821f33f1c9e37592d992d0c6
 
   Connect.prototype.get = function(url) {
     var res;

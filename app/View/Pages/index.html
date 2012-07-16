@@ -1,16 +1,12 @@
-<div class="center">
-    <p><?= TITLE ?>は</p>
-    <p>誕生日の人に友人の画像を集めて</p>
-    <p>寄せ書きのように画像を組み合わせて</p>
-    <p>投稿できるアプリです。</p>
+<div class="flow-title">
+    HBMは友人の誕生日に<br />
+    オリジナルの色紙を<br />
+    贈ることができるアプリです。
+</div>
+<div class="flow-discription">
+    色紙完成イメージ<img src="img/card.jpg" width="300" />
+</div>
+<div class="appeal-btn">
+    <button><a href="/fblogin">facebookでログイン</a></button>
 </div>
 
-<? if (empty($loginUser)) { ?>
-<div class="submit-orange center">
-    <a class="button" href="/fblogin">Facebookログイン</a>
-</div>
-<? } else { ?>
-<div class="submit-orange center">
-    <a class="button" href="/logout">ログアウト</a>
-</div>
-<? } ?>
