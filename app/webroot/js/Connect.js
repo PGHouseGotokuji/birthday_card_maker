@@ -5,9 +5,13 @@ debug = true;
 
 Connect = (function() {
 
+<<<<<<< HEAD
+  function Connect() {}
+=======
   function Connect() {
 //    this.data = new ClassList();
   }
+>>>>>>> 42f46ece7ed55622821f33f1c9e37592d992d0c6
 
   Connect.prototype.get = function(url) {
     var res;
@@ -42,18 +46,44 @@ Connect = (function() {
 
   Connect.prototype.getSuccess = function(res) {
     var _this = this;
+    if (debugs) {
+      console.log("getSuccess");
+    }
+    if (debug) {
+      console.log(res);
+    }
     if (res.Owner) {
-      $("." + (owner - rihgt)).bind('click', function() {
+      if (debug) {
+        console.log("in owner");
+      }
+      if (debug) {
+        console.log(res);
+      }
+      $("." + (owner - right)).bind('click', function() {
+        if (debug) {
+          console.log("call getFriends");
+        }
         return _this.getFriends();
       });
-      return view.updateOwner(res);
+      return view.update({
+        tplSelector: "#ownerTpl",
+        appendSelector: ".content .owner",
+        data: res
+      });
     } else if (res.Plan) {
+      if (debug) {
+        console.log("in plan");
+      }
+      this.get("/get_collaborators");
       return view.updatePlan(res);
     } else if (res.collaborators) {
+      if (debug) {
+        console.log("in collaborators");
+      }
       return view.updateCollaborators(res);
     } else {
-      if (res.Plan) {
-        this.get("/get_collaborators");
+      if (debug) {
+        console.log("in collaborators");
       }
       if (res.Friend) {
         $("." + (select - user)).bind('click', function() {
@@ -63,6 +93,8 @@ Connect = (function() {
       }
     }
   };
+
+  Connect.prototype.eventSet = function(res) {};
 
   Connect.prototype.setHtml = function(res) {
     var key, text, value;
@@ -83,7 +115,7 @@ Connect = (function() {
   };
 
   Connect.prototype.getFriends = function() {
-    return connect.get('/get_friends');
+    return this.get('/get_friends');
   };
 
   Connect.prototype.insertPlan = function() {
