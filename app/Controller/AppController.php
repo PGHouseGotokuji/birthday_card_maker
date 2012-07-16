@@ -11,7 +11,7 @@ Class AppController extends Controller
         if ($this->Session->check('auth.user')) {
             $this->loginUser = $loginUser = $this->Session->read('auth.user');
         }
-//        $this->set(compact('loginUser'));
+        $this->set(compact('loginUser'));
     }
 
     /**
