@@ -1,5 +1,6 @@
 <?php
 App::uses('CardCreator', 'Lib');
+App::uses('FacebookFeedPoster', 'Lib');
 class PostsController extends AppController 
 {
     public $uses     = array('User', 'Plan', 'Collaborator');
@@ -51,40 +52,13 @@ class PostsController extends AppController
      */
     public function postFbTimeline() 
     {
-        $user = $this->loginUser;
-$token = $user['User']['access_token'];
-$ch = curl_init();
-$params = 'access_token=' . urlencode($token);
-$params .= '&message=' .urlencode('テスト投稿');
-curl_setopt($ch, CURLOPT_URL, 'https://graph.facebook.com/me/feed');
-curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
-curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-$resp = curl_exec($ch);
-curl_close($ch);
-if ($resp === false) {
-pr(1);
-exit;
-//  通信エラー時の処理
-} else {
-  $resp = json_decode($resp);
-  if (isset($resp->id)) {
-//    投稿に成功した時の処理
-pr(2);
-exit;
-  }
-  else if (isset($resp->error)) {
-//    投稿に失敗した時の処理
+        $user   = $this->loginUser;
+        $token  = $user['User']['access_token'];
+        $poster = new FacebookFeedPoster($token);
 
-pr(3);
-exit;
-  }
-}
+        //自分にポスト
+        $id = $poster->postToMe('Googleはこちら1。http://google.com');
 
-    }
-
-    public function timelinePosted() {
-
-
+//        echo $id;
     }
 }

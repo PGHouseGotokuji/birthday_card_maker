@@ -42,12 +42,10 @@ Router::connect('/get_friends',       array('controller' => 'Users', 'action' =>
 // 誕生日ユーザーを登録するapi
 Router::connect('/insertplan',        array('controller' => 'Plans', 'action' => 'insertPlan'));
 
-// 自分のタイムラインに投稿
-Router::connect('/post_fb_timeline',  array('controller' => 'Posts', 'action' => 'postFbTimeline'));
-
 // facebookに投稿
+// 増井TODO
 Router::connect('/insertplan',        array('controller' => 'Plans', 'action' => 'insertPlan'));
-Router::connect('/timeline_posted',   array('controller' => 'Posts', 'action' => 'timelinePosted'));
+Router::connect('/post_fb_timeline',  array('controller' => 'Posts', 'action' => 'postFbTimeline'));
 
 // 画像を生成
 Router::connect('/postconfirm',       array('controller' => 'Posts', 'action' => 'confirm'));
