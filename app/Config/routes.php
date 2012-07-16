@@ -40,11 +40,9 @@ Router::connect('/mypage',            array('controller' => 'Users', 'action' =>
 Router::connect('/get_friends',       array('controller' => 'Users', 'action' => 'getFriends'));
 
 // 誕生日ユーザーを登録するapi
-Router::connect('/insertplan',        array('controller' => 'Plans', 'action' => 'insertPlan'));
+Router::connect('/insert_plan',       array('controller' => 'Plans', 'action' => 'insertPlan'));
 
 // facebookに投稿
-// 増井TODO
-Router::connect('/insertplan',        array('controller' => 'Plans', 'action' => 'insertPlan'));
 Router::connect('/post_fb_timeline',  array('controller' => 'Posts', 'action' => 'postFbTimeline'));
 
 // 参加者がログインして参加

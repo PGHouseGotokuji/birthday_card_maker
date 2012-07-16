@@ -2,15 +2,15 @@
 class PlansController extends AppController 
 {
     public $uses     = array('Plan');
-    var $components  = array('Security');
+//    var $components  = array('Security');
 
     public function beforeFilter()
     {
         parent::beforeFilter();
 
-        $this->Security->blackHoleCallback = 'error';
+//        $this->Security->blackHoleCallback = 'error';
 
-        $this->userLoginCheck('getPlan');
+//        $this->userLoginCheck('getPlan');
     }
 
     /**
@@ -32,24 +32,20 @@ class PlansController extends AppController
      */
     public function insertPlan() 
     {
-        $user     = $this->loginUser;
-        $response = false;
+        $user = $this->loginUser;
+        $response['Success'] = 'false';
         if (!empty($this->request->data)) {
-
-pr($this->request->data);
-exit;
-
-            $data = json_decode($this->request->data);
-
-pr($data);
-exit;
-
+            $data['Plan']['from_id']    = $user['User']['id'];
+            $data['Plan']['to_id']      = $this->request->data['id'];
+            $data['Plan']['username']   = $this->request->data['name'];
+            $data['Plan']['fb_picture'] = $this->request->data['fb_picture'];
+//$this->log($data, 'warn');
+//exit;
+            $this->Plan->create();
             if ($this->Plan->save($data)) {
-                $response = true;
+                $response['Success'] = 'true';
             }
         }
-
-exit;
 
         return new CakeResponse(array('body' => json_encode($response)));
     }

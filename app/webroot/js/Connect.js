@@ -167,7 +167,7 @@ Connect = (function() {
         var index;
         index = $(".content .friend-info").index(this);
         view["delete"]('.content .select-friend');
-        return connect.post("/insertPlan", friendInfo[index]);
+        return connect.post("/insert_plan", friendInfo[index]);
       });
     } else {
       if (debug) {
@@ -191,7 +191,7 @@ Connect = (function() {
   };
 
   Connect.prototype.insertPlan = function(data) {
-    return this.post("/insertPlan", {
+    return this.post("/insert_plan", {
       to_id: "",
       fb_picture: "",
       username: ""
