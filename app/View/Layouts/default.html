@@ -6,9 +6,16 @@
     <title><?= h($title_for_layout); ?></title>
     <?= $this->Html->meta('icon'); ?>
     <?= $scripts_for_layout; ?>
-<link rel="stylesheet" href="css/style.css"  />
+    <link rel="stylesheet" href="css/style.css"  />
+    <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 
     <script type="text/javascript">
+        $(function(){
+            $('#flash-message-success').fadeIn(1000).delay(3000).fadeOut(1000);
+            if (window.location.hash == '#_=_') {
+                window.location.hash = '';
+            }
+        });
 
 <? if (ENV_MODE == 'pro') { ?>
 
@@ -20,13 +27,17 @@
 <body>
 <? if (ENV_MODE != 'pro') { ?>
 <? } ?>
-    <div id="container">
-        <?= $this->Session->flash(); ?>
-        <div id="content">
+    <?= $this->Session->flash(); ?>
+    <div id="wrapper">
+        <div id="header">
+            <div class="logo">HBM</div>
+        </div>
+        <div id="content clearfix">
             <?= $content_for_layout; ?>
         </div>
-        <div id="footer" class="whole-footer">
-            Copyright &copy; <?= date('Y'); ?> <?= PRODUCT_FROM ?> all rights reserved.
+        <div id="footer">
+            Copyright &copy; <?= date('Y'); ?> <?= PRODUCT_FROM ?><br />
+            all rights reserved.
         </div>
         <? if (ENV_MODE != 'pro') { ?>
         <hr>

@@ -192,6 +192,7 @@ overflow: hidden;
 .appeal-btn{
 	text-align:center;
 	margin-bottom:20px;
+	margin-top:20px;
 	
 }
 
@@ -210,3 +211,45 @@ overflow: hidden;
 	margin-top:20px;
 	
 }
+
+.profile-img{
+	text-align:center;
+	margin-top:30px;
+}
+
+
+.thanks-content{
+	height:400px;
+}
+
+.flash-message {
+        width:320px;
+        height:30px;
+        background:#D5FFDF;
+        border-radius:20px;
+}
+
+.fm-success-icon {
+        background : url(../img/success_01.png) no-repeat;
+        width      : 35px;
+        height     : 35px;
+        float      : left;
+}
+.fm-error-icon {
+        background : url(../img/error.png) no-repeat;
+        width      : 35px;
+        height     : 35px;
+        float      : left;
+}
+.flash-message-text {
+    line-height : 29px;
+    font-weight : bold;
+    color       : #FFFF00;
+}
+.success {
+    color : #009900;
+}
+.error {
+    color : #FFFF00;
+}
+

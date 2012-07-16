@@ -1,0 +1,244 @@
+@charset "utf-8";
+/* CSS Document */
+
+*{
+	margin:0;
+	padding:0;
+	
+}
+
+body{
+	background:url(../img/bg-gray.png);
+	font-family:"ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+}
+li{
+	list-style:none;
+}
+
+img{
+	box-shadow: 2px 2px 3px rgba(0,0,0,0.4);
+	-moz-box-shadow: 2px 2px 3px rgba(0,0,0,0.4);　/* Firefox用 */  
+	-webkit-box-shadow: 2px 2px 3px rgba(0,0,0,0.4);　/* Safari,Google Chrome用 */ 
+}
+
+
+.clearfix{
+overflow: hidden;
+}
+.clearfix:after {
+content: "";
+display: block;
+clear: both;
+height: 1px;
+overflow: hidden;
+}
+
+#wrapper{
+	width:320px;
+}
+#header{
+	width:300px;
+	height:20px;
+	background:url(../img/header-bg.png);
+	color:#FFF;
+	padding:4px 10px;
+	font-size:12px;
+
+	
+}
+
+#header a{
+	color:#FFF;
+
+	
+}
+
+
+
+.logo{
+	float:left;
+}
+
+.setting{
+	float:right;
+}
+
+
+/*content*/
+
+#header,.content,#footer{
+	padding:10px;
+}
+
+.content,.card,.card-sample{
+	clear:both;
+}
+
+
+/*owner*/
+.owner-left{
+	float:left;
+}
+
+
+
+.owner-right{
+	float:right;
+	padding-top:50px;
+	padding-right:70px;
+}
+
+.owner-name,.target-name{
+	font-size:12px;
+}
+
+.target-img{
+	width:50px;
+	height:50px;
+	
+}
+
+
+
+/*card*/
+
+.card{
+	margin-top:20px;
+	border-top:1px solid #999;
+	padding:10px 0;
+}
+
+.card-left{
+	float:left;
+	width:130px;
+}
+
+.card-right{
+	float:right;
+	width:150px;
+	margin-left:20px;
+}
+
+
+
+
+.card-right li{
+	display:inline;
+	font-size:11px;
+}
+
+
+
+
+/*card-sample*/
+
+.card-sample{
+	margin-top:20px;
+	font-size:12px;
+}
+
+.card-sample img{
+	width:300px;
+}
+
+/*#footer*/
+
+#footer{
+	background:url(../img/header-bg.png);
+	color:#FFF;
+	padding:4px 10px;
+	font-size:12px;
+}
+
+#footer a{
+	color:#FFF;
+}
+
+
+
+/*ここからターゲット*/
+
+.friend-info{
+	width:100px;
+	float:left;
+	margin-bottom:10px;
+	font-size:12px;
+}
+
+.friend-img{
+	height:70px;
+}
+
+.friend-info img{
+	width:70px;
+	height:70px;
+}
+
+.serch-box{
+	margin-bottom:10px;
+}
+
+.serch-box input{
+	height:20px;
+}
+
+.flow-discription{
+	font-size:12px;
+	margin-top:10px;
+
+}
+
+
+.appeal-btn{
+	text-align:center;
+	margin-bottom:20px;
+	
+}
+
+.flow-discription img{
+	-moz-box-shadow: 1px 1px 3px #000;　/* Firefox用 */  
+	-webkit-box-shadow: 1px 1px 3px #000;　/* Safari,Google Chrome用 */ 
+	}
+	
+	
+	/*sent*/
+	
+	
+.back-mypage{
+	text-align:center;
+	margin-bottom:20px;
+	margin-top:20px;
+	
+}
+
+.flash-message {
+	width:320px;
+	height:30px;
+	background:#D5FFDF;
+	border-radius:20px;
+}
+
+.fm-success-icon {
+	background : url(../img/success_01.png) no-repeat;
+	width      : 35px;
+	height     : 35px;
+	float      : left;
+}
+.fm-error-icon {
+	background : url(../img/error.png) no-repeat;
+	width      : 35px;
+	height     : 35px;
+	float      : left;
+}
+.flash-message-text {
+    line-height : 29px;
+    font-weight : bold;
+    color       : #FFFF00;
+}
+.success {
+    color : #009900;
+}
+.error {
+    color : #FFFF00;
+}
+

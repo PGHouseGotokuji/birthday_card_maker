@@ -93,8 +93,8 @@ exit;
             if (empty($user['User']['password'])) {
                 $this->redirect(array('controller' => 'users', 'action' => 'frontAddUser'));
             }
-            $this->Session->setFlash('ログインしました！', 'flash' . DS . 'success');
 */
+            $this->Session->setFlash('ログインしました！', 'flash' . DS . 'success');
             $this->redirect($referer);
         }
     }
