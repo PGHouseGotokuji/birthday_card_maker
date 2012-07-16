@@ -63,12 +63,21 @@ class PostsController extends AppController
      */
     public function postFbTimeline() 
     {
+// 増井TODO テストしてないっす
+        $planId = !empty($this->Session->read('planId')) ? $this->Session->read('planId') : null;
+        $response['Success'] = 'false';
         $user   = $this->loginUser;
         $token  = $user['User']['access_token'];
         $poster = new FacebookFeedPoster($token);
 
         //自分にポスト
-        $id = $poster->postToMe('テスト投稿');
+        if (!empty($planId)) {
+            $id = $poster->postToMe('テスト投稿が完了しました!! http://dev.birthday-card-maker.com/plan/' . $planId . '/collaborator');
+            if (!empty($id)) {
+                $response['Success'] = 'true';
+            }
+        }
+        return new CakeResponse(array('body' => json_encode($response)));        
     }
 
     /**
@@ -78,11 +87,5 @@ class PostsController extends AppController
      */
     public function cardPosted() 
     {
-
-
-
-
-
-
     }
 }

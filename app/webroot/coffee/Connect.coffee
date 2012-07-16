@@ -1,13 +1,9 @@
-debug = false
+debug = true
+alertFlag = false
 
 class Connect
     constructor: ->
-        $(".send-btn").click =>
-            view.delete ".owner"
-            view.delete ".card"
-            view.delete ".card-sample"
-            @post "/postcard", {}
-        # @data = new ClassList()
+        @data = {}
 
     get: (url, id) ->
         if debug
@@ -42,7 +38,6 @@ class Connect
                             "fb_picture":"https:\/\/graph.facebook.com\/4203608\/picture"
                         }
                         ]}
-                
 
             @getSuccess res
             
@@ -58,15 +53,23 @@ class Connect
         console.log "getSuccess" if debug
         console.log res if debug
 
+        alert "getSuccess" if alertFlag
+
         if res.User
+            @data.user = res.User
+
+            alert "User processing" if alertFlag
+
             console.log "in owner" if debug
             console.log res if debug
 
             view.update {
                 tplSelector: "#ownerTpl"
-                appendSelector: ".content .owner"
+                appendSelector: ".content"
+                method: "prependTo"
                 data: res
             }
+
             $(".owner-right").bind 'click', =>
                 console.log "call getFriends" if debug
                 @getFriends()
@@ -74,20 +77,42 @@ class Connect
             # view.updateOwner res
 
         else if res.Plan
+            @data.plan = res.Plan
+
+            alert "Plan processing" if alertFlag
             console.log "in plan" if debug
             console.log res
             @get "/get_collaborators/#{res.Plan.id}", "collaborators"
+            
+            view.update {
+                tplSelector: "#cardTpl"
+                appendSelector: '.content'
+                method: "appendTo"
+                # data: res
+            }
+
+            $(".send-btn").click =>
+                location.href = "/plan/#{@data.plan.id}/collaborator/confirm"
+                # view.delete ".owner"
+                # view.delete ".card"
+                # view.delete ".card-sample"
+
+                # @post "/postcard", {}, (res) =>
+                #     if res.Success is "true"
+                #         alert "投稿成功しました"
+                #     else
+                #         alert "投稿失敗しました"
+
             view.update {
                 tplSelector: "#planTpl"
                 appendSelector: '.content .card-left'
+                method:"appendTo"
                 data: res
             }
 
-        else if res.collaborators
-            console.log "in collaborators" if debug
-            # view.updateCollaborators res
         else if res.Friend
             view.delete '.content .owner'
+            view.delete '.content .collaboratorPeople'
             view.delete '.content .card'
             view.delete '.content .card-sample'
 
@@ -109,7 +134,19 @@ class Connect
             $(selector).click ->
                 index = $(".content .friend-info").index(@)
                 view.delete '.content .select-friend'
-                connect.post "/insertPlan", friendInfo[index]
+                alert "insert_plan index"
+                alert index
+                alert friendInfo[index]["id"] if alertFlag
+                connect.post "/insert_plan", friendInfo[index], connect.postSuccess
+
+        else if res[0].Collaborator
+            console.log "in collaborators" if debug
+            view.update {
+                tplSelector: "#memberTpl"
+                appendSelector: ".content"
+                method: "appendTo"
+                data: res
+            }
 
         else
             console.log "in else" if debug
@@ -124,34 +161,34 @@ class Connect
     getFriends: ->
         @get '/get_friends', "friend"
 
-    insertPlan: (data) ->
-        @post "/insertPlan", {
-            to_id: ""
-            fb_picture: ""
-            username: ""
-        }
-
-    post: (url, data) ->
+    post: (url, data, func) ->
         if debug
-            @postSuccess {
+            func {
                 Success: "true"
             }
+
         else
             $.ajax {
                 url: url
                 type: "POST"
                 data: data
                 dataType: "json"
-                success: @postSuccess
+                success: func
                 error: @postError
             }
 
-    postSuccess: (res) ->
+    postSuccess: (res) =>
         if res.Success is "true"
+            @post "/post_fb_timeline", {}, =>
+                alert "成功"
+
             view.update {
                 tplSelector: "#insertPlanSuccessTpl"
                 appendSelector: ".content"
             }
+
+            connect.get "/get_user", "user"
+            connect.get "/get_plan", "plan"
 
         else
             view.update {
@@ -160,7 +197,6 @@ class Connect
             }
 
     postError: (res) ->
-
 
 
     sendButtonClick: ->

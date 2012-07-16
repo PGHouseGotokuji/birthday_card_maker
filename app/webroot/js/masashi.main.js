@@ -12,7 +12,16 @@ $(function () {
             }
             else{
                 var content = _.template($(params.tplSelector).html(), params.data);
-                $(content).appendTo(params.appendSelector);
+                switch(params.method){
+                    case "appendTo":
+                        $(content).appendTo(params.appendSelector);
+                        break
+                    case "prependTo":
+                        $(content).prependTo(params.appendSelector);
+                        break
+                    default:
+                        $(content).appendTo(params.appendSelector);
+                }           
             }
         },
 
