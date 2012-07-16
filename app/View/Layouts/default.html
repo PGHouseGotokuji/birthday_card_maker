@@ -34,6 +34,9 @@
         </div>
         <div id="content clearfix">
             <?= $content_for_layout; ?>
+<? if (!empty($loginUser)) { ?>
+            <div class="setting"><a href="#">ログアウト</a></div>
+<? } ?>
         </div>
         <div id="footer">
             Copyright &copy; <?= date('Y'); ?> <?= PRODUCT_FROM ?><br />
