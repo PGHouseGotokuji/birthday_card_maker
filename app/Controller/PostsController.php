@@ -49,11 +49,22 @@ class PostsController extends AppController
         foreach ($collaborators as $key => $collaborator) {
             $creator->put(array(
                 'imageUrl' => 'https://graph.facebook.com/' . $collaborator['User']['fb_id'] . '/picture',
-                'name' => $collaborator['User']['username']
+                'name'     => $collaborator['User']['username']
             ));
         }
         $img = $creator->createImage();
         responseJpeg($img);
+    }
+
+    /**
+     * 確認 自分のタイムラインに投稿
+     *
+     * @access public
+     */
+    public function confirmPostFbTimeline() 
+    {
+        $this->set('title_for_layout', '自分のタイムラインに投稿します。よろしいですか？');
+        $this->set('title_for_page', '自分のタイムラインに投稿します。よろしいですか？');
     }
 
     /**
@@ -77,7 +88,10 @@ class PostsController extends AppController
                 $response['Success'] = 'true';
             }
         }
-        return new CakeResponse(array('body' => json_encode($response)));        
+//        return new CakeResponse(array('body' => json_encode($response)));        
+        $this->set(compact($response));
+        $this->set('title_for_layout', '自分のタイムラインに投稿完了しました。');
+        $this->set('title_for_page', '自分のタイムラインに投稿完了しました。');
     }
 
     /**

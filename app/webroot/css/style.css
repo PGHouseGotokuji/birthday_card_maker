@@ -222,6 +222,15 @@ overflow: hidden;
 	height:400px;
 }
 
+a {
+    font-size : 11px;
+    text-decoration : none;
+}
+
+a:hover {
+    color : #0000ff;
+}
+
 .flash-message {
         width:320px;
         height:30px;

@@ -2,7 +2,6 @@
 Class PagesController extends AppController
 {
     public $name = 'Pages';
-    public $uses = array('User');
 
     public function beforeFileter()
     {

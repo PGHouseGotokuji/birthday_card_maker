@@ -80,12 +80,15 @@ class UsersController extends AppController
         return new CakeResponse(array('body' => json_encode($friends)));
     }
 
-
-
+    /**
+     * マイページ
+     *
+     * @access public
+     */
     public function mypage() 
     {
-
-
-
+        $user = $this->loginUser;
+        $planId = $this->Plan->field('id', array('from_id' => $user['User']['id']));
+        $this->set(compact('planId'));
     }
 }

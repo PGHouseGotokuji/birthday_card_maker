@@ -10,6 +10,9 @@ Class AppController extends Controller
         // ユーザーがログインしていたら配列に格納
         if ($this->Session->check('auth.user')) {
             $this->loginUser = $loginUser = $this->Session->read('auth.user');
+//        } else { 
+//            $this->Session->setFlash('セッションがタイムアウトしました。', 'flash' . DS . 'success');
+//            $this->redirect('/');
         }
         $this->set(compact('loginUser'));
     }

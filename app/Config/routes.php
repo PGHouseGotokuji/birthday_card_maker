@@ -43,7 +43,8 @@ Router::connect('/get_friends',       array('controller' => 'Users', 'action' =>
 Router::connect('/insert_plan',       array('controller' => 'Plans', 'action' => 'insertPlan'));
 
 // facebookに投稿
-Router::connect('/post_fb_timeline',  array('controller' => 'Posts', 'action' => 'postFbTimeline'));
+Router::connect('/plan/:planId/post/confirm_fb_timeline',  array('controller' => 'Posts', 'action' => 'confirmPostFbTimeline'), array(array('planId' => '[0-9]+')));
+Router::connect('/plan/:planId/post/post_fb_timeline',     array('controller' => 'Posts', 'action' => 'postFbTimeline'), array(array('planId' => '[0-9]+')));
 
 // 参加者がログインして参加
 Router::connect('/plan/:planId/collaborator/confirm', array('controller' => 'Collaborators', 'action' => 'confirm'), array(array('planId' => '[0-9]+')));
