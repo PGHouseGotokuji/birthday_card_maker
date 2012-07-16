@@ -21,11 +21,18 @@ class LinksController extends AppController {
         if (empty($_GET['code'])) {
             $state = sha1(uniqid(mt_rand(), true));
             $this->Session->write('fblogin.state', $state);
-            $this->Session->write('fblogin.ref', '/mypage');
+            $redirectUrl = $this->Session->read('redirectUrl');
+            if (!empty($redirectUrl)) {
+                $this->Session->delete('redirectUrl');
+                $this->Session->write('fblogin.ref', $redirectUrl);
+            } else {
+                $this->Session->write('fblogin.ref', '/mypage');
+            }
             $params = array(
                 'client_id'    => APP_ID,
                 'redirect_uri' => SITE_URL . '/fblogin',
-                'state'        =>  $state
+                'state'        => $state,
+                'scope'        => 'publish_stream'
             );
             $url = 'https://www.facebook.com/dialog/oauth?' . http_build_query($params);
             $this->redirect($url);

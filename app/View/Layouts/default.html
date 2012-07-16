@@ -9,6 +9,13 @@
     <link rel="stylesheet" href="css/style.css"  />
     <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 
+    <? if ($this->name != 'Pages') { ?>
+    <script src="js/lib/underscore-min.js"></script>
+    <script src="js/masashi.main.js"></script>
+    <script src="js/Connect.js"></script>
+    <script src="js/Main.js"></script>
+    <? } ?>
+
     <script type="text/javascript">
         $(function(){
             $('#flash-message-success').fadeIn(1000).delay(3000).fadeOut(1000);
@@ -35,7 +42,7 @@
             <div class="setting"><a href="/logout">ログアウト</a></div>
             <? } ?>
         </div>
-        <div id="content clearfix">
+        <div class="content clearfix">
             <?= $content_for_layout; ?>
         </div>
         <div id="footer">
