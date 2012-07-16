@@ -7,8 +7,13 @@ $(function () {
     View.prototype = {
 
         update: function(params) {
-            var content = _.template($(params.tplSelector).html(), params.data);
-            $(content).appendTo(params.appendSelector);
+            if(params.data == undefined){
+                $($(params.tplSelector).html()).appendTo(params.appendSelector);
+            }
+            else{
+                var content = _.template($(params.tplSelector).html(), params.data);
+                $(content).appendTo(params.appendSelector);
+            }
         },
 
         delete: function(selector){

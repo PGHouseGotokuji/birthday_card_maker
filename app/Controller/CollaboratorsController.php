@@ -58,16 +58,10 @@ $innerJoin = array(
     {
         $planId = $this->params['planId'];
         if (empty($this->loginUser)) {
-            $this->Session->write('redirect', '/plan' . DS . $planId . DS . 'collaborator');
+            $this->Session->write('redirectUrl', '/plan/' . $planId .'/collaborator');
             $this->redirect('/');
         }
-
-
-exit;
-
-
-
-
+        $this->redirect('/plan/' . $planId . '/collaborator/confirm');
     }
 
 
