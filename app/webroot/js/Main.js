@@ -5,6 +5,6 @@ connect = null;
 
 $(function() {
   connect = new Connect();
-  connect.get("/get_user");
-  return connect.get("/get_plan");
+  connect.get("/get_user", "user");
+  return connect.get("/get_plan", "plan");
 });
