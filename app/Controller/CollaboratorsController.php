@@ -2,7 +2,7 @@
 class CollaboratorsController extends AppController 
 {
     public $uses     = array('Plan', 'Collaborator');
-    var $components  = array('Security');
+    var $components  = array('Security', 'PlanSupport');
 
 
     public function beforeFilter()
@@ -77,20 +77,7 @@ $innerJoin = array(
             exit;
         }
 
-        $joins = array(
-            array(
-                'type'  => 'INNER',
-                'table' => '`users` `User`',
-                'conditions' => '`User`.`id`=`Plan`.`from_id`',
-            )
-        );
-        $plan = $this->Plan->find('first', array(
-            'fields' => array('Plan.*', 'User.*'),
-            'joins' => $joins,
-            'conditions' => array(
-                '`Plan`.`id`' => $planId
-            )
-        ));
+        $plan = $this->PlanSupport->findWithFromUser($this->Plan, $planId);
 
         if(empty($plan)){
             die('id not found');
@@ -100,8 +87,7 @@ $innerJoin = array(
         $this->set('from_name', $plan['User']['username']);
 
         $access_token = $this->loginUser['User']['access_token'];
-        $url = 'https://graph.facebook.com/' . $plan['Plan']['to_id'] . '?access_token=' . $access_token . '&fields=username,picture';
-        $target = json_decode(file_get_contents($url));
+        $target = $this->PlanSupport->getToUser($access_token, $plan);
 
         $this->set('to_name', $target->username);
         $this->set('imageUrl', $target->picture);
@@ -134,20 +120,7 @@ $innerJoin = array(
         }
 
 
-        $joins = array(
-            array(
-                'type'  => 'INNER',
-                'table' => '`users` `User`',
-                'conditions' => '`User`.`id`=`Plan`.`from_id`',
-            )
-        );
-        $plan = $this->Plan->find('first', array(
-            'fields' => array('Plan.*', 'User.*'),
-            'joins' => $joins,
-            'conditions' => array(
-                '`Plan`.`id`' => $planId
-            )
-        ));
+        $plan = $this->PlanSupport->findWithFromUser($this->Plan, $planId);
 
         if(empty($plan)){
             die('id not found');
@@ -155,9 +128,7 @@ $innerJoin = array(
         }
 
         $access_token = $this->loginUser['User']['access_token'];
-        $url = 'https://graph.facebook.com/' . $plan['Plan']['to_id'] . '?access_token=' . $access_token . '&fields=username,picture';
-        //print($url);
-        $target = json_decode(file_get_contents($url));
+        $target = $this->PlanSupport->getToUser($access_token, $plan);
 
         $this->set('name', $target->username);
         $this->set('imageUrl', $target->picture);

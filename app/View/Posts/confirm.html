@@ -1,0 +1,18 @@
+<script type="text/javascript">
+   function postToFacebook(id){
+
+       $.ajax({
+          url: '/'
+       });
+
+
+   }
+</script>
+<img src="/plan/<?php echo($planId)?>/card"/>
+
+<div>
+    上記の画像を送信します。良いですか？
+</div>
+<div>
+    <button onclick="postToFacebook('$planId')">相手のFacebookフィードへ送信</button>
+</div>
