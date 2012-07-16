@@ -6,7 +6,7 @@ debug = true;
 Connect = (function() {
 
   function Connect() {
-    this.data = new ClassList();
+//    this.data = new ClassList();
   }
 
   Connect.prototype.get = function(url) {
