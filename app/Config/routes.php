@@ -47,6 +47,9 @@ Router::connect('/insertplan',        array('controller' => 'Plans', 'action' =>
 Router::connect('/insertplan',        array('controller' => 'Plans', 'action' => 'insertPlan'));
 Router::connect('/post_fb_timeline',  array('controller' => 'Posts', 'action' => 'postFbTimeline'));
 
+// 参加者がログインして参加
+Router::connect('/plan/:planId/collaborator', array('controller' => 'Collaborators', 'action' => 'joinCollaborator'), array(array('planId' => '[0-9]+')));
+
 // 画像を生成
 Router::connect('/postconfirm',       array('controller' => 'Posts', 'action' => 'confirm'));
 Router::connect('/postcard',          array('controller' => 'Posts', 'action' => 'postCard'));
