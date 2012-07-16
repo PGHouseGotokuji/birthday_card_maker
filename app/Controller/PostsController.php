@@ -1,5 +1,6 @@
 <?php
 App::uses('CardCreator', 'Lib');
+App::uses('FacebookFeedPoster', 'Lib');
 class PostsController extends AppController 
 {
     public $uses     = array('User', 'Plan', 'Collaborator');
@@ -16,30 +17,41 @@ class PostsController extends AppController
     }
 
     /**
-     * 誕生日プラン情報取得
+     * 誕生日色紙画像取得
      *
      * @access public
      */
     public function postCard() 
     {
+
+// TODO たぶんto_id情報も必要になるねコレ
+
         $user = $this->loginUser;
         $plan = $this->Plan->findByFromId($user['User']['id']);
 
-// TODO たぶんto_id情報も必要になるねコレ
+        $joins = array(
+            array(
+                'type'  => 'INNER',
+                'table' => '`users` `User`',
+                'conditions' => '`User`.`id`=`Collaborator`.`uid`',
+            )
+        );
+        $collaborators = $this->Collaborator->find('all', array(
+            'fields' => array('Collaborator.*', 'User.username', 'User.fb_id'),
+            'joins' => $joins,
+            'conditions' => array(
+                'plan_id' => $plan['Plan']['id']
+            )
+        ));
+
         $creator = new CardCreator();
         $creator->setBackground(WWW_ROOT . 'img/test.jpg');
-        $creator->put(array(
-            'imageUrl' => 'https://graph.facebook.com/100000514317787/picture',
-            'name' => 'Shin.Kinjo'
-        ));
-        $creator->put(array(
-            'imageUrl' => 'https://graph.facebook.com/100000514317787/picture',
-            'name' => 'Shin.Kinjo'
-        ));
-        $creator->put(array(
-            'imageUrl' => 'https://graph.facebook.com/100000316117821/picture',
-            'name' => 'Shin.Kinjo'
-        ));
+        foreach ($collaborators as $key => $collaborator) {
+            $creator->put(array(
+                'imageUrl' => 'https://graph.facebook.com/' . $collaborator['User']['fb_id'] . '/picture',
+                'name' => $collaborator['User']['username']
+            ));
+        }
         $img = $creator->createImage();
         responseJpeg($img);
     }
@@ -51,39 +63,25 @@ class PostsController extends AppController
      */
     public function postFbTimeline() 
     {
-        $user = $this->loginUser;
-$token = $user['User']['access_token'];
-$ch = curl_init();
-$params = 'access_token=' . urlencode($token);
-$params .= '&message=' .urlencode('テスト投稿');
-curl_setopt($ch, CURLOPT_URL, 'https://graph.facebook.com/me/feed');
-curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
-curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-$resp = curl_exec($ch);
-curl_close($ch);
-if ($resp === false) {
-pr(1);
-exit;
-//  通信エラー時の処理
-} else {
-  $resp = json_decode($resp);
-  if (isset($resp->id)) {
-//    投稿に成功した時の処理
-pr(2);
-exit;
-  }
-  else if (isset($resp->error)) {
-//    投稿に失敗した時の処理
+        $user   = $this->loginUser;
+        $token  = $user['User']['access_token'];
+        $poster = new FacebookFeedPoster($token);
 
-pr(3);
-exit;
-  }
-}
-
+        //自分にポスト
+        $id = $poster->postToMe('テスト投稿!!! http://google.com');
     }
 
-    public function timelinePosted() {
+    /**
+     * 誕生日の人のタイムラインに投稿完了
+     *
+     * @access public
+     */
+    public function cardPosted() 
+    {
+
+
+
+
 
 
     }

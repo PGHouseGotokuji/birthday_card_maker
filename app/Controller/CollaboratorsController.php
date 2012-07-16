@@ -48,4 +48,25 @@ $innerJoin = array(
 //        $collaborators['Count'] = count($collaborators);
         return new CakeResponse(array('body' => json_encode($collaborators)));
     }
+
+    /**
+     * 参加者がfacebookログインしていなかったら登録
+     *
+     * @access public
+     */
+    public function joinCollaborator() 
+    {
+        $planId = $this->params['planId'];
+        if (empty($this->loginUser)) {
+            $this->Session->write('redirect', '/plan' . DS . $planId . DS . 'collaborator');
+            $this->redirect('/');
+        }
+
+
+exit;
+
+
+
+
+    }
 }
