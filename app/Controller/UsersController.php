@@ -67,15 +67,15 @@ class UsersController extends AppController
      */
     public function getFriends() 
     {
-//        $user = $this->loginUser;
+        $user = $this->loginUser;
 
         $url = 'https://graph.facebook.com/me/friends?access_token=' . $user['User']['access_token'];
         $fbFriends = json_decode(file_get_contents($url));
 
-foreach ($fbFriends->data as $key => $friend) {
-    $friend->fb_picture = 'https://graph.facebook.com/' . $friend->id . DS . 'picture';
-    $friends['Friend'][] = $friend;
-}
+        foreach ($fbFriends->data as $key => $friend) {
+            $friend->fb_picture = 'https://graph.facebook.com/' . $friend->id . DS . 'picture';
+            $friends['Friend'][] = $friend;
+        }
 
         return new CakeResponse(array('body' => json_encode($friends)));
     }
