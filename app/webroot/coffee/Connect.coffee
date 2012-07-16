@@ -1,4 +1,4 @@
-debug = true
+debug = false
 
 class Connect
     constructor: ->
@@ -26,12 +26,11 @@ class Connect
                 success: @getSuccess
             }
 
-    getSuccess: (res) ->
-
-        console.log "getSuccess" if debugs
+    getSuccess: (res) =>
+        console.log "getSuccess" if debug
         console.log res if debug
 
-        if res.Owner
+        if res.User
             console.log "in owner" if debug
             console.log res if debug
 
@@ -43,7 +42,6 @@ class Connect
                 appendSelector: ".content .owner"
                 data: res
             }
-            
             # view.updateOwner res
 
         else if res.Plan
