@@ -89,6 +89,25 @@ class PostsController extends AppController
     }
 
     /**
+     * 確認 相手のタイムラインに投稿
+     *
+     * @access public
+     */
+    public function confirmPostFriendFbTimeline()
+    {
+        $planId = $this->params['planId'];
+        if(empty($planId)){
+            die('planId required');
+            exit;
+        }
+
+        //ここは情報を取得して作らないといけない。
+        $this->set('title_for_layout', '相手のタイムラインに投稿します。よろしいですか？');
+        $this->set('title_for_page', '相手のタイムラインに投稿します。よろしいですか？');
+        $this->set('planId', $planId);
+    }
+
+    /**
      * 友人のタイムラインに投稿
      *
      * @access public
