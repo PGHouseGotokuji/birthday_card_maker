@@ -75,6 +75,43 @@ class PostsController extends AppController
      */
     public function postFbTimeline() 
     {
+        $process = function($poster, $planInfo, $target){
+//            print_r($planInfo);
+//            exit;
+
+           //上記の情報を利用して文章を作ること。
+           $content = 'Sato ShunさんがHiroki Masuiさんへ誕生日のお祝いカードを皆さんと作ろうとしています。http://birthdaycard.com/x53287xxx
+                       へアクセスして下さい。';
+           return $poster->postToMe('テスト投稿が完了しました!! http://dev.birthday-card-maker.com/plan/' . $planInfo['Plan']['id'] . '/collaborator');
+        };
+
+        $this->doPostFbTimeLine($process);
+    }
+
+    /**
+     * 友人のタイムラインに投稿
+     *
+     * @access public
+     */
+    public function postFriendFbTimeline()
+    {
+        $process = function($poster, $planInfo, $target){
+
+           //上記の情報を利用して文章を作ること。
+           $content = 'Sato ShunさんがHiroki Masuiさんへ誕生日のお祝いカードを皆さんと作ろうとしています。http://birthdaycard.com/x53287xxx
+                       へアクセスして下さい。';
+           return $poster->postTo($target->id, 'テスト投稿が完了しました!! http://dev.birthday-card-maker.com/plan/' . $planInfo['Plan']['id'] . '/collaborator');
+        };
+
+        $this->doPostFbTimeLine($process);
+    }
+
+
+    /**
+     * タイムラインへ投稿する処理の抽象
+     */
+    private function doPostFbTimeline($postProcess){
+
         $planId = $this->params['planId'];
         if(empty($planId)){
             die('planId required');
@@ -92,16 +129,10 @@ class PostsController extends AppController
             return;
         }
 
-        $access_token = $this->loginUser['User']['access_token'];
-        $target = $this->PlanSupport->getToUser($access_token, $plan);
+        $target = $this->PlanSupport->getToUser($token, $plan);
 
-//上記の情報を利用して文章を作ること。
+        $id = $postProcess($poster, $plan, $target);
 
-        $content = 'Sato ShunさんがHiroki Masuiさんへ誕生日のお祝いカードを皆さんと作ろうとしています。http://birthdaycard.com/x53287xxx
-                    へアクセスして下さい。';
-
-
-        $id = $poster->postToMe('テスト投稿が完了しました!! http://dev.birthday-card-maker.com/plan/' . $planId . '/collaborator');
         if (!empty($id)) {
             $response['Success'] = 'true';
         }

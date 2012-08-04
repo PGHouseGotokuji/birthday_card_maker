@@ -47,7 +47,7 @@ Router::connect('/plan/:planId/post/confirm_fb_timeline',  array('controller' =>
 Router::connect('/plan/:planId/post/post_fb_timeline',     array('controller' => 'Posts', 'action' => 'postFbTimeline'), array(array('planId' => '[0-9]+')));
 
 // 相手のタイムラインへ投稿
-Router::connect('/plan/:planId/post/facebook',  array('controller' => 'Posts', 'action' => 'postFbTimeline'));
+Router::connect('/plan/:planId/post/post_friend_fb_timeline',  array('controller' => 'Posts', 'action' => 'postFriendFbTimeline'));
 
 // 参加者がログインして参加
 Router::connect('/plan/:planId/collaborator/confirm', array('controller' => 'Collaborators', 'action' => 'confirm'), array(array('planId' => '[0-9]+')));
