@@ -64,6 +64,13 @@ class PostsController extends AppController
      */
     public function confirmPostFbTimeline() 
     {
+        $planId = $this->params['planId'];
+        if(empty($planId)){
+            die('planId required');
+            exit;
+        }
+        $this->set('planId', $planId);
+
         $this->set('title_for_layout', '自分のタイムラインに投稿します。よろしいですか？');
         $this->set('title_for_page', '自分のタイムラインに投稿します。よろしいですか？');
     }
@@ -100,11 +107,11 @@ class PostsController extends AppController
             die('planId required');
             exit;
         }
+        $this->set('planId', $planId);
 
         //ここは情報を取得して作らないといけない。
         $this->set('title_for_layout', '相手のタイムラインに投稿します。よろしいですか？');
         $this->set('title_for_page', '相手のタイムラインに投稿します。よろしいですか？');
-        $this->set('planId', $planId);
     }
 
     /**
