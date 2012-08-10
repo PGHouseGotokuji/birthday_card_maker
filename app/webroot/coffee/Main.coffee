@@ -1,5 +1,5 @@
 require [
-    "jquery"
+    "vendor/jquery"
     "debug"
     "View"
     "DataTable"
@@ -10,6 +10,6 @@ require [
     "lib/underscore-min"
     ], ->
         window.dataTable = {}
-        $ ->
-            dataTable.userTable = new UserTable dataTable
-            dataTable.planTable = new PlanTable dataTable
+        
+        dataTable.userTable = new UserTable dataTable
+        dataTable.planTable = new PlanTable dataTable

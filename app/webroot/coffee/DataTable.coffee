@@ -1,16 +1,8 @@
-
-'''
-    @class Table basic class <br>
-        this class have view, and ajax
-
-    @author sato shun
-
-    @param @viewParam
-        necessary viewUpdate function
-
-'''
-
 class DataTable
+    '''
+        basic table
+    '''
+
     constructor: (@saveLocation) ->
     
     getData: ->
@@ -20,14 +12,16 @@ class DataTable
     viewUpdate: ->
         for param in @viewParams
             console.log param
-            @view.update param
+            view.update param
 
         @setEvents()
 
     setEvents: ->
 
+
     AjaxGet: (id) ->
         if debug.flag
+
             res = debug.getData id
             @getSuccess res
         else

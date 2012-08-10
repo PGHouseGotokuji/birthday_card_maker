@@ -3,7 +3,7 @@ class UserTable extends DataTable
 
     constructor: (saveLocation) ->
         super saveLocation
-        @AjaxGet "user" 
+        @AjaxGet "user"
 
     getSuccess: (res) ->
         @data = res

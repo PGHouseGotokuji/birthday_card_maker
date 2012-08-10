@@ -1,6 +1,4 @@
-class View
-	constructor: ->
-		
+view = 
     update: (params) ->
         if params.data is undefined
             $($(params.tplSelector).html()).appendTo(params.appendSelector)
