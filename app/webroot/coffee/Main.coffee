@@ -1,7 +1,15 @@
-connect = null
-
-$ ->
-    connect = new Connect()
-    connect.get "/get_user", "user"
-    connect.get "/get_plan", "plan"
-    
+require [
+    "jquery"
+    "debug"
+    "View"
+    "DataTable"
+    "UserTable"
+    "PlanTable"
+    "FriendsTable"
+    "CollaboratorTable"
+    "lib/underscore-min"
+    ], ->
+        window.dataTable = {}
+        $ ->
+            dataTable.userTable = new UserTable dataTable
+            dataTable.planTable = new PlanTable dataTable

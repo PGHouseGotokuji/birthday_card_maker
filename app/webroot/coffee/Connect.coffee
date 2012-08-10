@@ -1,44 +1,10 @@
-debug = false
-alertFlag = false
-
 class Connect
     constructor: ->
         @data = {}
 
     get: (url, id) ->
-        if debug
-            res = {}
-            if id is "user"
-                res = {
-                    "User": {
-                        "id":"1","username":"imausr","fb_picture":"https:\/\/fbcdn-profile-a.akamaihd.net\/hprofile-ak-ash2\/368785_100000588696676_2051595305_q.jpg"
-                    }
-                }
-            if id is "plan"
-                res = {"Plan":{"id":"1","from_id":"1","to_id":"4294967295","username":"satosghun1","fb_picture":"https:\/\/fbcdn-profile-a.akamaihd.net\/hprofile-ak-snc4\/49066_100002595002132_583854562_q.jpg","memo":null,"created":null,"modified":null}}
-
-            if id is "collaborators"
-                res = [{"Collaborator":{"id":"1","plan_id":"1","uid":"1","comment":"hogehogehogehoge","memo":null,"created":null,"modified":null}},{"Collaborator":{"id":"3","plan_id":"1","uid":"3","comment":"fugafugafugafuga","memo":null,"created":null,"modified":null}}]
-                
-            if id is "friend"
-                res = { "Friend":[
-                        {
-                            "name":"Xiaochen Su"
-                            "id":"316087"
-                            "fb_picture":"https:\/\/graph.facebook.com\/316087\/picture"
-                        }
-                        {
-                            "name":"Takashi Nishimura"
-                            "id":"1955966"
-                            "fb_picture":"https:\/\/graph.facebook.com\/1955966\/picture"
-                        }
-                        {
-                            "name":"Yuki Shiraji"
-                            "id":"4203608"
-                            "fb_picture":"https:\/\/graph.facebook.com\/4203608\/picture"
-                        }
-                        ]}
-
+        if debug.flag
+            res = debug.getData id
             @getSuccess res
             
         else
@@ -49,19 +15,24 @@ class Connect
                 success: @getSuccess
             }
 
-    getSuccess: (res) =>
-        console.log "getSuccess" if debug
-        console.log res if debug
+    getFriends: ->
+        @get '/get_friends', "friend"
 
-        alert "getSuccess" if alertFlag
+    getSuccess: (res) =>
+        console.log "getSuccess" if debug.flag
+        console.log res if debug.flag
+
+        alert "getSuccess" if debug.alertflag
+
+        # userTable.process(@getFriends)
 
         if res.User
             @data.user = res.User
 
-            alert "User processing" if alertFlag
+            alert "User processing" if debug.alertflag
 
-            console.log "in owner" if debug
-            console.log res if debug
+            console.log "in owner" if debug.flag
+            console.log res if debug.flag
 
             view.update {
                 tplSelector: "#ownerTpl"
@@ -71,16 +42,14 @@ class Connect
             }
 
             $(".owner-right").bind 'click', =>
-                console.log "call getFriends" if debug
+                console.log "call getFriends" if debug.flag
                 @getFriends()
-
-            # view.updateOwner res
 
         else if res.Plan
             @data.plan = res.Plan
 
-            alert "Plan processing" if alertFlag
-            console.log "in plan" if debug
+            alert "Plan processing" if debug.alertflag
+            console.log "in plan" if debug.flag
             console.log res
             @get "/get_collaborators/#{res.Plan.id}", "collaborators"
             
@@ -88,7 +57,6 @@ class Connect
                 tplSelector: "#cardTpl"
                 appendSelector: '.content'
                 method: "appendTo"
-                # data: res
             }
 
             $(".send-btn").click =>
@@ -136,7 +104,7 @@ class Connect
                 view.delete '.content .select-friend'
                 alert "insert_plan index"
                 alert index
-                alert friendInfo[index]["id"] if alertFlag
+                alert friendInfo[index]["id"] if debug.alertflag
                 connect.post "/insert_plan", friendInfo[index], connect.postSuccess
 
         else if res[0].Collaborator
@@ -157,9 +125,6 @@ class Connect
 
     eventSet: (selector, func) =>
         $(selector).click func
-
-    getFriends: ->
-        @get '/get_friends', "friend"
 
     post: (url, data, func) ->
         if debug

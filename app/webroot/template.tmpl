@@ -1,19 +1,13 @@
-<!DOCTYPE HTML>
-<html lang="en-US">
-<head>
-    <meta charset="UTF-8">
-    <script data-main='js/main.js' src="js/require-jquery.js"></script>
-    <!-- template --> 
-
 <script type="text/template" id="ownerTpl">
 <div class="owner clearfix">
   <div class="owner-left">
     <ul>
       <li class="owner-img"><img src="<%-User.fb_picture%>" width="80" height="80" /></li>
-      <li class="owner-name">発起人： <a href="#"><%-User.username%></a></li> <br />
-     </ul>
+      <li class="owner-name">発起人：<br />
   </div>
-
+<a href="#"><%-User.username%></a></li>
+    </ul>
+  
   <div class="owner-right">
     <button>新規作成</button>
   </div>
@@ -80,18 +74,4 @@
     <div>
         error
     <div>
-
 </script>
-
-
-
-    <link rel="stylesheet" href="/css/style.css">
-    <title>test</title>
-</head>
-<body>
-    <div class="content">
-      
-    </div>
-</div>
-</body>
-</html>
