@@ -7,7 +7,7 @@ PlanTable = (function(_super) {
 
   __extends(PlanTable, _super);
 
-  PlanTable.prototype.getUrl = "/get_plan";
+  PlanTable.prototype.getUrl = "/get_plans";
 
   function PlanTable(saveLocation) {
     PlanTable.__super__.constructor.call(this, saveLocation);
