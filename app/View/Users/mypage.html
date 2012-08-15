@@ -47,14 +47,19 @@
       <li class="target-img"><img src="<%-plan.Plan.fb_picture%>" width="50" height="50" /></li>
       <li class="target-name">贈る相手：<br />
         <a href="#"><%-plan.Plan.username%></a>さん</li>
+        <div>
+            <a href="/plan/<%-plan.Plan.id%>/post/confirm_fb_timeline">皆に寄せ書きしてもらう</a>
+        </div>
+        <br />
+
         <div class="send-btn">
             <button>カードを送る</button>
         </div>
 
       <% }); %>
     </ul>
-
 </script>
+
 
 <script type="text/template" id="memberTpl">
   <li class='collaboratorPeople'><%-length%>人が協力しています</li>
