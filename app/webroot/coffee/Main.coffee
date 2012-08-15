@@ -1,15 +1,18 @@
 require [
     "vendor/jquery"
     "debug"
-    "view"
-    "dataTable"
-    "userTable"
-    "planTable"
-    "friendsTable"
-    "collaboratorTable"
+    "View"
+    "DataTable"
     "lib/underscore-min"
     ], ->
-        window.dataTable = {}
-        
-        dataTable.userTable = new UserTable dataTable
-        dataTable.planTable = new PlanTable dataTable
+        require [
+          "UserTable"
+          "PlanTable"
+          "FriendsTable"
+          "CollaboratorTable"
+        ], ->
+
+          window.dataTable = {}
+
+          dataTable.userTable = new UserTable dataTable
+          dataTable.planTable = new PlanTable dataTable

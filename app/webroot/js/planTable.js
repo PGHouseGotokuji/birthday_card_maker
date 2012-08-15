@@ -15,7 +15,11 @@ PlanTable = (function(_super) {
   }
 
   PlanTable.prototype.getSuccess = function(res) {
-    this.data = res;
+    this.data = {
+      "Plans": res
+    };
+    console.log("data");
+    console.log(this.data);
     this.viewParams = [
       {
         tplSelector: "#cardTpl",
@@ -44,7 +48,6 @@ PlanTable = (function(_super) {
   PlanTable.prototype.setEvents = function() {
     var _this = this;
     return $(".send-btn").click(function() {
-      console.log(_this.data.Plan);
       return location.href = "/plan/" + _this.data.Plan.id + "/collaborator/confirm";
     });
   };
