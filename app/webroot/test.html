@@ -32,9 +32,11 @@
       <div class="card-right">
         <ul class="members">
         </ul>
+        <!--
         <div class="send-btn">
             <button>カードを送る</button>
         </div>
+        -->
       </div>
     </div>
 </script>
@@ -50,8 +52,13 @@
       <li class="target-img"><img src="<%-plan.Plan.fb_picture%>" width="50" height="50" /></li>
       <li class="target-name">贈る相手：<br />
         <a href="#"><%-plan.Plan.username%></a>さん</li>
+        <div class="send-btn">
+            <button>カードを送る</button>
+        </div>
+
       <% }); %>
     </ul>
+
 </script>
 
 <script type="text/template" id="memberTpl">
