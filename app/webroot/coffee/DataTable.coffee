@@ -22,7 +22,6 @@ class DataTable
     AjaxGet: (id) ->
         self = this
         if debug.flag
-
             res = debug.getData id
             @getSuccess res
         else

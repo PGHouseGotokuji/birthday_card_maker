@@ -15,7 +15,11 @@ PlanTable = (function(_super) {
   }
 
   PlanTable.prototype.getSuccess = function(res) {
-    this.data = res;
+    this.data = {
+      "Plans": res
+    };
+    console.log("data");
+    console.log(this.data);
     this.viewParams = [
       {
         tplSelector: "#cardTpl",

@@ -45,9 +45,11 @@
 
 <script type="text/template" id="planTpl">
     <ul>
-      <li class="target-img"><img src="<%-Plan.fb_picture%>" width="50" height="50" /></li>
-      <li class="target-name">贈る相手：<br />
-        <a href="#"><%-Plan.username%></a>さん</li>
+        <% _.each(Plans, function(plan) { %>
+        <li class="target-img"><img src="<%-plan.Plan.fb_picture%>" width="50" height="50" /></li>
+        <li class="target-name">贈る相手：<br />
+            <a href="#"><%-plan.Plan.username%></a>さん</li>
+        <% }); %>
     </ul>
 </script>
 

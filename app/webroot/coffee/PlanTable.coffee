@@ -6,7 +6,10 @@ class PlanTable extends DataTable
         @AjaxGet "plan"
 
     getSuccess: (res) ->
-        @data = res
+        @data = {"Plans": res}
+        console.log "data"
+        console.log @data
+
         @viewParams = [
             {
                 tplSelector: "#cardTpl"
@@ -34,5 +37,3 @@ class PlanTable extends DataTable
             console.log @data.Plan
             location.href = "/plan/#{@data.Plan.id}/post/confirm"
             #location.href = "/plan/#{@data.Plan.id}/collaborator/confirm"
-
-        
