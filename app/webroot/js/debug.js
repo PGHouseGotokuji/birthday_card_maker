@@ -2,7 +2,7 @@
 var debug;
 
 debug = {
-  flag: true,
+  flag: false,
   alertflag: false,
   data: {
     user: {
