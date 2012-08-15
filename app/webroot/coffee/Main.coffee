@@ -3,13 +3,16 @@ require [
     "debug"
     "View"
     "DataTable"
-    "UserTable"
-    "PlanTable"
-    "FriendsTable"
-    "CollaboratorTable"
     "lib/underscore-min"
     ], ->
-        window.dataTable = {}
-        
-        dataTable.userTable = new UserTable dataTable
-        dataTable.planTable = new PlanTable dataTable
+        require [
+          "UserTable"
+          "PlanTable"
+          "FriendsTable"
+          "CollaboratorTable"
+        ], ->
+
+          window.dataTable = {}
+
+          dataTable.userTable = new UserTable dataTable
+          dataTable.planTable = new PlanTable dataTable
