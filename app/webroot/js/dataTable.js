@@ -34,7 +34,7 @@ DataTable = (function() {
     } else {
       return $.ajax({
         type: "GET",
-        url: getUrl,
+        url: this.getUrl,
         dataType: "json",
         success: this.getSuccess
       });
