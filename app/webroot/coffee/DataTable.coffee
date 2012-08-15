@@ -21,13 +21,12 @@ class DataTable
 
     AjaxGet: (id) ->
         if debug.flag
-
             res = debug.getData id
             @getSuccess res
         else
             $.ajax {
                 type: "GET"
-                url: getUrl
+                url: @getUrl
                 dataType: "json"
                 success: @getSuccess
             }

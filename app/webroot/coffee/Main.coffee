@@ -1,12 +1,12 @@
 require [
     "vendor/jquery"
     "debug"
-    "View"
-    "DataTable"
-    "UserTable"
-    "PlanTable"
-    "FriendsTable"
-    "CollaboratorTable"
+    "view"
+    "dataTable"
+    "userTable"
+    "planTable"
+    "friendsTable"
+    "collaboratorTable"
     "lib/underscore-min"
     ], ->
         window.dataTable = {}
