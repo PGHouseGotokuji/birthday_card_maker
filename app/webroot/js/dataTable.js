@@ -27,7 +27,8 @@ DataTable = (function() {
   DataTable.prototype.setEvents = function() {};
 
   DataTable.prototype.AjaxGet = function(id) {
-    var res;
+    var res, self;
+    self = this;
     if (debug.flag) {
       res = debug.getData(id);
       return this.getSuccess(res);
@@ -36,7 +37,9 @@ DataTable = (function() {
         type: "GET",
         url: this.getUrl,
         dataType: "json",
-        success: this.getSuccess
+        success: function(data, type) {
+          return self.getSuccess(data, type);
+        }
       });
     }
   };

@@ -45,7 +45,7 @@ PlanTable = (function(_super) {
     var _this = this;
     return $(".send-btn").click(function() {
       console.log(_this.data.Plan);
-      return location.href = "/plan/" + _this.data.Plan.id + "/collaborator/confirm";
+      return location.href = "/plan/" + _this.data.Plan.id + "/post/confirm";
     });
   };
 

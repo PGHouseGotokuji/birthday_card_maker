@@ -32,5 +32,7 @@ class PlanTable extends DataTable
     setEvents: ->
         $(".send-btn").click =>
             console.log @data.Plan
-            location.href = "/plan/#{@data.Plan.id}/collaborator/confirm"
+            location.href = "/plan/#{@data.Plan.id}/post/confirm"
+            #location.href = "/plan/#{@data.Plan.id}/collaborator/confirm"
+
         
