@@ -33,6 +33,9 @@ class PlanTable extends DataTable
         @saveLocation.collaborators = new CollaboratorTable(@saveLocation)
     
     setEvents: ->
-        $(".send-btn").click =>
-            location.href = "/plan/#{@data.Plan.id}/collaborator/confirm"
-        
+        self = @
+        $(".send-btn").click ->
+            index = $(".send-btn").index(@)
+            plan =  self.data.Plans[index]
+            alert index
+            location.href = "/plan/#{plan.Plan.id}/collaborator/confirm"

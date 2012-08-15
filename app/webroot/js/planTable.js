@@ -46,9 +46,14 @@ PlanTable = (function(_super) {
   };
 
   PlanTable.prototype.setEvents = function() {
-    var _this = this;
+    var self;
+    self = this;
     return $(".send-btn").click(function() {
-      return location.href = "/plan/" + _this.data.Plan.id + "/collaborator/confirm";
+      var index, plan;
+      index = $(".send-btn").index(this);
+      plan = self.data.Plans[index];
+      alert(index);
+      return location.href = "/plan/" + plan.Plan.id + "/collaborator/confirm";
     });
   };
 
