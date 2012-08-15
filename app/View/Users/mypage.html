@@ -27,13 +27,11 @@
       <div class="card-right">
         <ul class="members">
         </ul>
-        <div class="send-btn">
-            <a href="/plan/<?= h($planId) ?>/post/confirm_fb_timeline">皆に寄せ書きしてもらう</a>
-        </div>
-        <br />
+        <!--
         <div class="send-btn">
             <button>カードを贈る</button>
         </div>
+        -->
       </div>
     </div>
 </script>
@@ -45,12 +43,17 @@
 
 <script type="text/template" id="planTpl">
     <ul>
-        <% _.each(Plans, function(plan) { %>
-        <li class="target-img"><img src="<%-plan.Plan.fb_picture%>" width="50" height="50" /></li>
-        <li class="target-name">贈る相手：<br />
-            <a href="#"><%-plan.Plan.username%></a>さん</li>
-        <% }); %>
+      <% _.each(Plans, function(plan) { %>
+      <li class="target-img"><img src="<%-plan.Plan.fb_picture%>" width="50" height="50" /></li>
+      <li class="target-name">贈る相手：<br />
+        <a href="#"><%-plan.Plan.username%></a>さん</li>
+        <div class="send-btn">
+            <button>カードを送る</button>
+        </div>
+
+      <% }); %>
     </ul>
+
 </script>
 
 <script type="text/template" id="memberTpl">
