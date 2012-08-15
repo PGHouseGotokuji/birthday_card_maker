@@ -26,7 +26,7 @@ class PlansController extends AppController
     }
 
     /**
-     * 誕生日プラン情報全件取得(そのうち使う予定)
+     * 誕生日プラン情報全件取得
      *
      * @access public
      */

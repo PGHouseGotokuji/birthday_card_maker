@@ -31,6 +31,7 @@ Router::connect('/fblogin',           array('controller' => 'Links', 'action' =>
 // ユーザー, プラン, 参加者取得api
 Router::connect('/get_user',                  array('controller' => 'Users', 'action' => 'getUser'));
 Router::connect('/get_plan',                  array('controller' => 'Plans', 'action' => 'getPlan'));
+Router::connect('/get_plans',                  array('controller' => 'Plans', 'action' => 'getPlans'));
 Router::connect('/get_collaborators/:planId', array('controller' => 'Collaborators', 'action' => 'getCollaborators'), array(array('planId' => '[0-9]+')));
 
 // マイページ取得
