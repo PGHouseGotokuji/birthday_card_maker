@@ -20,6 +20,7 @@ class DataTable
 
 
     AjaxGet: (id) ->
+        self = this
         if debug.flag
             res = debug.getData id
             @getSuccess res
@@ -28,7 +29,7 @@ class DataTable
                 type: "GET"
                 url: @getUrl
                 dataType: "json"
-                success: @getSuccess
+                success: (data, type)-> self.getSuccess data, type
             }
 
     getSuccess: ->
