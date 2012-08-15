@@ -1,5 +1,5 @@
 class PlanTable extends DataTable
-    getUrl: "/get_plan"
+    getUrl: "/get_plans"
 
     constructor: (saveLocation) ->
         super saveLocation
