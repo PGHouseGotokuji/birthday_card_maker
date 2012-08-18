@@ -90,5 +90,6 @@ class UsersController extends AppController
         $user = $this->loginUser;
         $planId = $this->Plan->field('id', array('from_id' => $user['User']['id']));
         $this->set(compact('planId'));
+        $this->set('title_for_layout', 'マイページ');
     }
 }
