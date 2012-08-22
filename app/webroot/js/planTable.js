@@ -23,11 +23,11 @@ PlanTable = (function(_super) {
     this.viewParams = [
       {
         tplSelector: "#cardTpl",
-        appendSelector: '.content',
+        appendSelector: '.main_contents',
         method: "appendTo"
       }, {
         tplSelector: "#planTpl",
-        appendSelector: '.content .card-left',
+        appendSelector: '.main_contents .card-left',
         method: "appendTo",
         data: this.data
       }
@@ -52,8 +52,7 @@ PlanTable = (function(_super) {
       var index, plan;
       index = $(".send-btn").index(this);
       plan = self.data.Plans[index];
-      alert(index);
-      return location.href = "/plan/" + this.data.Plan.id + "/post/confirm";
+      return location.href = "/plan/" + self.data.Plan.id + "/post/confirm";
     });
   };
 

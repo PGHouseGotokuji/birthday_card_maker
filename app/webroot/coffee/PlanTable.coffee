@@ -13,12 +13,14 @@ class PlanTable extends DataTable
         @viewParams = [
             {
                 tplSelector: "#cardTpl"
-                appendSelector: '.content'
+                # appendSelector: '.content'
+                appendSelector: '.main_contents'
                 method: "appendTo"
             }
             {
                 tplSelector: "#planTpl"
-                appendSelector: '.content .card-left'
+                # appendSelector: '.content .card-left'
+                appendSelector: '.main_contents .card-left'
                 method:"appendTo"
                 data: @data
             }
@@ -37,5 +39,4 @@ class PlanTable extends DataTable
         $(".send-btn").click ->
             index = $(".send-btn").index(@)
             plan =  self.data.Plans[index]
-            alert index
-            location.href = "/plan/#{@data.Plan.id}/post/confirm"
+            location.href = "/plan/#{self.data.Plan.id}/post/confirm"

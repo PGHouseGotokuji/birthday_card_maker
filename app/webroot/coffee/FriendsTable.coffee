@@ -11,27 +11,32 @@ class FriendsTable extends DataTable
         @viewParams = [
             {
                 tplSelector: "#selectFriendTpl"
-                appendSelector: ".content"
+                # appendSelector: ".content"
+                appendSelector: ".main_contents"
             }
         ]
         for friend in @data
             @viewParams.push {
                 tplSelector: "#friendInfoTpl"
-                appendSelector: ".content .select-friend"
+                # appendSelector: ".content .select-friend"
+                appendSelector: ".main_contents .select-friend"
                 data: friend
             }
 
-        view.delete '.content > *'
+        # view.delete '.content > *'
+        view.delete '.main_contents > *'
         @viewUpdate()
     
     setEvents: ->
-        selector = ".content .friend-info" 
+        # selector = ".content .friend-info" 
+        selector = ".main_contents .friend-info" 
         friendInfo = @data
         self = @
 
         $(selector).click ->
             index = $(selector).index(@)
-            view.delete '.content > *'
+            # view.delete '.content > *'
+            view.delete '.main_contents > *'
             self.AjaxPost friendInfo[index]
 
 
@@ -47,5 +52,6 @@ class FriendsTable extends DataTable
         else
             view.update {
                 tplSelector: "#insertPlanErrorTpl"
-                appendSelector: ".content"
+                # appendSelector: ".content"
+                appendSelector: ".main_contents"
             }

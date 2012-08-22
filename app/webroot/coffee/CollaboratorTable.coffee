@@ -6,7 +6,6 @@ class CollaboratorTable extends DataTable
 
         @getUrl += "/#{@planId}"
         @AjaxGet "collaborators"
-        
 
     getSuccess: (res) ->
         @data = res
@@ -14,7 +13,8 @@ class CollaboratorTable extends DataTable
         @viewParams = [
             {
                 tplSelector: "#memberTpl"
-                appendSelector: ".content"
+                # appendSelector: ".content"
+                appendSelector: ".main_contents"
                 method: "appendTo"
                 data: @data
             }

@@ -36,7 +36,8 @@ class Connect
 
             view.update {
                 tplSelector: "#ownerTpl"
-                appendSelector: ".content"
+                # appendSelector: ".content"
+                appendSelector: ".main_content"
                 method: "prependTo"
                 data: res
             }
@@ -73,20 +74,22 @@ class Connect
 
             view.update {
                 tplSelector: "#planTpl"
-                appendSelector: '.content .card-left'
+                # appendSelector: '.content .card-left'
+                appendSelector: '.main_content .card-left'
                 method:"appendTo"
                 data: res
             }
 
         else if res.Friend
-            view.delete '.content .owner'
-            view.delete '.content .collaboratorPeople'
-            view.delete '.content .card'
-            view.delete '.content .card-sample'
+            view.delete '.main_content .owner'
+            view.delete '.main_content .collaboratorPeople'
+            view.delete '.main_content .card'
+            view.delete '.main_content .card-sample'
 
             view.update {
                 tplSelector: "#selectFriendTpl"
-                appendSelector: ".content"
+                # appendSelector: ".content"
+                appendSelector: ".main_content"
             }
 
             friendInfo = res.Friend
@@ -94,14 +97,18 @@ class Connect
             for friend in res.Friend
                 view.update {
                     tplSelector: "#friendInfoTpl"
-                    appendSelector: ".content .select-friend"
+                    # appendSelector: ".content .select-friend"
+                    appendSelector: ".main_content .select-friend"
                     data: friend
                 }
 
-            selector = ".content .friend-info" 
+            # selector = ".content .friend-info" 
+            selector = ".main_content .friend-info" 
             $(selector).click ->
-                index = $(".content .friend-info").index(@)
-                view.delete '.content .select-friend'
+                # index = $(".content .friend-info").index(@)
+                index = $(".main_content .friend-info").index(@)
+                # view.delete '.content .select-friend'
+                view.delete '.main_content .select-friend'
                 alert "insert_plan index"
                 alert index
                 alert friendInfo[index]["id"] if debug.alertflag
@@ -111,7 +118,8 @@ class Connect
             console.log "in collaborators" if debug
             view.update {
                 tplSelector: "#memberTpl"
-                appendSelector: ".content"
+                # appendSelector: ".content"
+                appendSelector: ".main_content"
                 method: "appendTo"
                 data: res
             }
