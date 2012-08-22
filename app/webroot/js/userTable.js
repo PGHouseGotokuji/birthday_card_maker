@@ -20,7 +20,7 @@ UserTable = (function(_super) {
     this.viewParams = [
       {
         tplSelector: "#ownerTpl",
-        appendSelector: ".content",
+        appendSelector: ".main_contents",
         method: "prependTo",
         data: this.data
       }

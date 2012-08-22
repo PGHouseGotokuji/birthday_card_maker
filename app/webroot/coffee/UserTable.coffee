@@ -10,7 +10,8 @@ class UserTable extends DataTable
         @viewParams = [
             {
                 tplSelector: "#ownerTpl"
-                appendSelector: ".content"
+                # appendSelector: ".content"
+                appendSelector: ".main_contents"
                 method: "prependTo"
                 data: @data
             }
