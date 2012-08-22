@@ -24,7 +24,7 @@ FriendsTable = (function(_super) {
     this.viewParams = [
       {
         tplSelector: "#selectFriendTpl",
-        appendSelector: ".content"
+        appendSelector: ".main_contents"
       }
     ];
     _ref = this.data;
@@ -32,23 +32,23 @@ FriendsTable = (function(_super) {
       friend = _ref[_i];
       this.viewParams.push({
         tplSelector: "#friendInfoTpl",
-        appendSelector: ".content .select-friend",
+        appendSelector: ".main_contents .select-friend",
         data: friend
       });
     }
-    view["delete"]('.content > *');
+    view["delete"]('.main_contents > *');
     return this.viewUpdate();
   };
 
   FriendsTable.prototype.setEvents = function() {
     var friendInfo, selector, self;
-    selector = ".content .friend-info";
+    selector = ".main_contents .friend-info";
     friendInfo = this.data;
     self = this;
     return $(selector).click(function() {
       var index;
       index = $(selector).index(this);
-      view["delete"]('.content > *');
+      view["delete"]('.main_contents > *');
       return self.AjaxPost(friendInfo[index]);
     });
   };
@@ -65,7 +65,7 @@ FriendsTable = (function(_super) {
     } else {
       return view.update({
         tplSelector: "#insertPlanErrorTpl",
-        appendSelector: ".content"
+        appendSelector: ".main_contents"
       });
     }
   };

@@ -21,7 +21,7 @@ CollaboratorTable = (function(_super) {
     this.viewParams = [
       {
         tplSelector: "#memberTpl",
-        appendSelector: ".content",
+        appendSelector: ".main_contents",
         method: "appendTo",
         data: this.data
       }

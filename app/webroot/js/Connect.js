@@ -57,7 +57,7 @@ Connect = (function() {
       }
       view.update({
         tplSelector: "#ownerTpl",
-        appendSelector: ".content",
+        appendSelector: ".main_content",
         method: "prependTo",
         data: res
       });
@@ -87,18 +87,18 @@ Connect = (function() {
       });
       return view.update({
         tplSelector: "#planTpl",
-        appendSelector: '.content .card-left',
+        appendSelector: '.main_content .card-left',
         method: "appendTo",
         data: res
       });
     } else if (res.Friend) {
-      view["delete"]('.content .owner');
-      view["delete"]('.content .collaboratorPeople');
-      view["delete"]('.content .card');
-      view["delete"]('.content .card-sample');
+      view["delete"]('.main_content .owner');
+      view["delete"]('.main_content .collaboratorPeople');
+      view["delete"]('.main_content .card');
+      view["delete"]('.main_content .card-sample');
       view.update({
         tplSelector: "#selectFriendTpl",
-        appendSelector: ".content"
+        appendSelector: ".main_content"
       });
       friendInfo = res.Friend;
       _ref = res.Friend;
@@ -106,15 +106,15 @@ Connect = (function() {
         friend = _ref[_i];
         view.update({
           tplSelector: "#friendInfoTpl",
-          appendSelector: ".content .select-friend",
+          appendSelector: ".main_content .select-friend",
           data: friend
         });
       }
-      selector = ".content .friend-info";
+      selector = ".main_content .friend-info";
       return $(selector).click(function() {
         var index;
-        index = $(".content .friend-info").index(this);
-        view["delete"]('.content .select-friend');
+        index = $(".main_content .friend-info").index(this);
+        view["delete"]('.main_content .select-friend');
         alert("insert_plan index");
         alert(index);
         if (debug.alertflag) {
@@ -128,7 +128,7 @@ Connect = (function() {
       }
       return view.update({
         tplSelector: "#memberTpl",
-        appendSelector: ".content",
+        appendSelector: ".main_content",
         method: "appendTo",
         data: res
       });
