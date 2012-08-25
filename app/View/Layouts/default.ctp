@@ -36,7 +36,9 @@
     <?= $this->Session->flash(); ?>
     <div id="wrapper">
         <div id="header">
-            <div class="logo"><a href="/"><?= TITLE ?></a></div>
+            <div class="logo">
+                <a href="<?= (!empty($loginUser)) ? '/mypage' : '/'; ?>"><?= TITLE ?></a>
+            </div>
             <? if (!empty($loginUser)) { ?>
             <div class="setting"><a href="/logout">ログアウト</a></div>
             <? } ?>

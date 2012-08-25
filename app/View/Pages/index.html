@@ -8,6 +8,10 @@
     色紙完成イメージ<img src="img/card.jpg" width="300" />
 </div>
 <div class="appeal-btn">
+    <? if (empty($loginUser)) { ?>
     <button><a href="/fblogin">facebookでログイン</a></button>
+    <? } else { ?>
+    <button><a href="/mypage">マイページへ</a></button>
+    <? } ?>
 </div>
 

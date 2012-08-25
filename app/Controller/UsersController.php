@@ -1,19 +1,15 @@
 <?php
 class UsersController extends AppController 
 {
-//    public $helpers  = array('Common', 'DispUser');
+    public $helpers  = array();
     public $uses     = array('User', 'Collaborator', 'Plan');
     var $components  = array('Security');
-
 
     public function beforeFilter()
     {
         parent::beforeFilter();
-
-        $this->Security->requireAuth('frontAddUser');
+//        $this->Security->requireAuth('frontAddUser');
         $this->Security->blackHoleCallback = 'error';
-
-        $this->userLoginCheck('frontAddUser');
     }
 
     /**

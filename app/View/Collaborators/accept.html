@@ -1,6 +1,9 @@
 <div class="flow-title">画像の提供ありがとうございました！</div>
 <div class="flow-discription">
-    あなたのプロフィール画像は正常に
-    <?php echo($name)?>さんに提供されました。</div>
-    <p class="profile-img"><img src="<?php echo($imageUrl)?>" width="100" /></p>
+    あなたのプロフィール画像は<br />
+    <?= h($name) ?>さんに提供されました。</div>
+    <p class="profile-img"><img src="<?= h($imageUrl) ?>" width="100" /></p>
+    <p style="text-align:center;margin-top:30px;">
+        <a href="/mypage">マイページへ戻る</a>
+    </p>
 </div>

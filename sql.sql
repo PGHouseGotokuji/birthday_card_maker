@@ -24,16 +24,20 @@ CREATE TABLE `users` (
 
 CREATE TABLE `plans` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `from_id` int(10) unsigned DEFAULT NULL, -- 発起人情報
-  `to_id` bigint(20) unsigned DEFAULT NULL, -- 参加者情報
+  `from_id` int(10) unsigned DEFAULT NULL,
+  `to_id` bigint(20) unsigned DEFAULT NULL,
   `username` varchar(50) NOT NULL,
   `fb_picture` varchar(400) DEFAULT NULL,
+  `plan_photo_id` int(10) unsigned DEFAULT NULL,
   `memo` varchar(200) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
+  KEY `plans_ibfk_1` (`from_id`),
+  KEY `plans_ibfk_2` (`to_id`),
   CONSTRAINT `plans_ibfk_1` FOREIGN KEY (`from_id`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8; 
+
 
 
 
@@ -42,6 +46,7 @@ CREATE TABLE `collaborators` (
   `plan_id` int(10) unsigned DEFAULT NULL, -- プラン情報
   `uid` int(10) unsigned DEFAULT NULL, -- 協力してくれるユーザー情報
   `comment` text DEFAULT NULL,
+  `collabo_photo_id` int(10) unsigned DEFAULT NULL,
   `memo` varchar(200) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,

@@ -1,0 +1,10 @@
+<h2>画像保存テスト</h2>
+<? if (!empty($plan['Plan']['photo_flg'])) { ?>
+<img src="/img/plan_photos/<?= $plan['Plan']['id'] ?>.jpg" width="300" height="225" />
+<? } ?>
+
+<?= $this->Form->create('Plan', array('url' => '/plan/' . $plan['Plan']['id'] . '/photo', 'type' => 'file'));  ?>
+<div style="margin:15px 0;">
+    <?= $this->Form->input('plan_photo', array('type' => 'file', 'label' => false)); ?>
+</div>
+<?= $this->Form->end('画像を保存する'); ?>

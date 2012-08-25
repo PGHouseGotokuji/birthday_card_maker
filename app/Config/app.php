@@ -5,3 +5,7 @@ define('TITLE', 'Birthday Card Maker');     // タイトル
 define('SUB_TITLE', '友人の誕生日にオリジナルの色紙を贈ろう！'); // サブタイトル
 define('PRODUCT_FROM', 'PGHouse-Gotokuji'); // 製作元
 define('AJAX_SELECT_LIMIT', 10);            // ajax-select上限
+
+// 画像系
+define('MAX_FILE_UPLOAD_SIZE', '5000000'); // 画像アップロード上限サイズ(5MB)
+define('PLAN_PHOTO_DIR', '/usr/local/data/birthday_card_maker/plan_photos'); // 画像保存先

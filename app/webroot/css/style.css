@@ -248,14 +248,18 @@ a:hover {
         float      : left;
 }
 .flash-message-text {
-    line-height : 29px;
+    height      : 20px;
+    margin-top  : 5px;
     font-weight : bold;
     color       : #FFFF00;
 }
 .success {
     color : #009900;
+    font-size : 14px;
 }
 .error {
-    color : #FFFF00;
+    color : #ef005b;
+    font-size : 9px;
+    padding-top : 7px;
 }
 

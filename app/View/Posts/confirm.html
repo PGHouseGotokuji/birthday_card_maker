@@ -1,9 +1,12 @@
-<img src="/plan/<?php echo($planId)?>/card"/>
-
-<div>
-    上記の画像を送信します。良いですか？
+<div style="margin:auto;">
+    <img src="/plan/<?= $planId ?>/card" style="margin-left:70px;" />
+    <p style="font-size:14px; text-align:center;margin-top:20px;">
+        上記の画像で送信します。<br />
+        よろしければ<br />
+       "相手のFacebookフィードへ送信"を<br />
+        押してください。
+    </p>
+    <div class="appeal-btn">
+        <a href="/plan/<?= h($planId) ?>/post/post_friend_fb_timeline">相手のFacebookフィードへ送信</a>
+    </div>
 </div>
-<div class="appeal-btn">
-    <a href="/plan/<?= h($planId) ?>/post/post_friend_fb_timeline">相手のFacebookフィードへ送信</a>
-</div>
-

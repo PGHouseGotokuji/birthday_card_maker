@@ -31,4 +31,38 @@ App::uses('Model', 'Model');
  * @package       app.Model
  */
 class AppModel extends Model {
+
+    /**
+     * トランザクション（開始）
+     *
+     * @access public
+     * @return object
+     */
+    public function begin()
+    {
+        return $this->getDataSource()->begin($this);
+    }
+
+    /**
+     * トランザクション（コミット）
+     *
+     * @access public
+     * @return object
+     */
+    public function commit()
+    {
+        return $this->getDataSource()->commit($this);
+    }
+
+    /**
+     * トランザクション（ロールバック）
+     *
+     * @access public
+     * @return object
+     */
+    public function rollback()
+    {
+        return $this->getDataSource()->rollback($this);
+    }
+
 }

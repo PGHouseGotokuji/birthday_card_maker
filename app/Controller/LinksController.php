@@ -63,6 +63,8 @@ class LinksController extends AppController {
             $user = $this->User->find('first', array(
                 'conditions' => array('fb_id' => $me->id)
             ));
+
+            // 未登録ならここで登録
             if (empty($user)) {
                 $data['User']['username']        = $me->username;
                 $data['User']['register_status'] = 1;
@@ -72,30 +74,22 @@ class LinksController extends AppController {
                     $data['User']['gender']      = 2;
                 }
                 $data['User']['fb_id']           = $me->id;
-                $data['User']['fb_picture']      = $me->picture;
+                $data['User']['fb_picture']      = $me->picture->data->url;
 
                 $this->User->create();
                 if (!$this->User->save($data)) {
-
-// TODO バリデーションチェックでひっかかっているらしいので確認すること！
-// TODO あと、flashメッセージが表示されない…
-pr($this->User->validationErrors);
-pr('hoeghoewhpgejo');
-exit;
                     $this->Session->setFlash('処理中に問題が発生しました。', 'flash' . DS . 'error');
                     $this->redirect($referer);
                 }
                 $user = $this->User->findByFbId($data['User']['fb_id']);
             }
 
+            // セッションに突っ込む
             $loginUser['User']['id']              = $user['User']['id'];
             $loginUser['User']['username']        = $user['User']['username'];
-//            $loginUser['User']['register_status'] = $user['User']['register_status'];
-//            $loginUser['User']['gender']          = $user['User']['gender'];
             $loginUser['User']['fb_picture']      = $user['User']['fb_picture'];
             $loginUser['User']['access_token']    = $access_token;
             $this->Session->write('auth.user', $loginUser);
-
 /*
             if (empty($user['User']['password'])) {
                 $this->redirect(array('controller' => 'users', 'action' => 'frontAddUser'));
