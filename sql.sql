@@ -28,7 +28,7 @@ CREATE TABLE `plans` (
   `to_id` bigint(20) unsigned DEFAULT NULL,
   `username` varchar(50) NOT NULL,
   `fb_picture` varchar(400) DEFAULT NULL,
-  `plan_photo_id` int(10) unsigned DEFAULT NULL,
+  `photo_flg` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `memo` varchar(200) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE `collaborators` (
   `plan_id` int(10) unsigned DEFAULT NULL, -- プラン情報
   `uid` int(10) unsigned DEFAULT NULL, -- 協力してくれるユーザー情報
   `comment` text DEFAULT NULL,
-  `collabo_photo_id` int(10) unsigned DEFAULT NULL,
+  `photo_flg` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `memo` varchar(200) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
