@@ -59,9 +59,7 @@ class CollaboratorsController extends AppController
             $this->redirect('/');
             exit;
         }
-
         $plan = $this->PlanSupport->findWithFromUser($this->Plan, $planId);
-
         if(empty($plan)){
             die('id not found');
             return;
@@ -70,7 +68,7 @@ class CollaboratorsController extends AppController
         $this->set('from_name', $plan['User']['username']);
 
         $access_token = $this->loginUser['User']['access_token'];
-        $target = $this->PlanSupport->getToUser($access_token, $plan);
+        $target       = $this->PlanSupport->getToUser($access_token, $plan);
 
         $this->set('to_name', $target->username);
         $this->set('imageUrl', $target->picture->data->url);
@@ -111,5 +109,15 @@ class CollaboratorsController extends AppController
         $target       = $this->PlanSupport->getToUser($access_token, $plan);
         $this->set('name', $target->username);
         $this->set('imageUrl', $target->picture->data->url);
+    }
+
+    /**
+     * 画像保存
+     *
+     * @access public
+     */
+    public function uploadPhoto()
+    {
+        return new CakeResponse(array('body' => json_encode(true)));
     }
 }

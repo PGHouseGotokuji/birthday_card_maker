@@ -74,6 +74,17 @@ class PlansController extends AppController
      */
     public function uploadPhoto() 
     {
+        return new CakeResponse(array('body' => json_encode(true)));
+    }
+
+    /**
+     * 画像保存
+     *
+     * @access public
+     */
+/*
+    public function uploadPhoto() 
+    {
         $planId = $this->params['planId'];
         $plan   = $this->Plan->findById($planId);
         if (empty($plan)) {
@@ -99,6 +110,7 @@ class PlansController extends AppController
             try {            
                 $this->Plan->begin();  /*** トランザクション開始 ***/
                 // Plan
+/*
                 $this->Plan->id = $planId;
                 if (!$this->Plan->saveField('photo_flg', 1, false)) {
                     throw new Exception();
@@ -108,6 +120,7 @@ class PlansController extends AppController
                     throw new Exception();
                 }
                 $this->Plan->commit(); /*** トランザクション終了 ***/
+/*
             } catch (Exception $e) {
                 $this->Plan->rollback();
                 $this->Session->setFlash('画像保存時に問題が発生しました。再度お試しください。', 'flash' . DS . 'error');
@@ -120,4 +133,5 @@ class PlansController extends AppController
 
         $this->set(compact('plan'));
     }
+*/
 }

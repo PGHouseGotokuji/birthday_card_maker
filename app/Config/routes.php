@@ -70,8 +70,11 @@ Router::connect('/plan/:planId/postphoto',                              array('c
 Router::connect('/plan/:planId/collaborator/:collaboratorId/postphoto', array('controller' => 'Collaborators', 'action' => 'postPhoto'), array(array('planId' => '[0-9]+', 'collaboratorId' => '[0-9]+')));
 Router::connect('/collaborator/:collaboratorId/photo',                  array('controller' => 'Collaborators', 'action' => 'getPhotoUrl'), array(array('collaboratorId' => '[0-9]+')));
 
-Router::connect('/plan/:planId/photo', array('controller' => 'Plans', 'action' => 'uploadPhoto'), array(array('planId' => '[0-9]+')));
+//Router::connect('/plan/:planId/photo', array('controller' => 'Plans', 'action' => 'uploadPhoto'), array(array('planId' => '[0-9]+')));
 
+// 画像アップロード
+Router::connect('/plan/:planId/photo', array('controller' => 'Plans', 'action' => 'uploadPhoto'), array(array('planId' => '[0-9]+')));
+Router::connect('/plan/:planId/collaborator/:collaboratorId/photo', array('controller' => 'Collaborators', 'action' => 'uploadPhoto'), array(array('planId' => '[0-9]+', 'collaboratorId' => '[0-9]+')));
 
 
 /**
