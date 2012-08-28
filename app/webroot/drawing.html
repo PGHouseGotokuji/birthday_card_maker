@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="js/vendor/jquery.js"></script>
+    <script type="text/javascript" src="js/lib/_canvas.js"></script>
+    <script type="text/javascript" src="js/lib/drawing.js"></script>
+    <script type="text/javascript" src="js/birthday_drawing.js"></script>
+    <title></title>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <BUTTON onclick="drawing.upload()">save</BUTTON>
+
+    <script>
+        $(function(){
+            drawing = new BirthDrawing("canvas");
+        });
+    </script>
+</body>
+</html>
