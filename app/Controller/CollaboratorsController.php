@@ -119,6 +119,9 @@ class CollaboratorsController extends AppController
      */
     public function uploadPhoto()
     {
-        return new CakeResponse(array('body' => json_encode(true)));
+$this->log('hogehoge', 'warn');
+$this->log($this->request->data, 'warn');
+        $response = array('result', 'OK');
+        return new CakeResponse(array('body' => json_encode($response)));
     }
 }
