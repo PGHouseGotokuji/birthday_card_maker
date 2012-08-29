@@ -123,8 +123,8 @@ Drawing = (function() {
   Drawing.prototype.upload = function() {
     var saveData, url;
     url = this.makeUrl();
-    console.log(url);
     saveData = this.getImageData();
+    saveData = saveData.replace('data:image/png;base64,', '');
     return $.ajax({
       url: url,
       type: "POST",
