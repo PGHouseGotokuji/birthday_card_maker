@@ -75,7 +75,6 @@ class Drawing
                 "img_file": saveData
             }
             success: (res) ->
-                alert "save done"
                 location.href = "/mypage"
         }
 
