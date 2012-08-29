@@ -133,7 +133,7 @@ Drawing = (function() {
       },
       success: function(res) {
         alert("save done");
-        return location.href = "/";
+        return location.href = "/mypage";
       }
     });
   };

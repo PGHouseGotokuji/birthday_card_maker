@@ -76,7 +76,7 @@ class Drawing
             }
             success: (res) ->
                 alert "save done"
-                location.href = "/"
+                location.href = "/mypage"
         }
 
     makeUrl: ->

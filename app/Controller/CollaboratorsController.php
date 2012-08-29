@@ -120,16 +120,17 @@ class CollaboratorsController extends AppController
     public function uploadPhoto()
     {
 $this->log('hogehoge', 'warn'); 
-$this->log($this->request->data, 'warn');
-/*
+//$this->log($this->request->data, 'warn');
+
         $planId = $this->params['planId'];
         $plan   = $this->Plan->findById($planId);
         if (empty($plan)) {
             $this->log('存在しないプランIDを叩かれました。planId: ' . $planId . ', ' . $this->name . ', ' . $this->action . __LINE__, 'warn');
             $this->Session->setFlash('誕生日プランを作成してください。', 'flash' . DS . 'error');
-            return $this->redirect('/mypage');
+            return new CakeResponse(array('body' => json_encode(false)));
         }
 
+/*
         if ($this->request->is('post')) {
             $data = $this->request->data;
 
