@@ -67,7 +67,7 @@ class Drawing
         url = @makeUrl()
         saveData = @getImageData()
         saveData = saveData.replace('data:image/png;base64,', '')
-
+        
         $.ajax {
             url: url
             type: "POST"

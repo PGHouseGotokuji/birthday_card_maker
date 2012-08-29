@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <script data-main="js/main" type="text/javascript" src="js/require-jquery.js"></script>
+    <script type="text/javascript" src="js/drawing/lib/util.js"></script>
+    <script type="text/javascript" src="js/drawing/lib/_canvas.js"></script>
+    <script type="text/javascript" src="js/drawing/lib/drawing.js"></script>
+    <script type="text/javascript" src="js/drawing/lib/image_component.js"></script>
+    <script type="text/javascript" src="js/drawing/lib/canvas_images.js"></script>
+    <script type="text/javascript" src="js/drawing/birthday_arrange.js"></script>
+    
+
     <!-- <script data-main='js/main.js' src="js/require-jquery.js"></script> -->
     <!-- template --> 
 <div class="content">
@@ -41,6 +49,14 @@
     </div>
 </script>
 
+<script type="text/template" id="canvasTpl">
+  <canvas id="canvas"></canvas>
+  <BUTTON onclick="drawing.upload()">save</BUTTON>
+  
+  <div id="imageList"></div>
+
+</script>
+
 <!--<div>
           <li class="member-othoer"><a href="#">他6人</a></li>
           <li>が協力しました。</li>
@@ -52,6 +68,11 @@
       <li class="target-img"><img src="<%-plan.Plan.fb_picture%>" width="50" height="50" /></li>
       <li class="target-name">贈る相手：<br />
         <a href="#"><%-plan.Plan.username%></a>さん</li>
+
+        <div class='create_image' style="margin-bottom:20px;">
+          <button>カードを作る</button>
+        </div>
+
         <div class="send-btn">
             <button>カードを送る</button>
         </div>

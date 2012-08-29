@@ -12,11 +12,12 @@ BirthdayArrange = (function(_super) {
   }
 
   BirthdayArrange.prototype.upload = function() {
-    var data, saveData, type, url;
+    var saveData, url;
     url = this.makeUrl();
     console.log(url);
     saveData = this.getImageData();
-    $.ajax({
+    console.log(saveData);
+    return $.ajax({
       url: url,
       type: "POST",
       data: {
@@ -24,16 +25,21 @@ BirthdayArrange = (function(_super) {
       },
       success: function(res) {
         alert("save done");
-        return location.href = "/";
+        return location.href = "/mypage";
       }
     });
-    type = "image/png";
-    return data = this.canvas.toDataURL(type);
   };
 
   BirthdayArrange.prototype.setImages = function() {
-    var imageList;
-    return imageList = this.getImages();
+    var element, imageList, writer, _i, _len;
+    imageList = this.getImages();
+    writer = "";
+    for (_i = 0, _len = imageList.length; _i < _len; _i++) {
+      element = imageList[_i];
+      writer += "<a onclick='drawing.inImage(\"" + element + "\")' href='#'>画像</a>";
+    }
+    console.log(writer);
+    return $("#imageList").html(writer);
   };
 
   BirthdayArrange.prototype.getImageData = function() {
@@ -41,18 +47,12 @@ BirthdayArrange = (function(_super) {
     type = "image/png";
     data = this.canvas.toDataURL(type);
     data = data.replace('data:image/png;base64,', '');
-    console.log(data);
     return data;
   };
 
   BirthdayArrange.prototype.getImages = function() {
     var collaboratorId, collaboratorList, planId, url, _i, _len,
       _this = this;
-    return [
-      {
-        "http://www.google.co.jp/imgres?um=1&hl=ja&sa=N&biw=1440&bih=779&tbm=isch&tbnid=SZy4QAskl7tsQM:&imgrefurl=http://www.fujimura-auto.co.jp/topics/2006.03.24mls.html&imgurl=http://www.fujimura-auto.co.jp/topics/2006.03.26mls/hamao-gga.jpg&w=3072&h=2048&ei=Wh8-UP_RHcyYmQXfqIHYAQ&zoom=1&iact=rc&dur=109&sig=101403282153143219819&page=1&tbnh=127&tbnw=153&start=0&ndsp=29&ved=1t:429,r:2,s:0,i:77&tx=36&ty=59": "http://www.google.co.jp/imgres?um=1&hl=ja&sa=N&biw=1440&bih=779&tbm=isch&tbnid=SZy4QAskl7tsQM:&imgrefurl=http://www.fujimura-auto.co.jp/topics/2006.03.24mls.html&imgurl=http://www.fujimura-auto.co.jp/topics/2006.03.26mls/hamao-gga.jpg&w=3072&h=2048&ei=Wh8-UP_RHcyYmQXfqIHYAQ&zoom=1&iact=rc&dur=109&sig=101403282153143219819&page=1&tbnh=127&tbnw=153&start=0&ndsp=29&ved=1t:429,r:2,s:0,i:77&tx=36&ty=59"
-      }
-    ];
     planId = "";
     $.ajax({
       url: "/get_plan",
@@ -82,12 +82,19 @@ BirthdayArrange = (function(_super) {
     });
     for (_i = 0, _len = collaboratorList.length; _i < _len; _i++) {
       collaboratorId = collaboratorList[_i];
+      if (collaboratorId === "null") {
+        continue;
+      }
       imageList.push(fetchImage(collaboratorId));
     }
     return imageList;
   };
 
-  BirthdayArrange.prototype.fetchImage = function(id) {};
+  BirthdayArrange.prototype.fetchImage = function(id) {
+    var url;
+    url = "/img/collabo-photo/" + id + ".png";
+    return url;
+  };
 
   BirthdayArrange.prototype.makeUrl = function() {
     var planId,
