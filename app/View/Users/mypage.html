@@ -1,4 +1,11 @@
 <script data-main="js/Main" type="text/javascript" src="js/require-jquery.js"></script>
+<script type="text/javascript" src="/js/drawing/lib/util.js"></script>
+<script type="text/javascript" src="/js/drawing/lib/_canvas.js"></script>
+<script type="text/javascript" src="/js/drawing/lib/drawing.js"></script>
+<script type="text/javascript" src="/js/drawing/lib/image_component.js"></script>
+<script type="text/javascript" src="/js/drawing/lib/canvas_images.js"></script>
+<script type="text/javascript" src="/js/drawing/birthday_arrange.js"></script>
+
 
 <script type="text/template" id="ownerTpl">
 <div class="owner clearfix">
@@ -53,6 +60,10 @@
       </li>
         <div>
             <a href="/plan/<%-plan.Plan.id%>/post/confirm_fb_timeline">皆に寄せ書きしてもらう</a>
+        </div>
+
+        <div class='create_image' style="margin-bottom:20px;">
+          <button>カードを作る</button>
         </div>
 
         <div class="send-btn" style="margin-bottom:20px;">

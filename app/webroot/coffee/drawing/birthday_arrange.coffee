@@ -3,6 +3,7 @@ class BirthdayArrange extends CanvasImages
         url = @makeUrl()
         console.log url
         saveData = @getImageData()
+        console.log saveData
 
         $.ajax {
             url: url
@@ -12,15 +13,16 @@ class BirthdayArrange extends CanvasImages
             }
             success: (res) ->
                 alert "save done"
-                location.href = "/"
+                location.href = "/mypage"
         }
-
-        type = "image/png"
-        data = @canvas.toDataURL(type)
 
     setImages: ->
         imageList = @getImages()
-        
+        writer = ""
+        for element in imageList
+            writer += "<a onclick='drawing.inImage(\"#{element}\")' href='#'>画像</a>"
+        console.log writer
+        $("#imageList").html(writer)
 
     getImageData: ->
         type = "image/png"
@@ -30,8 +32,8 @@ class BirthdayArrange extends CanvasImages
         return data
 
     getImages: ->
-        return [{"http://www.google.co.jp/imgres?um=1&hl=ja&sa=N&biw=1440&bih=779&tbm=isch&tbnid=SZy4QAskl7tsQM:&imgrefurl=http://www.fujimura-auto.co.jp/topics/2006.03.24mls.html&imgurl=http://www.fujimura-auto.co.jp/topics/2006.03.26mls/hamao-gga.jpg&w=3072&h=2048&ei=Wh8-UP_RHcyYmQXfqIHYAQ&zoom=1&iact=rc&dur=109&sig=101403282153143219819&page=1&tbnh=127&tbnw=153&start=0&ndsp=29&ved=1t:429,r:2,s:0,i:77&tx=36&ty=59"}]
         planId = ""
+        
         $.ajax {
             url: "/get_plan"
             type: "GET"
@@ -53,11 +55,15 @@ class BirthdayArrange extends CanvasImages
                     collaboratorList.push element.Collaborator.id
         }
         for collaboratorId in collaboratorList
+            if collaboratorId is "null"
+                continue
             imageList.push(fetchImage collaboratorId)
 
         return imageList
 
     fetchImage: (id) ->
+        url = "/img/collabo-photo/#{id}.png"
+        return url
 
 
     makeUrl: ->
