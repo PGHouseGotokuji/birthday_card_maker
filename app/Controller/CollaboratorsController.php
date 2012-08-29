@@ -119,9 +119,58 @@ class CollaboratorsController extends AppController
      */
     public function uploadPhoto()
     {
-$this->log('hogehoge', 'warn');
+$this->log('hogehoge', 'warn'); 
 $this->log($this->request->data, 'warn');
-        $response = array('result', 'OK');
-        return new CakeResponse(array('body' => json_encode($response)));
+/*
+        $planId = $this->params['planId'];
+        $plan   = $this->Plan->findById($planId);
+        if (empty($plan)) {
+            $this->log('存在しないプランIDを叩かれました。planId: ' . $planId . ', ' . $this->name . ', ' . $this->action . __LINE__, 'warn');
+            $this->Session->setFlash('誕生日プランを作成してください。', 'flash' . DS . 'error');
+            return $this->redirect('/mypage');
+        }
+
+        if ($this->request->is('post')) {
+            $data = $this->request->data;
+
+            if ($data['Plan']['plan_photo']['error'] == '1') {
+                $this->Session->setFlash('このファイルはアップロードできません。', 'flash' . DS . 'error');
+                $this->redirect($this->referer());
+            } else if ($data['Plan']['plan_photo']['type'] != 'image/jpeg') {
+                $this->Session->setFlash('jpgファイル以外はアップロードできません。', 'flash' . DS . 'error');
+                $this->redirect($this->referer());
+            } else if ($data['Plan']['plan_photo']['size'] > MAX_FILE_UPLOAD_SIZE) {
+                $this->Session->setFlash('ファイルサイズが5MBを超えています。', 'flash' . DS . 'error');
+                $this->redirect($this->referer());
+            }
+
+            try {            
+                $this->Plan->begin();  /*** トランザクション開始 ***/
+                // Plan
+/*
+                $this->Plan->id = $planId;
+                if (!$this->Plan->saveField('photo_flg', 1, false)) {
+                    throw new Exception();
+                }
+                // make photo_data
+                if (!$this->Plan->savePlanPhoto($planId, $data)) {   
+                    throw new Exception();
+                }
+                $this->Plan->commit(); /*** トランザクション終了 ***/
+/*
+            } catch (Exception $e) {
+                $this->Plan->rollback();
+                $this->Session->setFlash('画像保存時に問題が発生しました。再度お試しください。', 'flash' . DS . 'error');
+                return $this->redirect($this->referer());
+            }
+
+            $this->Session->setFlash('プラン画像を保存しました。', 'flash' . DS . 'success');
+            return $this->redirect('/mypage');
+        }
+
+        $this->set(compact('plan'));
+*/
+
+        return new CakeResponse(array('body' => json_encode(true)));
     }
 }
