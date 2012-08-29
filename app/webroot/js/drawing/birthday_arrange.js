@@ -41,7 +41,6 @@ BirthdayArrange = (function(_super) {
     type = "image/png";
     data = this.canvas.toDataURL(type);
     data = data.replace('data:image/png;base64,', '');
-    console.log(data);
     return data;
   };
 

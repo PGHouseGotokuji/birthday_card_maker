@@ -67,7 +67,7 @@ class Drawing
         url = @makeUrl()
         saveData = @getImageData()
         saveData = saveData.replace('data:image/png;base64,', '')
-
+        
         $.ajax {
             url: url
             type: "POST"
@@ -76,7 +76,7 @@ class Drawing
             }
             success: (res) ->
                 alert "save done"
-                location.href = "/"
+                location.href = "/mypage"
         }
 
     makeUrl: ->

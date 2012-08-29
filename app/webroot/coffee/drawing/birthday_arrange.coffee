@@ -20,14 +20,13 @@ class BirthdayArrange extends CanvasImages
 
     setImages: ->
         imageList = @getImages()
-
+        
 
     getImageData: ->
         type = "image/png"
         # img.src = @canvas.toDataURL(type)
         data = @canvas.toDataURL(type)
         data = data.replace('data:image/png;base64,', '')
-        console.log data
         return data
 
     getImages: ->
