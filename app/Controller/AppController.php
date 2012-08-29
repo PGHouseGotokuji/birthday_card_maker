@@ -2,7 +2,7 @@
 Class AppController extends Controller
 {
     var $ext = '.html';
-    public $noLoginUrls = array('/', '/fblogin');
+//    public $noLoginUrls = array('/', '/fblogin', '/plan/10/collaborator');
 
     public function beforeFilter()
     {
@@ -12,11 +12,13 @@ Class AppController extends Controller
         if ($this->Session->check('auth.user')) {
             $this->loginUser = $loginUser = $this->Session->read('auth.user');
             $this->set(compact('loginUser'));
+/*
         } else { 
             if (array_search($this->request->here, $this->noLoginUrls) === false) { 
                 $this->Session->setFlash('ログインし直してください。', 'flash' . DS . 'success');
                 $this->redirect('/');
             }
+*/
         }
     }
 
@@ -27,8 +29,8 @@ Class AppController extends Controller
      */
     public function error()
     {
-//       $this->set('title_for_layout', 'エラー ' . TITLE);
-//       $this->set('title_for_page', 'エラー ' . TITLE);
+       $this->set('title_for_layout', 'エラー ' . TITLE);
+       $this->set('title_for_page', 'エラー ' . TITLE);
        $this->render('/Errors/error');
     }
 }

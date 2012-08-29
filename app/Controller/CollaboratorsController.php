@@ -2,12 +2,13 @@
 class CollaboratorsController extends AppController 
 {
     public $uses     = array('Plan', 'Collaborator');
-    var $components  = array('Security', 'PlanSupport');
+    var $components  = array('PlanSupport');
 
     public function beforeFilter()
     {
         parent::beforeFilter();
-        $this->Security->blackHoleCallback = 'error';
+
+//        $this->Security->blackHoleCallback = 'error';
     }
 
     /**
@@ -88,15 +89,24 @@ class CollaboratorsController extends AppController
             return $this->redirect('/');
         }
 
-        $data = array();
-        $data['Collaborator'] = array();
-        $data['Collaborator']['plan_id'] = $planId;
-        $data['Collaborator']['uid'] = $this->loginUser['User']['id'];
-
-        $this->Collaborator->create();
-        if (!$this->Collaborator->save($data)) {
-            $this->Session->setFlash('処理中に問題が発生しました。', 'flash' . DS . 'error');
-            return $this->redirect('/');
+        $collaborator = $this->Collaborator->find('first', array(
+            'conditions' => array(
+                'uid' => $this->loginUser['User']['id'],
+                'plan_id' => $planId
+            )
+        ));
+        // 未登録の場合のみ、登録
+        if (empty($collaborator)) {
+            $data = array();
+            $data['Collaborator'] = array();
+            $data['Collaborator']['plan_id'] = $planId;
+            $data['Collaborator']['uid'] = $this->loginUser['User']['id'];
+    
+            $this->Collaborator->create();
+            if (!$this->Collaborator->save($data)) {
+                $this->Session->setFlash('処理中に問題が発生しました。', 'flash' . DS . 'error');
+                return $this->redirect('/');
+            }
         }
 
         $plan = $this->PlanSupport->findWithFromUser($this->Plan, $planId);
@@ -119,56 +129,44 @@ class CollaboratorsController extends AppController
      */
     public function uploadPhoto()
     {
-$this->log('hogehoge', 'warn'); 
-//$this->log($this->request->data, 'warn');
-
         $planId = $this->params['planId'];
-        $plan   = $this->Plan->findById($planId);
-        if (empty($plan)) {
-            $this->log('存在しないプランIDを叩かれました。planId: ' . $planId . ', ' . $this->name . ', ' . $this->action . __LINE__, 'warn');
+        $uid    = $this->params['collaboratorId'];
+        $collaborator   = $this->Collaborator->find('first', array(
+            'conditions' => array(
+                'plan_id' => $planId,
+                'uid'     => $uid
+            )
+        ));
+        if (empty($collaborator)) {
+            $this->log('存在しないプランID, もしくはコラボレータIDを叩かれました。planId: ' . $planId . ', collaboratorId: ' . $collaboratorId . ', ' . $this->name . ', ' . $this->action . ', ' . __LINE__, 'warn');
             $this->Session->setFlash('誕生日プランを作成してください。', 'flash' . DS . 'error');
             return new CakeResponse(array('body' => json_encode(false)));
         }
 
-$this->log($plan, 'warn');
         if ($this->request->is('post')) {
             $data = $this->request->data;
-$this->log('hoge!', 'warn');
-/*
-            if ($data['Plan']['plan_photo']['error'] == '1') {
-                $this->Session->setFlash('このファイルはアップロードできません。', 'flash' . DS . 'error');
-                $this->redirect($this->referer());
-            } else if ($data['Plan']['plan_photo']['type'] != 'image/jpeg') {
-                $this->Session->setFlash('jpgファイル以外はアップロードできません。', 'flash' . DS . 'error');
-                $this->redirect($this->referer());
-            } else if ($data['Plan']['plan_photo']['size'] > MAX_FILE_UPLOAD_SIZE) {
-                $this->Session->setFlash('ファイルサイズが5MBを超えています。', 'flash' . DS . 'error');
-                $this->redirect($this->referer());
-            }
-
             try {            
-                $this->Plan->begin();  /*** トランザクション開始 ***/
-                // Plan
-/*
-                $this->Plan->id = $planId;
-                if (!$this->Plan->saveField('photo_flg', 1, false)) {
+                $this->Collaborator->begin();  /*** トランザクション開始 ***/
+                // Collaborator
+                $this->Collaborator->id = $collaborator['Collaborator']['id'];
+                $photoId = $collaborator['Collaborator']['plan_id'] . '-' . $collaborator['Collaborator']['id'];
+                if (!$this->Collaborator->saveField('photo_id', $photoId, false)) {
                     throw new Exception();
                 }
-                // make photo_data
-                if (!$this->Plan->savePlanPhoto($planId, $data)) {   
+                // put photo_data
+                if (!$this->Collaborator->saveCollaboPhoto($photoId, $data['img_file'])) {   
                     throw new Exception();
                 }
-                $this->Plan->commit(); /*** トランザクション終了 ***/
-/*
+                $this->Collaborator->commit(); /*** トランザクション終了 ***/
             } catch (Exception $e) {
-                $this->Plan->rollback();
+                $this->Collaborator->rollback();
                 $this->Session->setFlash('画像保存時に問題が発生しました。再度お試しください。', 'flash' . DS . 'error');
-                return $this->redirect($this->referer());
+                return new CakeResponse(array('body' => json_encode(false)));
             }
-*/
             $this->Session->setFlash('プラン画像を保存しました。', 'flash' . DS . 'success');
+            return new CakeResponse(array('body' => json_encode(true)));
         }
 
-        return new CakeResponse(array('body' => json_encode(true)));
+        return new CakeResponse(array('body' => json_encode(false)));
     }
 }
