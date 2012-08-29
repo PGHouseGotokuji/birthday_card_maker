@@ -65,6 +65,7 @@ class CollaboratorsController extends AppController
             return;
         }
 
+        $this->set(compact('planId'));
         $this->set('from_name', $plan['User']['username']);
 
         $access_token = $this->loginUser['User']['access_token'];

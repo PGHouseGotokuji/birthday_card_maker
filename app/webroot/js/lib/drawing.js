@@ -124,10 +124,10 @@ Drawing = (function() {
     var saveData, url;
     url = this.makeUrl();
     console.log(url);
-    saveData = this.canvas.getImageData();
+    saveData = this.getImageData();
     return $.ajax({
       url: url,
-      method: "POST",
+      type: "POST",
       data: {
         "img_file": saveData
       },
