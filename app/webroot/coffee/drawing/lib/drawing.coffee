@@ -65,7 +65,6 @@ class Drawing
 
     upload: ->
         url = @makeUrl()
-        console.log url
         saveData = @getImageData()
         saveData = saveData.replace('data:image/png;base64,', '')
 
