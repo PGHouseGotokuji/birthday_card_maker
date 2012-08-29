@@ -130,10 +130,11 @@ $this->log('hogehoge', 'warn');
             return new CakeResponse(array('body' => json_encode(false)));
         }
 
-/*
+$this->log($plan, 'warn');
         if ($this->request->is('post')) {
             $data = $this->request->data;
-
+$this->log('hoge!', 'warn');
+/*
             if ($data['Plan']['plan_photo']['error'] == '1') {
                 $this->Session->setFlash('このファイルはアップロードできません。', 'flash' . DS . 'error');
                 $this->redirect($this->referer());
@@ -164,13 +165,9 @@ $this->log('hogehoge', 'warn');
                 $this->Session->setFlash('画像保存時に問題が発生しました。再度お試しください。', 'flash' . DS . 'error');
                 return $this->redirect($this->referer());
             }
-
-            $this->Session->setFlash('プラン画像を保存しました。', 'flash' . DS . 'success');
-            return $this->redirect('/mypage');
-        }
-
-        $this->set(compact('plan'));
 */
+            $this->Session->setFlash('プラン画像を保存しました。', 'flash' . DS . 'success');
+        }
 
         return new CakeResponse(array('body' => json_encode(true)));
     }
