@@ -67,7 +67,7 @@ BirthdayArrange = (function(_super) {
   };
 
   BirthdayArrange.prototype.getImages = function() {
-    var collaboratorId, collaboratorList, planId, url, _i, _len,
+    var collaboratorId, collaboratorList, collaboratorsProfileImages, imageList, planId, url, _i, _len,
       _this = this;
     planId = "";
     $.ajax({
@@ -96,6 +96,16 @@ BirthdayArrange = (function(_super) {
         return _results;
       }
     });
+    url = "/get_friends";
+    collaboratorsProfileImages = [];
+    $.ajax({
+      url: url,
+      type: "GET",
+      async: false,
+      dataType: "json",
+      success: function(res) {}
+    });
+    imageList = [];
     for (_i = 0, _len = collaboratorList.length; _i < _len; _i++) {
       collaboratorId = collaboratorList[_i];
       if (collaboratorId === "null") {

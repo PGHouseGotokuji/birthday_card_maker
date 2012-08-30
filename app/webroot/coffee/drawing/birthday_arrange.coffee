@@ -57,6 +57,8 @@ class BirthdayArrange extends CanvasImages
 
         url = "/get_collaborators/" + planId
         collaboratorList = []
+
+        # get collaborators list
         $.ajax {
             url: url
             type: "GET"
@@ -66,6 +68,21 @@ class BirthdayArrange extends CanvasImages
                 for element in res
                     collaboratorList.push element.Collaborator.id
         }
+
+        url = "/get_friends"
+        collaboratorsProfileImages = []
+        # get collaborators profile image
+        $.ajax {
+            url: url
+            type: "GET"
+            async: false
+            dataType: "json"
+            success: (res) ->
+                
+        }
+
+        imageList = []
+
         for collaboratorId in collaboratorList
             if collaboratorId is "null"
                 continue
@@ -75,6 +92,7 @@ class BirthdayArrange extends CanvasImages
 
     fetchImage: (id) ->
         url = "/img/collabo-photo/#{id}.png"
+
         return url
 
 
