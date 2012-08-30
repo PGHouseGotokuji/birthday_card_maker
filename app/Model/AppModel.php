@@ -65,4 +65,21 @@ class AppModel extends Model {
         return $this->getDataSource()->rollback($this);
     }
 
+    /**
+     * 画像を保存
+     *
+     * @access pubilc
+     * @param  int     $photoId
+     * @param  string  $dirPass
+     * @param  string  $img_file_base64
+     * @return boolean
+     */
+    public function savePhoto($photoId, $dirPass, $img_file_base64)
+    {
+        $binaryData = base64_decode($img_file_base64);
+        if (file_put_contents($dirPass . DS . $photoId . '.png', $binaryData) === false) {
+            return false;
+        }
+        return true;
+    }
 }
