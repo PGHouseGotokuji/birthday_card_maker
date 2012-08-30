@@ -52,9 +52,9 @@ Router::connect('/plan/:planId/post/confirm_friend_fb_timeline', array('controll
 Router::connect('/plan/:planId/post/post_friend_fb_timeline',    array('controller' => 'Posts', 'action' => 'postFriendFbTimeline'));
 
 // 参加者がログインして参加
+Router::connect('/plan/:planId/collaborator',         array('controller' => 'Collaborators', 'action' => 'joinCollaborator'), array(array('planId' => '[0-9]+')));
 Router::connect('/plan/:planId/collaborator/confirm', array('controller' => 'Collaborators', 'action' => 'confirm'), array(array('planId' => '[0-9]+')));
 Router::connect('/plan/:planId/collaborator/accept',  array('controller' => 'Collaborators', 'action' => 'accept'), array(array('planId' => '[0-9]+')));
-Router::connect('/plan/:planId/collaborator',         array('controller' => 'Collaborators', 'action' => 'joinCollaborator'), array(array('planId' => '[0-9]+')));
 
 // 画像を生成
 Router::connect('/plan/:planId/post/confirm', array('controller' => 'Posts', 'action' => 'confirm'));

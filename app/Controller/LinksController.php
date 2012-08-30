@@ -2,7 +2,7 @@
 class LinksController extends AppController {
 
     public $name = 'Links';
-    public $uses = array('User');
+    public $uses = array('User', 'Plan');
 
     public function beforeFilter()
     {
@@ -84,7 +84,7 @@ class LinksController extends AppController {
                 $user = $this->User->findByFbId($data['User']['fb_id']);
             }
 
-            // セッションに突っ込む
+            // ログインユーザー情報をセッションに突っ込む
             $loginUser['User']['id']              = $user['User']['id'];
             $loginUser['User']['username']        = $user['User']['username'];
             $loginUser['User']['fb_picture']      = $user['User']['fb_picture'];
@@ -95,6 +95,15 @@ class LinksController extends AppController {
                 $this->redirect(array('controller' => 'users', 'action' => 'frontAddUser'));
             }
 */
+            //もし誕生日祝いを贈る相手がcollaborator登録しようとしてきたら弾く
+            if (preg_match('/[0-9]+/', $referer, $match)) {
+                $plan = $this->Plan->find('first', array('id' => $match[0]));
+                if ($plan['Plan']['to_id'] == $user['User']['fb_id']) {
+                    $this->Session->setFlash('あなたはこの誕生日企画に参加できません。', 'flash' . DS . 'error');
+                    $this->redirect('/');
+                }
+            }
+
             $this->Session->setFlash('ログインしました！', 'flash' . DS . 'success');
             $this->redirect($referer);
         }

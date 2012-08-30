@@ -53,7 +53,6 @@ class UsersController extends AppController
     {
         $user = $this->loginUser;
         return new CakeResponse(array('body' => json_encode($user)));
-
     }
 
     /**
