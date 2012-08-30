@@ -154,7 +154,7 @@ class CollaboratorsController extends AppController
                     throw new Exception();
                 }
                 // put photo_data
-                if (!$this->Collaborator->saveCollaboPhoto($photoId, $data['img_file'])) {   
+                if (!$this->Collaborator->savePhoto($photoId, COLLABO_PHOTO_DIR, $data['img_file'])) {   
                     throw new Exception();
                 }
                 $this->Collaborator->commit(); /*** トランザクション終了 ***/

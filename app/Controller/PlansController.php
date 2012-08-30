@@ -87,7 +87,7 @@ class PlansController extends AppController
         $planId = $this->params['planId'];
         $plan   = $this->Plan->findById($planId);
         if (empty($plan)) {
-            $this->log('存在しないプランIDを叩かれました。planId: ' . $planId . ', ' . $this->name . ', ' . $this->action . __LINE__, 'warn');
+            $this->log('存在しないプランIDを叩かれました。planId: ' . $planId . ', ' . $this->name . ', ' . $this->action . ', ' . __LINE__, 'warn');
             $this->Session->setFlash('誕生日プランを作成してください。', 'flash' . DS . 'error');
             return new CakeResponse(array('body' => json_encode(false)));
         }
@@ -101,22 +101,20 @@ class PlansController extends AppController
                 if (!$this->Plan->saveField('photo_id', $planId, false)) {
                     throw new Exception();
                 }
-                // make photo_data
-// 増井TODO 以下から
-                if (!$this->Plan->saveCollaboPhoto($planId, $data)) {
+                // put photo_data
+                if (!$this->Plan->savePhoto($planId, PLAN_PHOTO_DIR, $data['img_file'])) {
                     throw new Exception();
                 }
                 $this->Plan->commit(); /*** トランザクション終了 ***/
             } catch (Exception $e) {
                 $this->Plan->rollback();
                 $this->Session->setFlash('画像保存時に問題が発生しました。再度お試しください。', 'flash' . DS . 'error');
-                return $this->redirect($this->referer());
+                return new CakeResponse(array('body' => json_encode(false)));
             }
-
             $this->Session->setFlash('プラン画像を保存しました。', 'flash' . DS . 'success');
-            return $this->redirect('/mypage');
+            return new CakeResponse(array('body' => json_encode(true)));
         }
 
-        $this->set(compact('plan'));
+        return new CakeResponse(array('body' => json_encode(false)));
     }
 }
