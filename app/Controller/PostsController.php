@@ -58,7 +58,7 @@ class PostsController extends AppController
     }
 
     /**
-     * 自分のタイムラインに投稿して友人に呼びかける
+     * 自分のタイムラインに投稿して友人に呼びかける画面
      *
      * @access public
      */
@@ -76,20 +76,30 @@ class PostsController extends AppController
     }
 
     /**
-     * 自分のタイムラインに投稿
+     * 自分のタイムラインに投稿する処理
      *
      * @access public
      */
     public function postFbTimeline() 
     {
-        $process = function($poster, $planInfo, $target){
-//            print_r($planInfo);
-//            exit;
+        if (empty($this->loginUser)) {
+            return $this->redirect('/');
+        }
+        $user = $this->User->findById($this->loginUser['User']['id']);
+        if (empty($user)) {
+            return $this->redirect('/');
+        }
+        $planId = $this->params['planId'];
+        $plan = $this->Plan->findById($planId);
+        if (empty($plan)) {
+            $this->Session->setFlash('プランを作成してください。', 'flash' . DS . 'error');
+            return $this->redirect('/mypage');
+        }
 
-           //上記の情報を利用して文章を作ること。
-           $content = 'Sato ShunさんがHiroki Masuiさんへ誕生日のお祝いカードを皆さんと作ろうとしています。http://birthdaycard.com/x53287xxx
-                       へアクセスして下さい。';
-           return $poster->postToMe('テスト投稿が完了しました！ ' . SITE_URL . '/plan/' . $planInfo['Plan']['id'] . '/collaborator');
+        $process = function($poster, $planInfo, $target) {
+             $url         = SITE_URL . '/plan/' . $planInfo['Plan']['id'] . '/collaborator';
+             $callMessage = $planInfo['User']['username'] . 'さんが' . $planInfo['Plan']['username'] . 'さんへ誕生日のお祝いカードを作ろうとしています。' . $url .  ' へアクセスして、みんなで一緒にお祝いカードを作りましょう！';
+             return $poster->postToMe($callMessage);
         };
 
         $this->doPostFbTimeLine($process);
@@ -109,24 +119,23 @@ class PostsController extends AppController
         }
         $this->set('planId', $planId);
 
-        //ここは情報を取得して作らないといけない。
-        $this->set('title_for_layout', '相手のタイムラインに投稿します。よろしいですか？');
-        $this->set('title_for_page', '相手のタイムラインに投稿します。よろしいですか？');
+        $this->set('title_for_layout', '誕生日の相手のタイムラインに投稿します。よろしいですか？');
+        $this->set('title_for_page', '誕生日の相手のタイムラインに投稿します。よろしいですか？');
     }
 
     /**
-     * 友人のタイムラインに投稿
+     * 誕生日の相手のタイムラインに投稿する処理
      *
      * @access public
      */
     public function postFriendFbTimeline()
     {
         $process = function($poster, $planInfo, $target){
-
-           //上記の情報を利用して文章を作ること。
+             $photoUrl         = SITE_URL . '/img/plan-photo/' . $planInfo['Plan']['id'] . '.png';
+             $celebrateMessage = $planInfo['Plan']['username'] . 'さん誕生日おめでとうございます！' . $planInfo['User']['username'] . 'さんと友人の皆さんがあなたに誕生日のお祝いカードを作成しましたので、' . $url .  ' へアクセスして確認してみてください！';
            $content = 'Sato ShunさんがHiroki Masuiさんへ誕生日のお祝いカードを皆さんと作ろうとしています。http://birthdaycard.com/x53287xxx
                        へアクセスして下さい。';
-           return $poster->postTo($target->id, 'テスト投稿が完了しました!! http://dev.birthday-card-maker.com/plan/' . $planInfo['Plan']['id'] . '/collaborator');
+           return $poster->postTo($target->id, $celebrateMessage);
         };
 
         $this->doPostFbTimeLine($process);
@@ -135,9 +144,11 @@ class PostsController extends AppController
 
     /**
      * タイムラインへ投稿する処理の抽象
+     *
+     * @access private
      */
-    private function doPostFbTimeline($postProcess){
-
+    private function doPostFbTimeline($postProcess)
+    {
         $planId = $this->params['planId'];
         if(empty($planId)){
             die('planId required');
@@ -156,8 +167,7 @@ class PostsController extends AppController
         }
 
         $target = $this->PlanSupport->getToUser($token, $plan);
-
-        $id = $postProcess($poster, $plan, $target);
+        $id     = $postProcess($poster, $plan, $target);
 
         if (!empty($id)) {
             $response['Success'] = 'true';
@@ -166,12 +176,10 @@ class PostsController extends AppController
         return new CakeResponse(array('body' => json_encode($response)));
     }
 
-
-    public function confirm(){
-
+    public function confirm()
+    {
         $planId = $this->params['planId'];
         $this->set('planId', $planId);
-
     }
 
 
