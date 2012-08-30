@@ -24,17 +24,19 @@ setEvent = ->
   $(".create_image").click (res) ->
     view.delete '.main_contents > *'
     viewParam = {
-            tplSelector: "#canvasTpl"
-            # appendSelector: ".content"
-            appendSelector: ".main_contents"
-        }
+      tplSelector: "#canvasTpl"
+      # appendSelector: ".content"
+      appendSelector: ".main_contents"
+    }
     
     view.update viewParam
 
-    window.drawing = new BirthdayArrange()
-    console.log drawing
-    drawing.setCssAbsolute()
+    window.drawing = new BirthdayArrange("canvas", flag=true)
+    window.bg_drawing = new BirthdayArrange("bg_canvas", flag=true, event=false)
+
+    # drawing.setCssAbsolute()
     drawing.setImages()
+    bg_drawing.setBackgroundImages()
 
     $("#add").bind "click", =>
       drawing.inImage("static/img/test.png")

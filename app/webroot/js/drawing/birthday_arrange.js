@@ -12,22 +12,38 @@ BirthdayArrange = (function(_super) {
   }
 
   BirthdayArrange.prototype.upload = function() {
-    var saveData, url;
+    var url,
+      _this = this;
     url = this.makeUrl();
-    console.log(url);
-    saveData = this.getImageData();
-    console.log(saveData);
-    return $.ajax({
-      url: url,
-      type: "POST",
-      data: {
-        "img_file": saveData
-      },
-      success: function(res) {
-        alert("save done");
-        return location.href = "/mypage";
-      }
+    return this.setBackgroundImages().then(function() {
+      var saveData;
+      saveData = _this.getImageData();
+      return $.ajax({
+        url: url,
+        type: "POST",
+        data: {
+          "img_file": saveData
+        },
+        success: function(res) {
+          alert("save done");
+          return location.href = "/mypage";
+        }
+      });
     });
+  };
+
+  BirthdayArrange.prototype.setBackgroundImages = function() {
+    var df, img, src,
+      _this = this;
+    df = $.Deferred();
+    src = "/img/card-bg.png";
+    img = new Image();
+    img.src = src;
+    img.onload = function() {
+      _this.ctx.drawImage(img, 0, 0, _this.canvas.width, _this.canvas.height);
+      return df.resolve();
+    };
+    return df.promise();
   };
 
   BirthdayArrange.prototype.setImages = function() {
@@ -85,7 +101,7 @@ BirthdayArrange = (function(_super) {
       if (collaboratorId === "null") {
         continue;
       }
-      imageList.push(fetchImage(collaboratorId));
+      imageList.push(this.fetchImage(collaboratorId));
     }
     return imageList;
   };

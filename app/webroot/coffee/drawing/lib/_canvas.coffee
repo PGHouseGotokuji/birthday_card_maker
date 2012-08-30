@@ -10,9 +10,9 @@ class _Canvas
             if flag is true -> new canvas (add container)
         '''
         if flag
-            $(".canvas_space").append("<canvas id='#{@id}'></canvas>")
+            # $(".canvas_space").append("<canvas id='#{@id}'></canvas>")
             $("##{id}").css {
-                # "position": "absolute"
+                "position": "absolute"
                 "top": 50
                 "left": 50
             }
