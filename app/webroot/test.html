@@ -10,6 +10,12 @@
     <script type="text/javascript" src="js/drawing/lib/canvas_images.js"></script>
     <script type="text/javascript" src="js/drawing/birthday_arrange.js"></script>
 
+    <style>
+      canvas {
+        border: 1px solid black;
+      }
+    </style>
+
     <!-- <script data-main='js/main.js' src="js/require-jquery.js"></script> -->
     <!-- template --> 
 <div class="content">
@@ -49,6 +55,7 @@
 </script>
 
 <script type="text/template" id="canvasTpl">
+  <canvas id="bg_canvas"></canvas>
   <canvas id="canvas"></canvas>
   <BUTTON onclick="drawing.upload()">save</BUTTON>
   

@@ -12,7 +12,7 @@ require(["vendor/jquery", "debug", "View", "DataTable", "lib/underscore-min"], f
 
 setEvent = function() {
   return $(".create_image").click(function(res) {
-    var viewParam,
+    var event, flag, viewParam,
       _this = this;
     view["delete"]('.main_contents > *');
     viewParam = {
@@ -20,10 +20,10 @@ setEvent = function() {
       appendSelector: ".main_contents"
     };
     view.update(viewParam);
-    window.drawing = new BirthdayArrange();
-    console.log(drawing);
-    drawing.setCssAbsolute();
+    window.drawing = new BirthdayArrange("canvas", flag = true);
+    window.bg_drawing = new BirthdayArrange("bg_canvas", flag = true, event = false);
     drawing.setImages();
+    bg_drawing.setBackgroundImages();
     return $("#add").bind("click", function() {
       return drawing.inImage("static/img/test.png");
     });

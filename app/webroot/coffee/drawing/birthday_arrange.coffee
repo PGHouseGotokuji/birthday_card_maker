@@ -1,20 +1,32 @@
 class BirthdayArrange extends CanvasImages
+
     upload: ->
         url = @makeUrl()
-        console.log url
-        saveData = @getImageData()
-        console.log saveData
+        @setBackgroundImages().then =>
+            saveData = @getImageData()
 
-        $.ajax {
-            url: url
-            type: "POST"
-            data: {
-                "img_file": saveData
+            $.ajax {
+                url: url
+                type: "POST"
+                data: {
+                    "img_file": saveData
+                }
+                success: (res) ->
+                    alert "save done"
+                    location.href = "/mypage"
             }
-            success: (res) ->
-                alert "save done"
-                location.href = "/mypage"
-        }
+
+    setBackgroundImages: ->
+        df = $.Deferred()
+
+        src = "/img/card-bg.png"
+        img = new Image()
+        img.src = src
+        img.onload = =>
+            @ctx.drawImage(img, 0, 0, @canvas.width, @canvas.height)
+            df.resolve()
+        return df.promise()
+
 
     setImages: ->
         imageList = @getImages()
@@ -26,12 +38,12 @@ class BirthdayArrange extends CanvasImages
 
     getImageData: ->
         type = "image/png"
-        # img.src = @canvas.toDataURL(type)
         data = @canvas.toDataURL(type)
         data = data.replace('data:image/png;base64,', '')
         return data
 
     getImages: ->
+        # return ["http://www.brh.co.jp/s_library/j_site/scientistweb/no25/img/face.jpg"]
         planId = ""
         
         $.ajax {
@@ -57,7 +69,7 @@ class BirthdayArrange extends CanvasImages
         for collaboratorId in collaboratorList
             if collaboratorId is "null"
                 continue
-            imageList.push(fetchImage collaboratorId)
+            imageList.push(@fetchImage collaboratorId)
 
         return imageList
 

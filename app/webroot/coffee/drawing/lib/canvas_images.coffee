@@ -11,8 +11,8 @@ class CanvasImages extends _Canvas
         "default"
     ]
 
-    constructor: ->
-        super()
+    constructor: (@id = "canvas", flag=false, event=true) ->
+        super(@id, flag)
         @imageList = []
         @touchComponent = null
 
@@ -23,14 +23,15 @@ class CanvasImages extends _Canvas
             focusCursor: false
         }
 
-        isTouch = document.documentElement.ontouchstart isnt undefined
-        if isTouch
-            @setTouchEvent "touchstart", @touchstart
-            @setTouchEvent "touchmove", @touchmove
-            @setTouchEvent "touchend", @touchend
-        else
-            @events = {"mousedown": @mousedown, "mousemove": @mousemove, "mouseup": @mouseup, "mouseout": @mouseout }
-            @setEvents()
+        if event
+            isTouch = document.documentElement.ontouchstart isnt undefined
+            if isTouch
+                @setTouchEvent "touchstart", @touchstart
+                @setTouchEvent "touchmove", @touchmove
+                @setTouchEvent "touchend", @touchend
+            else
+                @events = {"mousedown": @mousedown, "mousemove": @mousemove, "mouseup": @mouseup, "mouseout": @mouseout }
+                @setEvents()
 
     setTouchEvent: (type, func) ->
         $("#{@id}").on type, =>
@@ -180,6 +181,7 @@ class CanvasImages extends _Canvas
             @componentDraw(component)
             if component.getfocus()
                 @componentFocusDraw(component)
+
 
     componentFocusDraw: (component) ->
         @ctx.lineWidth = 5

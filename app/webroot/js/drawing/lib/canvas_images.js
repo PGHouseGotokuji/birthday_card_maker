@@ -11,7 +11,15 @@ CanvasImages = (function(_super) {
 
   cursors = ["nw-resize", "n-resize", "ne-resize", "e-resize", "se-resize", "s-resize", "sw-resize", "w-resize", "default"];
 
-  function CanvasImages() {
+  function CanvasImages(id, flag, event) {
+    var isTouch;
+    this.id = id != null ? id : "canvas";
+    if (flag == null) {
+      flag = false;
+    }
+    if (event == null) {
+      event = true;
+    }
     this.mouseup = __bind(this.mouseup, this);
 
     this.mouseout = __bind(this.mouseout, this);
@@ -26,8 +34,7 @@ CanvasImages = (function(_super) {
 
     this.touchstart = __bind(this.touchstart, this);
 
-    var isTouch;
-    CanvasImages.__super__.constructor.call(this);
+    CanvasImages.__super__.constructor.call(this, this.id, flag);
     this.imageList = [];
     this.touchComponent = null;
     this.flag = {
@@ -36,19 +43,21 @@ CanvasImages = (function(_super) {
       focus: false,
       focusCursor: false
     };
-    isTouch = document.documentElement.ontouchstart !== void 0;
-    if (isTouch) {
-      this.setTouchEvent("touchstart", this.touchstart);
-      this.setTouchEvent("touchmove", this.touchmove);
-      this.setTouchEvent("touchend", this.touchend);
-    } else {
-      this.events = {
-        "mousedown": this.mousedown,
-        "mousemove": this.mousemove,
-        "mouseup": this.mouseup,
-        "mouseout": this.mouseout
-      };
-      this.setEvents();
+    if (event) {
+      isTouch = document.documentElement.ontouchstart !== void 0;
+      if (isTouch) {
+        this.setTouchEvent("touchstart", this.touchstart);
+        this.setTouchEvent("touchmove", this.touchmove);
+        this.setTouchEvent("touchend", this.touchend);
+      } else {
+        this.events = {
+          "mousedown": this.mousedown,
+          "mousemove": this.mousemove,
+          "mouseup": this.mouseup,
+          "mouseout": this.mouseout
+        };
+        this.setEvents();
+      }
     }
   }
 
