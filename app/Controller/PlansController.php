@@ -74,16 +74,6 @@ class PlansController extends AppController
      */
     public function uploadPhoto() 
     {
-        return new CakeResponse(array('body' => json_encode(true)));
-    }
-
-    /**
-     * 画像保存
-     *
-     * @access public
-     */
-    public function uploadPhoto() 
-    {
         $planId = $this->params['planId'];
         $plan   = $this->Plan->findById($planId);
         if (empty($plan)) {
