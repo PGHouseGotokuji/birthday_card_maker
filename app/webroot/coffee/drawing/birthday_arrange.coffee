@@ -66,6 +66,9 @@ class BirthdayArrange extends CanvasImages
                 for element in res
                     collaboratorList.push element.Collaborator.id
         }
+
+        imageList = []
+
         for collaboratorId in collaboratorList
             if collaboratorId is "null"
                 continue
