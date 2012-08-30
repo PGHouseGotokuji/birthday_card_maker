@@ -14,10 +14,11 @@ class PlansController extends AppController
     }
 
     /**
-     * 誕生日プラン情報取得
+     * ログインユーザに紐づいた誕生日プランを1件取得
      *
      * @access public
      */
+// 増井TODO ここ、数件該当する場合はどんな値の返し方するのかを確認せよ！
     public function getPlan() 
     {
         $user = $this->loginUser;
@@ -26,7 +27,7 @@ class PlansController extends AppController
     }
 
     /**
-     * 誕生日プラン情報全件取得
+     * ログインユーザに紐づいた誕生日プラン情報を全件取得
      *
      * @access public
      */
@@ -39,6 +40,22 @@ class PlansController extends AppController
             )
         ));
         return new CakeResponse(array('body' => json_encode($plans)));
+    }
+
+    /**
+     * 単純に、指定した誕生日プランの情報を取得(ログインユーザには紐づいていない)
+     *
+     * @access public
+     */
+    public function getPlanByPlanId()
+    {
+        if (empty($this->loginUser)) {
+            return new CakeResponse(array('body' => json_encode(false)));
+        }
+        $planId = $this->params['planId'];
+        $plan = $this->Plan->findById($planId);
+
+        return new CakeResponse(array('body' => json_encode($plan)));
     }
 
     /**

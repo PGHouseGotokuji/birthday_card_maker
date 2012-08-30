@@ -58,7 +58,7 @@ class PostsController extends AppController
     }
 
     /**
-     * 確認 自分のタイムラインに投稿
+     * 自分のタイムラインに投稿して友人に呼びかける
      *
      * @access public
      */
@@ -89,7 +89,7 @@ class PostsController extends AppController
            //上記の情報を利用して文章を作ること。
            $content = 'Sato ShunさんがHiroki Masuiさんへ誕生日のお祝いカードを皆さんと作ろうとしています。http://birthdaycard.com/x53287xxx
                        へアクセスして下さい。';
-           return $poster->postToMe('テスト投稿が完了しました!! http://dev.birthday-card-maker.com/plan/' . $planInfo['Plan']['id'] . '/collaborator');
+           return $poster->postToMe('テスト投稿が完了しました！ ' . SITE_URL . '/plan/' . $planInfo['Plan']['id'] . '/collaborator');
         };
 
         $this->doPostFbTimeLine($process);
