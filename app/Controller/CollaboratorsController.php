@@ -1,6 +1,8 @@
 <?php
 class CollaboratorsController extends AppController 
 {
+    public $name = 'Collaborators';
+
     public $uses    = array('Plan', 'Collaborator');
     var $components = array('PlanSupport');
 
