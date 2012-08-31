@@ -3,8 +3,8 @@ App::uses('CardCreator',        'Lib');
 App::uses('FacebookFeedPoster', 'Lib');
 class PostsController extends AppController 
 {
-    public $uses = array('User', 'Plan', 'Collaborator');
-    var $components  = array('PlanSupport');
+    public $uses    = array('User', 'Plan', 'Collaborator');
+    var $components = array('PlanSupport');
 
     public function beforeFilter()
     {
@@ -125,10 +125,15 @@ class PostsController extends AppController
      */
     public function postFriendFbTimeline()
     {
+        $planId = $this->params['planId'];
+        $this->Plan->id = $planId;
+        $this->Plan->saveField('photo_id', $planId, false);
+        $this->Plan->saveField('post_photo_status', Plan::POST_PHOTO_STATUS_DONE, false);
+
         $process = function($poster, $planInfo, $target){
              $photoUrl         = SITE_URL . '/img/plan-photo/' . $planInfo['Plan']['id'] . '.png';
-             $celebrateMessage = $planInfo['Plan']['username'] . 'さん誕生日おめでとうございます！' . $planInfo['User']['username'] . 'さんと友人の皆さんがあなたに誕生日のお祝いカードを作成しましたので、' . $url .  ' へアクセスして確認してみてください！';
-           return $poster->postTo($target->id, $celebrateMessage);
+             $celebrateMessage = $planInfo['Plan']['username'] . 'さん誕生日おめでとうございます！' . $planInfo['User']['username'] . 'さんと友人の皆さんがあなたに誕生日のお祝いカードを作成しましたので、' . $photoUrl .  ' へアクセスして確認してみてください！';
+             return $poster->postTo($target->id, $celebrateMessage);
         };
 
         $this->doPostFbTimeLine($process);
