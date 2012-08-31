@@ -48,11 +48,17 @@ PlanTable = (function(_super) {
   PlanTable.prototype.setEvents = function() {
     var self;
     self = this;
-    return $(".send-btn").click(function() {
+    $(".send-btn").click(function() {
       var index, plan;
       index = $(".send-btn").index(this);
       plan = self.data.Plans[index];
       return location.href = "/plan/" + plan.Plan.id + "/post/confirm";
+    });
+    return $(".create_image button").click(function() {
+      var index, plan;
+      index = $(".create_image button").index(this);
+      plan = self.data.Plans[index];
+      return location.href = "/arrange/" + plan.Plan.id;
     });
   };
 

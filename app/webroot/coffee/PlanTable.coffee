@@ -36,7 +36,15 @@ class PlanTable extends DataTable
     
     setEvents: ->
         self = @
+
+
         $(".send-btn").click ->
-            index = $(".send-btn").index(@)
-            plan =  self.data.Plans[index]
-            location.href = "/plan/#{plan.Plan.id}/post/confirm"
+          index = $(".send-btn").index(@)
+          plan =  self.data.Plans[index]
+          location.href = "/plan/#{plan.Plan.id}/post/confirm"
+
+        $(".create_image button").click ->
+          index = $(".create_image button").index(@)
+          plan =  self.data.Plans[index]
+          location.href = "/arrange/#{plan.Plan.id}"
+
