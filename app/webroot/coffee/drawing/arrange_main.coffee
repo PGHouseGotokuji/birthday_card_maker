@@ -1,5 +1,8 @@
 $ ->
-    window.drawing = new BirthdayArrange()
+    url = location.href
+    planid = url.substr(url.lastIndexOf('/') + 1)
+
+    window.drawing = new BirthdayArrange(planid)
     console.log drawing
     drawing.setCssAbsolute()
     drawing.setImages()

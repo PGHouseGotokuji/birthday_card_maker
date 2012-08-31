@@ -1,5 +1,11 @@
 class BirthdayArrange extends CanvasImages
 
+    constructor: (planId)->
+        super()
+        @planId = planId
+
+
+
     upload: ->
         url = @makeUrl()
         @setBackgroundImages().then =>
@@ -23,18 +29,33 @@ class BirthdayArrange extends CanvasImages
         img = new Image()
         img.src = src
         img.onload = =>
-            @ctx.drawImage(img, 0, 0, @canvas.width, @canvas.height)
-            df.resolve()
+            #@ctx.drawImage(img, 0, 0, @canvas.width, @canvas.height)
+            df.resolve(img)
+        img.onerror = (err)->
+          df.reject(err)
+
         return df.promise()
 
 
     setImages: ->
-        imageList = @getImages()
-        writer = ""
-        for element in imageList
-            writer += "<a onclick='drawing.inImage(\"#{element}\")' href='#'>画像</a>"
-        console.log writer
-        $("#imageList").html(writer)
+        self = this
+        @setBackgroundImages().then (img)-> #ここのimgは単なるダミー扱い。あとで見直す
+          ic = new ImageComponent(img.src, 'none')
+          ic.focus = ->
+            @flag.focus = false
+          ic.rangeImageInCheck = ->
+            return false
+          ic.rangeFocusInCheck = ->
+            return false
+          ic.size.width = 320;
+          ic.size.height = 320;
+          ic.focusSize.width = 0;
+          ic.focusSize.height = 0;
+          ic.draw = (ctx)->
+              ctx.drawImage(@img, 0, 0, img.width, img.height, @coords.left, @coords.top, @size.width, @size.height)
+
+          self.pushImage(ic)
+          self.getImages()
 
     getImageData: ->
         type = "image/png"
@@ -44,51 +65,33 @@ class BirthdayArrange extends CanvasImages
 
     getImages: ->
         # return ["http://www.brh.co.jp/s_library/j_site/scientistweb/no25/img/face.jpg"]
-        planId = ""
-        
-        $.ajax {
-            url: "/get_plan"
-            type: "GET"
-            async: false
-            dataType: "json"
-            success: (res) =>
-                planId = res.Plan.id
-        }
 
-        url = "/get_collaborators/" + planId
+        self = this
+        url = "/get_collaborators/" + @planId
         collaboratorList = []
 
         # get collaborators list
         $.ajax {
             url: url
             type: "GET"
-            async: false
-            dataType: "json"
-            success: (res) =>
-                for element in res
-                    collaboratorList.push element.Collaborator.id
-        }
-
-        url = "/get_friends"
-        collaboratorsProfileImages = []
-        # get collaborators profile image
-        $.ajax {
-            url: url
-            type: "GET"
-            async: false
             dataType: "json"
             success: (res) ->
-                
+                for element in res
+                    coll = element.Collaborator;
+                    uid = coll.uid
+                    collaboratorList.push coll
+
+                    $.ajax {
+                      url: '/user/' + uid
+                      type: "GET"
+                      dataType: "json"
+                      success: (res) ->
+                         coll.user = res.User
+                         furl = self.fetchImage(coll.photo_id)
+                         $("#imageList").append("<a onclick='drawing.inImage(\"#{furl}\")' href='javascript:void(0)'><img src='#{furl}' style='width: 120px'></a>")
+                    }
         }
 
-        imageList = []
-
-        for collaboratorId in collaboratorList
-            if collaboratorId is "null"
-                continue
-            imageList.push(@fetchImage collaboratorId)
-
-        return imageList
 
     fetchImage: (id) ->
         url = "/img/collabo-photo/#{id}.png"
@@ -97,15 +100,4 @@ class BirthdayArrange extends CanvasImages
 
 
     makeUrl: ->
-        planId = ""
-
-        $.ajax {
-            url: "/get_plan"
-            type: "GET"
-            async: false
-            dataType: "json"
-            success: (res) =>
-                planId = res.Plan.id 
-        }
-
-        return "/plan/" + planId + "/photo" 
+        return "/plan/" + @planId + "/photo"

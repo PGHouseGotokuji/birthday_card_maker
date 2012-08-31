@@ -34,7 +34,10 @@
     Router::connect('/get_plans',                 array('controller' => 'Plans', 'action' => 'getPlans'));
     Router::connect('/get_collaborators/:planId', array('controller' => 'Collaborators', 'action' => 'getCollaborators'), array(array('planId' => '[0-9]+')));
     Router::connect('/plan/:planId',              array('controller' => 'Plans', 'action' => 'getPlanByPlanId'), array(array('planId' => '[0-9]+')));
-    
+
+    Router::connect('/user/:userId',                  array('controller' => 'Users', 'action' => 'getUserById'), array(array('userId' => '[0-9]+')));
+
+
     // マイページ取得
     Router::connect('/mypage',            array('controller' => 'Users', 'action' => 'mypage'));
     
@@ -74,6 +77,10 @@
     // 画像アップロード
     Router::connect('/plan/:planId/photo',                              array('controller' => 'Plans', 'action' => 'uploadPhoto'), array(array('planId' => '[0-9]+')));
     Router::connect('/plan/:planId/collaborator/:collaboratorId/photo', array('controller' => 'Collaborators', 'action' => 'uploadPhoto'), array(array('planId' => '[0-9]+', 'collaboratorId' => '[0-9]+')));
+
+
+    //画像編集
+    Router::connect('/arrange/:planId',                  array('controller' => 'Pages', 'action' => 'arrange'), array(array('planId' => '[0-9]+')));
 
 
 /**

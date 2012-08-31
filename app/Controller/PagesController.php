@@ -18,4 +18,9 @@ Class PagesController extends AppController
         $this->set('title_for_layout', TITLE . '｜' . SUB_TITLE);
         $this->set('title_for_page', TITLE . '｜' . SUB_TITLE);
     }
+
+
+    public function arrange(){
+
+    }
 }
