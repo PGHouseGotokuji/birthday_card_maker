@@ -4,6 +4,11 @@ class Plan extends AppModel {
 
     var $name = 'Plan';
 
+    // post_photo_status
+    const POST_PHOTO_STATUS_YET   = 0;
+    const POST_PHOTO_STATUS_DONE  = 1;
+    const POST_PHOTO_STATUS_ERROR = 9;
+
     public $validate = array(
     );
 
