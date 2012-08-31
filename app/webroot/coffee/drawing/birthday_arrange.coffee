@@ -18,7 +18,6 @@ class BirthdayArrange extends CanvasImages
                     "img_file": saveData
                 }
                 success: (res) ->
-                    alert "save done"
                     location.href = "/mypage"
             }
 

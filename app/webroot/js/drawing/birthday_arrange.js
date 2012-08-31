@@ -26,7 +26,6 @@ BirthdayArrange = (function(_super) {
           "img_file": saveData
         },
         success: function(res) {
-          alert("save done");
           return location.href = "/mypage";
         }
       });
