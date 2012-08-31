@@ -80,13 +80,18 @@ BirthdayArrange = (function(_super) {
       self.pushImage(ic);
       bdeco = new BirthdayDeco(self.planId);
       bdeco.load().then(function() {
-        var profileIC;
+        var profileIC, textC, width;
         profileIC = self.createFixedImageComponent(bdeco.profileImage.src);
         profileIC.size.width = 100;
         profileIC.size.height = 100;
         profileIC.coords.left = (self.canvas.width - profileIC.size.width) * 0.5;
         profileIC.coords.top = (self.canvas.height - profileIC.size.height) * 0.5;
-        return self.pushImage(profileIC);
+        self.pushImage(profileIC);
+        textC = new TextComponent(bdeco.username);
+        width = textC.getWidth(self.ctx);
+        textC.left = self.canvas.width * 0.5 - width * 0.5;
+        textC.top = self.canvas.height * 0.5 + profileIC.size.height * 0.5 + 20;
+        return self.pushComponent(textC);
       });
       return self.getImages();
     });
