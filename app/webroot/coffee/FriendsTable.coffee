@@ -45,9 +45,7 @@ class FriendsTable extends DataTable
             @AjaxPost {}, "/post_fb_timeline", =>
                 alert "成功"
 
-            window.dataTable.userTable.viewUpdate()
-            window.dataTable.planTable.viewUpdate()
-            window.dataTable.collaborators.viewUpdate()
+            location.href = '/mypage'
 
         else
             view.update {

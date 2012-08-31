@@ -59,9 +59,7 @@ FriendsTable = (function(_super) {
       this.AjaxPost({}, "/post_fb_timeline", function() {
         return alert("成功");
       });
-      window.dataTable.userTable.viewUpdate();
-      window.dataTable.planTable.viewUpdate();
-      return window.dataTable.collaborators.viewUpdate();
+      return location.href = '/mypage';
     } else {
       return view.update({
         tplSelector: "#insertPlanErrorTpl",
