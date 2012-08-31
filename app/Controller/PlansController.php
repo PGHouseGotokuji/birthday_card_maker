@@ -71,6 +71,7 @@ class PlansController extends AppController
             $this->Plan->create();
             if ($this->Plan->save($data)) {
                 $response['Success'] = 'true';
+                $this->Session->write('誕生日プランを作成しました。', 'flash' . DS . 'success');
                 $this->Session->write('planId', $this->Plan->id);
             }
         }
