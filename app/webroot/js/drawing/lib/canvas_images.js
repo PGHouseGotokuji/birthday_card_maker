@@ -224,18 +224,22 @@ CanvasImages = (function(_super) {
   };
 
   CanvasImages.prototype.pushImage = function(imgComponent) {
-    var img,
+    var img, self,
       _this = this;
+    self = this;
     img = imgComponent.getImage();
     if (img.complete) {
-      this.componentDraw(imgComponent);
-      return this.imageList.push(imgComponent);
+      return self.pushComponent(imgComponent);
     } else {
       return img.onload = function() {
-        _this.componentDraw(imgComponent);
-        return _this.imageList.push(imgComponent);
+        return self.pushComponent(imgComponent);
       };
     }
+  };
+
+  CanvasImages.prototype.pushComponent = function(cmp) {
+    this.componentDraw(cmp);
+    return this.imageList.push(cmp);
   };
 
   CanvasImages.prototype.reDraw = function() {

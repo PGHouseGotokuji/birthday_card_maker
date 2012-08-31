@@ -7,6 +7,11 @@
 	
 }
 
+button{
+    padding: .5em;
+    font-size: 150%;
+}
+
 body{
 	background:url(../img/bg-gray.png);
 	font-family:"ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;

@@ -52,7 +52,7 @@ PlanTable = (function(_super) {
       var index, plan;
       index = $(".send-btn").index(this);
       plan = self.data.Plans[index];
-      return location.href = "/plan/" + plan.id + "/post/confirm";
+      return location.href = "/plan/" + plan.Plan.id + "/post/confirm";
     });
   };
 
