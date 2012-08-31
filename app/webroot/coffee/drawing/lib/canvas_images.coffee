@@ -47,6 +47,7 @@ class CanvasImages extends _Canvas
         @mousedown(e)
 
     touchmove: (e) =>
+        e.preventDefault();
         @mousemove(e)
 
     touchend: (e) =>
@@ -186,12 +187,13 @@ class CanvasImages extends _Canvas
       @componentDraw(cmp)
       @imageList.push cmp
 
-    reDraw: ->
+    reDraw: (withDot = true)->
         @clear()
         for component in @imageList
             @componentDraw(component)
             if component.getfocus()
-                @componentFocusDraw(component)
+                if withDot
+                  @componentFocusDraw(component)
 
 
     componentFocusDraw: (component) ->
@@ -237,3 +239,7 @@ class CanvasImages extends _Canvas
 
     componentDraw: (component) ->
         component.draw(@ctx)
+
+    getImageData: ->
+        reDraw(false)
+        @canvas.save()

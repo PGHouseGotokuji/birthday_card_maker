@@ -29,7 +29,7 @@ BirthdayDeco = (function() {
       self.profileImage.onerror = function(err) {
         return d.relect(err);
       };
-      return self.profileImage.src = self.plan.fb_picture;
+      return self.profileImage.src = '/facebook/' + self.plan.to_id + '/picture';
     }, function(err) {
       return d.reject(err);
     });

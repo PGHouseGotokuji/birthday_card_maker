@@ -80,8 +80,9 @@ BirthdayArrange = (function(_super) {
       self.pushImage(ic);
       bdeco = new BirthdayDeco(self.planId);
       bdeco.load().then(function() {
-        var profileIC, textC, width;
-        profileIC = self.createFixedImageComponent(bdeco.profileImage.src);
+        var imageUrl, profileIC, textC, width;
+        imageUrl = bdeco.profileImage.src;
+        profileIC = self.createFixedImageComponent(imageUrl);
         profileIC.size.width = 100;
         profileIC.size.height = 100;
         profileIC.coords.left = (self.canvas.width - profileIC.size.width) * 0.5;
@@ -129,8 +130,8 @@ BirthdayArrange = (function(_super) {
             success: function(res) {
               var furl, uurl;
               coll.user = res.User;
-              uurl = coll.user.fb_picture;
-              $("#imageList").append("<a href='javascript:void(0)'><img src='" + uurl + "' style='width: 120px'></a>").click(function() {
+              uurl = '/facebook/' + coll.user.fb_id + '/picture';
+              $("<a href='javascript:void(0)'><img src='" + uurl + "' style='width: 120px'></a>").appendTo("#imageList").click(function() {
                 return self.inImage(uurl);
               });
               furl = self.fetchImage(coll.photo_id);

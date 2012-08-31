@@ -85,6 +85,7 @@ CanvasImages = (function(_super) {
   };
 
   CanvasImages.prototype.touchmove = function(e) {
+    e.preventDefault();
     return this.mousemove(e);
   };
 
@@ -242,8 +243,11 @@ CanvasImages = (function(_super) {
     return this.imageList.push(cmp);
   };
 
-  CanvasImages.prototype.reDraw = function() {
+  CanvasImages.prototype.reDraw = function(withDot) {
     var component, _i, _len, _ref, _results;
+    if (withDot == null) {
+      withDot = true;
+    }
     this.clear();
     _ref = this.imageList;
     _results = [];
@@ -251,7 +255,11 @@ CanvasImages = (function(_super) {
       component = _ref[_i];
       this.componentDraw(component);
       if (component.getfocus()) {
-        _results.push(this.componentFocusDraw(component));
+        if (withDot) {
+          _results.push(this.componentFocusDraw(component));
+        } else {
+          _results.push(void 0);
+        }
       } else {
         _results.push(void 0);
       }
@@ -303,6 +311,11 @@ CanvasImages = (function(_super) {
 
   CanvasImages.prototype.componentDraw = function(component) {
     return component.draw(this.ctx);
+  };
+
+  CanvasImages.prototype.getImageData = function() {
+    reDraw(false);
+    return this.canvas.save();
   };
 
   return CanvasImages;
