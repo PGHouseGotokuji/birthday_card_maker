@@ -102,7 +102,6 @@ ImageComponent = (function() {
         left: element.left - this.focusSize.width / 2
       });
     }
-    console.log(retVal);
     return retVal;
   };
 

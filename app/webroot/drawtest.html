@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="js/vendor/jquery.js"></script>
+    <script src="js/drawing/birthday_deco.js"></script>
+</head>
+<body>
+<script>
+    var id = 4;
+    $(function(){
+
+        var bd = new BirthdayDeco(id);
+        bd.load().then(function(){
+
+            //この時点で下記のデータが有効になる。
+            console.dir(bd.profileImage);
+            console.dir(bd.username);
+
+        }, function(err){
+            console.dir(err);
+            alert('取得に失敗しました：' + err.message);
+        });
+
+    });
+</script>
+</body>
+</html>

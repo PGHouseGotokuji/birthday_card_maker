@@ -64,7 +64,7 @@ class ImageComponent
         retVal = []
         for element in list
             retVal.push {top: element.top - @focusSize.height / 2, left: element.left - @focusSize.width / 2}
-        console.log retVal
+        #console.log retVal
         return retVal
 
     getImage: ->

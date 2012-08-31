@@ -49,29 +49,45 @@ BirthdayArrange = (function(_super) {
     return df.promise();
   };
 
+  BirthdayArrange.prototype.createFixedImageComponent = function(src) {
+    var ic;
+    ic = new ImageComponent(src, 'none');
+    ic.focus = function() {
+      return this.flag.focus = false;
+    };
+    ic.rangeImageInCheck = function() {
+      return false;
+    };
+    ic.rangeFocusInCheck = function() {
+      return false;
+    };
+    ic.focusSize.width = 0;
+    ic.focusSize.height = 0;
+    ic.draw = function(ctx) {
+      return ctx.drawImage(this.img, 0, 0, this.img.width, this.img.height, this.coords.left, this.coords.top, this.size.width, this.size.height);
+    };
+    return ic;
+  };
+
   BirthdayArrange.prototype.setImages = function() {
     var self;
     self = this;
     return this.setBackgroundImages().then(function(img) {
-      var ic;
-      ic = new ImageComponent(img.src, 'none');
-      ic.focus = function() {
-        return this.flag.focus = false;
-      };
-      ic.rangeImageInCheck = function() {
-        return false;
-      };
-      ic.rangeFocusInCheck = function() {
-        return false;
-      };
-      ic.size.width = 320;
-      ic.size.height = 320;
-      ic.focusSize.width = 0;
-      ic.focusSize.height = 0;
-      ic.draw = function(ctx) {
-        return ctx.drawImage(this.img, 0, 0, img.width, img.height, this.coords.left, this.coords.top, this.size.width, this.size.height);
-      };
+      var bdeco, ic;
+      ic = self.createFixedImageComponent(img.src);
+      ic.size.width = self.canvas.width;
+      ic.size.height = self.canvas.height;
       self.pushImage(ic);
+      bdeco = new BirthdayDeco(self.planId);
+      bdeco.load().then(function() {
+        var profileIC;
+        profileIC = self.createFixedImageComponent(bdeco.profileImage.src);
+        profileIC.size.width = 100;
+        profileIC.size.height = 100;
+        profileIC.coords.left = (self.canvas.width - profileIC.size.width) * 0.5;
+        profileIC.coords.top = (self.canvas.height - profileIC.size.height) * 0.5;
+        return self.pushImage(profileIC);
+      });
       return self.getImages();
     });
   };
@@ -106,8 +122,12 @@ BirthdayArrange = (function(_super) {
             type: "GET",
             dataType: "json",
             success: function(res) {
-              var furl;
+              var furl, uurl;
               coll.user = res.User;
+              uurl = coll.user.fb_picture;
+              $("#imageList").append("<a href='javascript:void(0)'><img src='" + uurl + "' style='width: 120px'></a>").click(function() {
+                return self.inImage(uurl);
+              });
               furl = self.fetchImage(coll.photo_id);
               return $("#imageList").append("<a onclick='drawing.inImage(\"" + furl + "\")' href='javascript:void(0)'><img src='" + furl + "' style='width: 120px'></a>");
             }
