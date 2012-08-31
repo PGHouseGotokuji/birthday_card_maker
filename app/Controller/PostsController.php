@@ -105,6 +105,7 @@ class PostsController extends AppController
      *
      * @access public
      */
+/*
     public function confirmPostFriendFbTimeline()
     {
         $planId = $this->params['planId'];
@@ -112,20 +113,42 @@ class PostsController extends AppController
             die('planId required');
             exit;
         }
+
         $this->set('planId', $planId);
 
         $this->set('title_for_layout', '誕生日の相手のタイムラインに投稿します。よろしいですか？');
         $this->set('title_for_page', '誕生日の相手のタイムラインに投稿します。よろしいですか？');
     }
+*/
 
     /**
-     * 誕生日の相手のタイムラインに投稿する処理
+     * 確認 相手のタイムラインに投稿
+     *
+     * @access public
+     */
+    public function confirm()
+    {
+        $planId = $this->params['planId'];
+        $plan = $this->Plan->findById($planId);
+        if ($plan['Plan']['photo_id'] == 0) {
+            return $this->redirect('/mypage');
+        }
+        $this->set('planId', $planId);
+    }
+
+    /**
+     * 誕生日の相手のタイムラインに投稿する
      *
      * @access public
      */
     public function postFriendFbTimeline()
     {
         $planId = $this->params['planId'];
+        $plan   = $this->Plan->findById($planId);
+        if ($plan['Plan']['photo_id'] == 0) {
+            return $this->redirect('/mypage');
+        }
+
         $this->Plan->id = $planId;
         $this->Plan->saveField('photo_id', $planId, false);
         $this->Plan->saveField('post_photo_status', Plan::POST_PHOTO_STATUS_DONE, false);
@@ -138,7 +161,6 @@ class PostsController extends AppController
 
         $this->doPostFbTimeLine($process);
     }
-
 
     /**
      * タイムラインへ投稿する処理の抽象
@@ -174,19 +196,14 @@ class PostsController extends AppController
         return new CakeResponse(array('body' => json_encode($response)));
     }
 
-    public function confirm()
-    {
-        $planId = $this->params['planId'];
-        $this->set('planId', $planId);
-    }
-
-
     /**
      * 誕生日の人のタイムラインに投稿完了
      *
      * @access public
      */
+/*
     public function cardPosted() 
     {
     }
+*/
 }

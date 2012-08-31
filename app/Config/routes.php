@@ -48,13 +48,14 @@
     // 誕生日ユーザーを登録するapi
     Router::connect('/insert_plan',       array('controller' => 'Plans', 'action' => 'insertPlan'));
     
-    // 自分のタイムラインへ投稿
-    Router::connect('/plan/:planId/post/confirm_fb_timeline',  array('controller' => 'Posts', 'action' => 'confirmPostFbTimeline'), array(array('planId' => '[0-9]+')));
-    Router::connect('/plan/:planId/post/post_fb_timeline',     array('controller' => 'Posts', 'action' => 'postFbTimeline'), array(array('planId' => '[0-9]+')));
+    // 自分のタイムラインへ投稿して呼びかけ
+    Router::connect('/plan/:planId/post/confirm_fb_timeline',     array('controller' => 'Posts', 'action' => 'confirmPostFbTimeline'), array(array('planId' => '[0-9]+')));
+    Router::connect('/plan/:planId/post/post_fb_timeline',        array('controller' => 'Posts', 'action' => 'postFbTimeline'), array(array('planId' => '[0-9]+')));
     
     // 相手のタイムラインへ投稿
-    Router::connect('/plan/:planId/post/confirm_friend_fb_timeline', array('controller' => 'Posts', 'action' => 'confirmPostFriendFbTimeline'), array(array('planId' => '[0-9]+')));
-    Router::connect('/plan/:planId/post/post_friend_fb_timeline',    array('controller' => 'Posts', 'action' => 'postFriendFbTimeline'));
+//    Router::connect('/plan/:planId/post/confirm_friend_fb_timeline', array('controller' => 'Posts', 'action' => 'confirmPostFriendFbTimeline'), array(array('planId' => '[0-9]+')));
+    Router::connect('/plan/:planId/post/confirm',                 array('controller' => 'Posts', 'action' => 'confirm'));
+    Router::connect('/plan/:planId/post/post_friend_fb_timeline', array('controller' => 'Posts', 'action' => 'postFriendFbTimeline'));
     
     // コラボレータがログインして誕生日プランに`参加
     Router::connect('/plan/:planId/collaborator',         array('controller' => 'Collaborators', 'action' => 'joinCollaborator'), array(array('planId' => '[0-9]+')));
@@ -62,14 +63,13 @@
     Router::connect('/plan/:planId/collaborator/accept',  array('controller' => 'Collaborators', 'action' => 'accept'), array(array('planId' => '[0-9]+')));
     
     // 画像を生成
-    Router::connect('/plan/:planId/post/confirm', array('controller' => 'Posts', 'action' => 'confirm'));
-    Router::connect('/plan/:planId/card',         array('controller' => 'Posts', 'action' => 'postCard'));
+    Router::connect('/plan/:planId/card', array('controller' => 'Posts', 'action' => 'postCard'));
     
     // ログアウト
-    Router::connect('/logout', array('controller' => 'auths', 'action' => 'userLogout'));
+    Router::connect('/logout',            array('controller' => 'auths', 'action' => 'userLogout'));
     
     // エラー
-    Router::connect('/error',  array('controller' => 'App', 'action' => 'error'));
+    Router::connect('/error',             array('controller' => 'App', 'action' => 'error'));
     
     Router::connect('/plan/:planId/postphoto',                              array('controller' => 'Plans', 'action' => 'postPhoto'), array(array('planId' => '[0-9]+')));
     Router::connect('/plan/:planId/collaborator/:collaboratorId/postphoto', array('controller' => 'Collaborators', 'action' => 'postPhoto'), array(array('planId' => '[0-9]+', 'collaboratorId' => '[0-9]+')));
@@ -81,7 +81,7 @@
 
 
     //画像編集
-    Router::connect('/arrange/:planId',                  array('controller' => 'Pages', 'action' => 'arrange'), array(array('planId' => '[0-9]+')));
+    Router::connect('/arrange/:planId',   array('controller' => 'Pages', 'action' => 'arrange'), array(array('planId' => '[0-9]+')));
 
 
 /**
