@@ -1,16 +1,12 @@
 <?php
 class PlansController extends AppController 
 {
-    public $uses     = array('Plan');
-//    var $components  = array('Security');
+    public $uses = array('Plan');
 
     public function beforeFilter()
     {
         parent::beforeFilter();
-
-//        $this->Security->blackHoleCallback = 'error';
-
-//        $this->userLoginCheck('getPlan');
+        $this->noLoginAction();
     }
 
     /**
@@ -72,8 +68,6 @@ class PlansController extends AppController
             $data['Plan']['to_id']      = $this->request->data['id'];
             $data['Plan']['username']   = $this->request->data['name'];
             $data['Plan']['fb_picture'] = $this->request->data['fb_picture'];
-//$this->log($data, 'warn');
-//exit;
             $this->Plan->create();
             if ($this->Plan->save($data)) {
                 $response['Success'] = 'true';

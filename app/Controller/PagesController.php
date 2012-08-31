@@ -6,6 +6,7 @@ Class PagesController extends AppController
     public function beforeFileter()
     {
         parent::beforeFilter();
+        $this->noLoginAction('index');
     }
 
     /**
@@ -20,7 +21,8 @@ Class PagesController extends AppController
     }
 
 
-    public function arrange(){
+    public function arrange()
+    {
 
     }
 }

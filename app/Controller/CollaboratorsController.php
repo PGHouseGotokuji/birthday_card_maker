@@ -1,14 +1,31 @@
 <?php
 class CollaboratorsController extends AppController 
 {
-    public $uses     = array('Plan', 'Collaborator');
-    var $components  = array('PlanSupport');
+    public $uses    = array('Plan', 'Collaborator');
+    var $components = array('PlanSupport');
 
     public function beforeFilter()
     {
         parent::beforeFilter();
 
-//        $this->Security->blackHoleCallback = 'error';
+/*
+        $planId = $this->params['planId'];
+        $plan   = $this->Plan->findById($planId);
+        if (empty($plan)) {
+            if ($this->request->is('ajax')) {
+                return new CakeResponse(array('body' => json_encode(false)));
+            } else {
+                return $this->redirect('/');
+            }
+        }
+*/
+
+        if (empty($this->loginUser)) {
+            $this->Session->write('redirectUrl', '/plan/' . $planId .'/collaborator');
+            return $this->redirect('/');
+        }
+
+        $this->noLoginAction();
     }
 
     /**
@@ -43,7 +60,7 @@ class CollaboratorsController extends AppController
             $this->Session->write('redirectUrl', '/plan/' . $planId .'/collaborator');
             $this->redirect('/');
         }
-        $this->redirect('/plan/' . $planId . '/collaborator/confirm');
+        return $this->redirect('/plan/' . $planId . '/collaborator/confirm');
     }
 
 
@@ -57,8 +74,7 @@ class CollaboratorsController extends AppController
         $planId = $this->params['planId'];
         if (empty($this->loginUser)) {
             $this->Session->write('redirect', '/plan' . DS . $planId . DS . 'collaborator');
-            $this->redirect('/');
-            exit;
+            return $this->redirect('/');
         }
         $plan = $this->PlanSupport->findWithFromUser($this->Plan, $planId);
         if(empty($plan)){
@@ -132,7 +148,7 @@ class CollaboratorsController extends AppController
     {
         $planId = $this->params['planId'];
         $uid    = $this->params['collaboratorId'];
-        $collaborator   = $this->Collaborator->find('first', array(
+        $collaborator = $this->Collaborator->find('first', array(
             'conditions' => array(
                 'plan_id' => $planId,
                 'uid'     => $uid

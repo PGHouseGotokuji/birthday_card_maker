@@ -1,12 +1,13 @@
 <?php
-class LinksController extends AppController {
-
+class LinksController extends AppController 
+{
     public $name = 'Links';
     public $uses = array('User', 'Plan');
 
     public function beforeFilter()
     {
         parent::beforeFilter();
+        $this->noLoginAction('fbLogin');
     }
 
     /**
@@ -35,8 +36,7 @@ class LinksController extends AppController {
                 'scope'        => 'publish_stream'
             );
             $url = 'https://www.facebook.com/dialog/oauth?' . http_build_query($params);
-            $this->redirect($url);
-            exit;
+            return $this->redirect($url);
 
         // Facebook認証後
         } else {
@@ -100,12 +100,12 @@ class LinksController extends AppController {
                 $plan = $this->Plan->find('first', array('id' => $match[0]));
                 if ($plan['Plan']['to_id'] == $user['User']['fb_id']) {
                     $this->Session->setFlash('あなたはこの誕生日企画に参加できません。', 'flash' . DS . 'error');
-                    $this->redirect('/');
+                    return $this->redirect('/');
                 }
             }
 
             $this->Session->setFlash('ログインしました！', 'flash' . DS . 'success');
-            $this->redirect($referer);
+            return $this->redirect($referer);
         }
     }
 }
