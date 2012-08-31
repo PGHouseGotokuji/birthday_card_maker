@@ -2,7 +2,6 @@
 Class AppController extends Controller
 {
     var $ext = '.html';
-//    public $noLoginUrls = array('/', '/fblogin', '/plan/10/collaborator');
 
     public function beforeFilter()
     {
@@ -12,13 +11,20 @@ Class AppController extends Controller
         if ($this->Session->check('auth.user')) {
             $this->loginUser = $loginUser = $this->Session->read('auth.user');
             $this->set(compact('loginUser'));
-/*
-        } else { 
-            if (array_search($this->request->here, $this->noLoginUrls) === false) { 
-                $this->Session->setFlash('ログインし直してください。', 'flash' . DS . 'success');
-                $this->redirect('/');
-            }
-*/
+        }
+    }
+
+    /**
+     * ログイン不要URL
+     *
+     * @access public
+     */
+    public function noLoginAction()
+    {
+        $actions = func_get_args();
+        if (!empty($this->action) && in_array($this->action, $actions)) || $actions[0] == '*') {
+            $this->Session->setFlash('セッションがタイムアウトしました。再度ログインしてください。', 'flash' . DS . 'success');
+            $this->redirect('/');
         }
     }
 

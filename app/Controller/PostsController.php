@@ -133,8 +133,6 @@ class PostsController extends AppController
         $process = function($poster, $planInfo, $target){
              $photoUrl         = SITE_URL . '/img/plan-photo/' . $planInfo['Plan']['id'] . '.png';
              $celebrateMessage = $planInfo['Plan']['username'] . 'さん誕生日おめでとうございます！' . $planInfo['User']['username'] . 'さんと友人の皆さんがあなたに誕生日のお祝いカードを作成しましたので、' . $url .  ' へアクセスして確認してみてください！';
-           $content = 'Sato ShunさんがHiroki Masuiさんへ誕生日のお祝いカードを皆さんと作ろうとしています。http://birthdaycard.com/x53287xxx
-                       へアクセスして下さい。';
            return $poster->postTo($target->id, $celebrateMessage);
         };
 
