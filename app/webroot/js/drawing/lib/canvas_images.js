@@ -218,14 +218,24 @@ CanvasImages = (function(_super) {
   };
 
   CanvasImages.prototype.inImage = function(src) {
-    var img, imgComponent,
-      _this = this;
+    var imgComponent;
     imgComponent = new ImageComponent(src);
+    return this.pushImage(imgComponent);
+  };
+
+  CanvasImages.prototype.pushImage = function(imgComponent) {
+    var img,
+      _this = this;
     img = imgComponent.getImage();
-    return img.onload = function() {
-      _this.componentDraw(imgComponent);
-      return _this.imageList.push(imgComponent);
-    };
+    if (img.complete) {
+      this.componentDraw(imgComponent);
+      return this.imageList.push(imgComponent);
+    } else {
+      return img.onload = function() {
+        _this.componentDraw(imgComponent);
+        return _this.imageList.push(imgComponent);
+      };
+    }
   };
 
   CanvasImages.prototype.reDraw = function() {
@@ -288,12 +298,7 @@ CanvasImages = (function(_super) {
   CanvasImages.prototype._drawFocusMousePoint = function(coords) {};
 
   CanvasImages.prototype.componentDraw = function(component) {
-    var coords, img, size;
-    img = component.getImage();
-    coords = component.getCoords();
-    size = component.getSize();
-    console.log(size);
-    return this.ctx.drawImage(img, 0, 0, 100, 100, coords.left, coords.top, size.width, size.height);
+    return component.draw(this.ctx);
   };
 
   return CanvasImages;

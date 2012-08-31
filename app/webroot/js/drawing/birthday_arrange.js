@@ -7,8 +7,9 @@ BirthdayArrange = (function(_super) {
 
   __extends(BirthdayArrange, _super);
 
-  function BirthdayArrange() {
-    return BirthdayArrange.__super__.constructor.apply(this, arguments);
+  function BirthdayArrange(planId) {
+    BirthdayArrange.__super__.constructor.call(this);
+    this.planId = planId;
   }
 
   BirthdayArrange.prototype.upload = function() {
@@ -40,22 +41,55 @@ BirthdayArrange = (function(_super) {
     img = new Image();
     img.src = src;
     img.onload = function() {
-      _this.ctx.drawImage(img, 0, 0, _this.canvas.width, _this.canvas.height);
-      return df.resolve();
+      return df.resolve(img);
+    };
+    img.onerror = function(err) {
+      return df.reject(err);
     };
     return df.promise();
   };
 
+  BirthdayArrange.prototype.createFixedImageComponent = function(src) {
+    var ic;
+    ic = new ImageComponent(src, 'none');
+    ic.focus = function() {
+      return this.flag.focus = false;
+    };
+    ic.rangeImageInCheck = function() {
+      return false;
+    };
+    ic.rangeFocusInCheck = function() {
+      return false;
+    };
+    ic.focusSize.width = 0;
+    ic.focusSize.height = 0;
+    ic.draw = function(ctx) {
+      return ctx.drawImage(this.img, 0, 0, this.img.width, this.img.height, this.coords.left, this.coords.top, this.size.width, this.size.height);
+    };
+    return ic;
+  };
+
   BirthdayArrange.prototype.setImages = function() {
-    var element, imageList, writer, _i, _len;
-    imageList = this.getImages();
-    writer = "";
-    for (_i = 0, _len = imageList.length; _i < _len; _i++) {
-      element = imageList[_i];
-      writer += "<a onclick='drawing.inImage(\"" + element + "\")' href='#'>画像</a>";
-    }
-    console.log(writer);
-    return $("#imageList").html(writer);
+    var self;
+    self = this;
+    return this.setBackgroundImages().then(function(img) {
+      var bdeco, ic;
+      ic = self.createFixedImageComponent(img.src);
+      ic.size.width = self.canvas.width;
+      ic.size.height = self.canvas.height;
+      self.pushImage(ic);
+      bdeco = new BirthdayDeco(self.planId);
+      bdeco.load().then(function() {
+        var profileIC;
+        profileIC = self.createFixedImageComponent(bdeco.profileImage.src);
+        profileIC.size.width = 100;
+        profileIC.size.height = 100;
+        profileIC.coords.left = (self.canvas.width - profileIC.size.width) * 0.5;
+        profileIC.coords.top = (self.canvas.height - profileIC.size.height) * 0.5;
+        return self.pushImage(profileIC);
+      });
+      return self.getImages();
+    });
   };
 
   BirthdayArrange.prototype.getImageData = function() {
@@ -67,53 +101,41 @@ BirthdayArrange = (function(_super) {
   };
 
   BirthdayArrange.prototype.getImages = function() {
-    var collaboratorId, collaboratorList, collaboratorsProfileImages, imageList, planId, url, _i, _len,
-      _this = this;
-    planId = "";
-    $.ajax({
-      url: "/get_plan",
-      type: "GET",
-      async: false,
-      dataType: "json",
-      success: function(res) {
-        return planId = res.Plan.id;
-      }
-    });
-    url = "/get_collaborators/" + planId;
+    var collaboratorList, self, url;
+    self = this;
+    url = "/get_collaborators/" + this.planId;
     collaboratorList = [];
-    $.ajax({
+    return $.ajax({
       url: url,
       type: "GET",
-      async: false,
       dataType: "json",
       success: function(res) {
-        var element, _i, _len, _results;
+        var coll, element, uid, _i, _len, _results;
         _results = [];
         for (_i = 0, _len = res.length; _i < _len; _i++) {
           element = res[_i];
-          _results.push(collaboratorList.push(element.Collaborator.id));
+          coll = element.Collaborator;
+          uid = coll.uid;
+          collaboratorList.push(coll);
+          _results.push($.ajax({
+            url: '/user/' + uid,
+            type: "GET",
+            dataType: "json",
+            success: function(res) {
+              var furl, uurl;
+              coll.user = res.User;
+              uurl = coll.user.fb_picture;
+              $("#imageList").append("<a href='javascript:void(0)'><img src='" + uurl + "' style='width: 120px'></a>").click(function() {
+                return self.inImage(uurl);
+              });
+              furl = self.fetchImage(coll.photo_id);
+              return $("#imageList").append("<a onclick='drawing.inImage(\"" + furl + "\")' href='javascript:void(0)'><img src='" + furl + "' style='width: 120px'></a>");
+            }
+          }));
         }
         return _results;
       }
     });
-    url = "/get_friends";
-    collaboratorsProfileImages = [];
-    $.ajax({
-      url: url,
-      type: "GET",
-      async: false,
-      dataType: "json",
-      success: function(res) {}
-    });
-    imageList = [];
-    for (_i = 0, _len = collaboratorList.length; _i < _len; _i++) {
-      collaboratorId = collaboratorList[_i];
-      if (collaboratorId === "null") {
-        continue;
-      }
-      imageList.push(this.fetchImage(collaboratorId));
-    }
-    return imageList;
   };
 
   BirthdayArrange.prototype.fetchImage = function(id) {
@@ -123,19 +145,7 @@ BirthdayArrange = (function(_super) {
   };
 
   BirthdayArrange.prototype.makeUrl = function() {
-    var planId,
-      _this = this;
-    planId = "";
-    $.ajax({
-      url: "/get_plan",
-      type: "GET",
-      async: false,
-      dataType: "json",
-      success: function(res) {
-        return planId = res.Plan.id;
-      }
-    });
-    return "/plan/" + planId + "/photo";
+    return "/plan/" + this.planId + "/photo";
   };
 
   return BirthdayArrange;

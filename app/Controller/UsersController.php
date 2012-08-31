@@ -55,6 +55,12 @@ class UsersController extends AppController
         return new CakeResponse(array('body' => json_encode($user)));
     }
 
+
+    public function getUserById(){
+        $userId = $this->params['userId'];
+        return new CakeResponse(array('body' => json_encode($this->User->findById($userId))));
+    }
+
     /**
      * ユーザーの友達情報取得
      *

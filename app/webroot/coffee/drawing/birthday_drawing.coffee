@@ -1,16 +1,10 @@
 class BirthDrawing extends Drawing
-    makeUrl: ->
-        planId = ""
-        collaboratorId = ""
+    constructor: (canvas, planId)->
+      super(canvas)
+      @planId = planId
 
-        $.ajax {
-            url: "/get_plan"
-            method: "GET"
-            async: false
-            dataType: "json"
-            success: (res) =>
-                planId = res.Plan.id 
-        }
+    makeUrl: ->
+        collaboratorId = ""
 
         $.ajax {
             url: "/get_user"
@@ -21,4 +15,4 @@ class BirthDrawing extends Drawing
                 collaboratorId = res.User.id 
         }
 
-        return "/plan/" + planId + "/collaborator/" + collaboratorId + "/photo"
+        return "/plan/" + @planId + "/collaborator/" + collaboratorId + "/photo"

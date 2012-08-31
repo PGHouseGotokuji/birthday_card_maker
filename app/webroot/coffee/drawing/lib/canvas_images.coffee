@@ -170,10 +170,19 @@ class CanvasImages extends _Canvas
 
     inImage: (src) ->
         imgComponent = new ImageComponent(src)
-        img = imgComponent.getImage()
+        @pushImage(imgComponent)
+
+    pushImage: (imgComponent) ->
+      img = imgComponent.getImage()
+
+      if img.complete
+        @componentDraw(imgComponent)
+        @imageList.push imgComponent
+      else
         img.onload = =>
-            @componentDraw(imgComponent)
-            @imageList.push imgComponent
+          @componentDraw(imgComponent)
+          @imageList.push imgComponent
+
 
     reDraw: ->
         @clear()
@@ -225,9 +234,4 @@ class CanvasImages extends _Canvas
     _drawFocusMousePoint: (coords) ->
 
     componentDraw: (component) ->
-        img = component.getImage()
-        coords = component.getCoords()
-        size = component.getSize()
-        console.log size
-        @ctx.drawImage(img, 0, 0, 100, 100, coords.left, coords.top, size.width, size.height)
-
+        component.draw(@ctx)

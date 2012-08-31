@@ -120,6 +120,7 @@ class CollaboratorsController extends AppController
         $target       = $this->PlanSupport->getToUser($access_token, $plan);
         $this->set('name', $target->username);
         $this->set('imageUrl', $target->picture->data->url);
+        $this->set('planId', $planId);
     }
 
     /**

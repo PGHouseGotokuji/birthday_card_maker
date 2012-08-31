@@ -102,7 +102,6 @@ ImageComponent = (function() {
         left: element.left - this.focusSize.width / 2
       });
     }
-    console.log(retVal);
     return retVal;
   };
 
@@ -164,6 +163,10 @@ ImageComponent = (function() {
 
   ImageComponent.prototype.focus = function() {
     return this.flag.focus = true;
+  };
+
+  ImageComponent.prototype.draw = function(ctx) {
+    return ctx.drawImage(this.img, 0, 0, 100, 100, this.coords.left, this.coords.top, this.size.width, this.size.height);
   };
 
   return ImageComponent;
