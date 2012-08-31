@@ -3,11 +3,11 @@ Class AppController extends Controller
 {
     var $ext = '.html';
 
+    public $loginUser = null;
+
     public function beforeFilter()
     {
-        $this->loginUser = null;
-
-        // ユーザーがログインしていたら配列に格納
+        // ユーザーがログインしていたらloginUserをセット
         if ($this->Session->check('auth.user')) {
             $this->loginUser = $loginUser = $this->Session->read('auth.user');
             $this->set(compact('loginUser'));
@@ -15,16 +15,20 @@ Class AppController extends Controller
     }
 
     /**
-     * ログイン不要URL
+     * ログイン不要URLか判定する
      *
      * @access public
      */
     public function noLoginAction()
     {
         $actions = func_get_args();
-        if (!empty($this->action) && in_array($this->action, $actions)) || $actions[0] == '*') {
-            $this->Session->setFlash('セッションがタイムアウトしました。再度ログインしてください。', 'flash' . DS . 'success');
-            $this->redirect('/');
+        if (!$this->Session->check('auth.user')) {
+            if (!empty($this->action) && in_array($this->action, $actions) || $actions[0] == '*') {
+                return true;
+            } else {
+                $this->Session->setFlash('再度ログインしてください。', 'flash' . DS . 'success');
+                return $this->redirect('/');
+            }
         }
     }
 

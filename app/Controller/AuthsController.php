@@ -1,15 +1,11 @@
 <?php
-class AuthsController extends AppController {
-
-    var $components = array('Security');
-
+class AuthsController extends AppController 
+{
 
     public function beforeFilter()
     {
         parent::beforeFilter();
-
-        $this->Security->requireAuth('');
-        $this->Security->blackHoleCallback = 'error';
+        $this->noLoginAction('userLogout');
     }
 
     /**
@@ -22,6 +18,6 @@ class AuthsController extends AppController {
     {
         $this->Session->delete('auth.user');
         $this->Session->setFlash('ログアウトしました！', 'flash' . DS . 'success');
-        $this->redirect('/');
+        return $this->redirect('/');
     }
 }

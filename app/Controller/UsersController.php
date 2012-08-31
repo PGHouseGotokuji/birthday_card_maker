@@ -3,13 +3,11 @@ class UsersController extends AppController
 {
     public $helpers  = array();
     public $uses     = array('User', 'Collaborator', 'Plan');
-    var $components  = array('Security');
 
     public function beforeFilter()
     {
         parent::beforeFilter();
-//        $this->Security->requireAuth('frontAddUser');
-        $this->Security->blackHoleCallback = 'error';
+        $this->noLoginAction();
     }
 
     /**
@@ -45,7 +43,7 @@ class UsersController extends AppController
 */
 
     /**
-     * ユーザー情報取得
+     * ログインユーザに紐づいたユーザー情報取得
      *
      * @access public
      */
@@ -55,8 +53,13 @@ class UsersController extends AppController
         return new CakeResponse(array('body' => json_encode($user)));
     }
 
-
-    public function getUserById(){
+    /**
+     * 単純にユーザー情報を取得
+     *
+     * @access public
+     */
+    public function getUserById()
+    {
         $userId = $this->params['userId'];
         return new CakeResponse(array('body' => json_encode($this->User->findById($userId))));
     }

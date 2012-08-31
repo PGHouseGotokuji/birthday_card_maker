@@ -1,20 +1,15 @@
 <?php
-App::uses('CardCreator', 'Lib');
+App::uses('CardCreator',        'Lib');
 App::uses('FacebookFeedPoster', 'Lib');
 class PostsController extends AppController 
 {
-    public $uses     = array('User', 'Plan', 'Collaborator');
-//    var $components  = array('Security');
-
+    public $uses = array('User', 'Plan', 'Collaborator');
     var $components  = array('PlanSupport');
 
     public function beforeFilter()
     {
         parent::beforeFilter();
-
-//        $this->Security->blackHoleCallback = 'error';
-
-//        $this->userLoginCheck('postCard');
+        $this->noLoginAction();
     }
 
     /**
