@@ -166,7 +166,7 @@ ImageComponent = (function() {
   };
 
   ImageComponent.prototype.draw = function(ctx) {
-    return ctx.drawImage(this.img, 0, 0, 100, 100, this.coords.left, this.coords.top, this.size.width, this.size.height);
+    return ctx.drawImage(this.img, 0, 0, this.img.width, this.img.height, this.coords.left, this.coords.top, this.size.width, this.size.height);
   };
 
   return ImageComponent;

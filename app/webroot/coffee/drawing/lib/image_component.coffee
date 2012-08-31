@@ -115,5 +115,5 @@ class ImageComponent
         @flag.focus = true
 
     draw: (ctx)->
-      ctx.drawImage(@img, 0, 0, 100, 100, @coords.left, @coords.top, @size.width, @size.height)
+      ctx.drawImage(@img, 0, 0, @img.width, @img.height, @coords.left, @coords.top, @size.width, @size.height)
 
