@@ -34,8 +34,9 @@
     Router::connect('/get_plans',                 array('controller' => 'Plans', 'action' => 'getPlans'));
     Router::connect('/get_collaborators/:planId', array('controller' => 'Collaborators', 'action' => 'getCollaborators'), array(array('planId' => '[0-9]+')));
     Router::connect('/plan/:planId',              array('controller' => 'Plans', 'action' => 'getPlanByPlanId'), array(array('planId' => '[0-9]+')));
+    Router::connect('/user/:userId',              array('controller' => 'Users', 'action' => 'getUserById'), array(array('userId' => '[0-9]+')));
 
-    Router::connect('/user/:userId',                  array('controller' => 'Users', 'action' => 'getUserById'), array(array('userId' => '[0-9]+')));
+    Router::connect('/facebook/:fb_id/picture',   array('controller' => 'Facebooks', 'action' => 'getImgPass'), array(array('fb_id' => '[0-9]+')));
 
 
     // マイページ取得
