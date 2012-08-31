@@ -9,7 +9,11 @@
 
 button{
     padding: .5em;
-    font-size: 150%;
+    font-size: 110%;
+}
+
+canvas#canvas{
+    border: solid 1px lightgray;
 }
 
 body{

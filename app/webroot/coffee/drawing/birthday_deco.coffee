@@ -27,7 +27,7 @@ class BirthdayDeco
       self.profileImage.onerror = (err)->
           d.relect(err)
 
-      self.profileImage.src = self.plan.fb_picture
+      self.profileImage.src = '/facebook/' + self.plan.to_id + '/picture'
 
     , (err)->
       d.reject(err);
