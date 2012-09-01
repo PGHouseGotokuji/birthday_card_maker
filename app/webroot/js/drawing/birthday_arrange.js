@@ -99,6 +99,7 @@ BirthdayArrange = (function(_super) {
 
   BirthdayArrange.prototype.getImageData = function() {
     var data, type;
+    this.reDraw(false);
     type = "image/png";
     data = this.canvas.toDataURL(type);
     data = data.replace('data:image/png;base64,', '');

@@ -313,7 +313,6 @@ CanvasImages = (function(_super) {
   };
 
   CanvasImages.prototype.getImageData = function() {
-    reDraw(false);
     return this.canvas.save();
   };
 

@@ -241,5 +241,4 @@ class CanvasImages extends _Canvas
         component.draw(@ctx)
 
     getImageData: ->
-        reDraw(false)
         @canvas.save()

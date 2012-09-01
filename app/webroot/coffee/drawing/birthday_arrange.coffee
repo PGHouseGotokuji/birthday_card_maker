@@ -79,6 +79,7 @@ class BirthdayArrange extends CanvasImages
           self.getImages()
 
     getImageData: ->
+        @reDraw(false)
         type = "image/png"
         data = @canvas.toDataURL(type)
         data = data.replace('data:image/png;base64,', '')
