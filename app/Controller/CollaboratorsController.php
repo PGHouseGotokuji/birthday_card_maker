@@ -67,20 +67,23 @@ class CollaboratorsController extends AppController
             $this->Session->write('redirect', '/plan' . DS . $planId . DS . 'collaborator');
             return $this->redirect('/');
         }
-        $plan = $this->PlanSupport->findWithFromUser($this->Plan, $planId);
+//        $plan = $this->PlanSupport->findWithFromUser($this->Plan, $planId);
+        $plan = $this->Plan->findById($planId);
         if(empty($plan)){
             die('id not found');
             return;
         }
 
         $this->set(compact('planId'));
-        $this->set('from_name', $plan['User']['username']);
 
-        $access_token = $this->loginUser['User']['access_token'];
-        $target       = $this->PlanSupport->getToUser($access_token, $plan);
+        $this->set('from_name', $this->loginUser['User']['username']);
 
-        $this->set('to_name', $target->username);
-        $this->set('imageUrl', $target->picture->data->url);
+//        $access_token = $this->loginUser['User']['access_token'];
+//        $target       = $this->PlanSupport->getToUser($access_token, $plan);
+//        $this->set('to_name', $target->username);
+//        $this->set('imageUrl', $target->picture->data->url);
+        $this->set('to_name',  $plan['Plan']['username']);
+        $this->set('imageUrl', $plan['Plan']['fb_picture']);
     }
 
     /**
@@ -128,9 +131,9 @@ class CollaboratorsController extends AppController
 //        $target       = $this->PlanSupport->getToUser($access_token, $plan);
 //        $this->set('name', $target->username);
 //        $this->set('imageUrl', $target->picture->data->url);
-        $this->set('name',     $plan['Plan']['username']);
-        $this->set('imageUrl', $plan['Plan']['fb_picture']);
-        $this->set('planId',   $planId);
+//        $this->set('name',     $plan['Plan']['username']);
+//        $this->set('imageUrl', $plan['Plan']['fb_picture']);
+//        $this->set('planId',   $planId);
     }
 
     /**
