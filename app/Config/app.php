@@ -4,6 +4,7 @@ define('YESTERDAY_DATE',    date('Y-m-d 00:00:00', mktime(0, 0, 0, date('m'), da
 define('TITLE',             'Birthday Card Maker');     // タイトル
 define('SUB_TITLE',         '友人の誕生日にオリジナルの色紙を贈ろう！'); // サブタイトル
 define('PRODUCT_FROM',      'PGHouse-Gotokuji'); // 製作元
+define('PRODUCT_FROM_URL',  'http://pgh-gotokuji.net/'); // 製作元URL
 define('AJAX_SELECT_LIMIT', 10);            // ajax-select上限
 
 // 画像系

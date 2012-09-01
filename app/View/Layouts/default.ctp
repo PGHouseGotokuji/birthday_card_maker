@@ -26,17 +26,26 @@
                 window.location.hash = '';
             }
         });
-
-<? if (ENV_MODE == 'pro') { ?>
-
-
-<? } ?>
-
-</script>
+        <? if (ENV_MODE == 'pro') { ?>
+        <!-- Google Analytics Start -->
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-32877795-3']);
+            _gaq.push(['_trackPageview']);
+        
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        <!-- Google Analytics End -->
+        <? } ?>
+    </script>
 </head>
 <body>
 <? if (ENV_MODE != 'pro') { ?>
+
 <? } ?>
+
     <?= $this->Session->flash(); ?>
     <div id="wrapper">
         <div id="header">
@@ -51,7 +60,7 @@
             <?= $content_for_layout; ?>
         </div>
         <div id="footer">
-            Copyright &copy; <?= date('Y'); ?> <?= PRODUCT_FROM ?><br />
+            Copyright &copy; <?= date('Y'); ?> <strong><a href="<?= PRODUCT_FROM_URL ?>" target="_blank"><?= PRODUCT_FROM ?></a></strong><br />
             all rights reserved.
         </div>
         <? if (ENV_MODE != 'pro') { ?>
