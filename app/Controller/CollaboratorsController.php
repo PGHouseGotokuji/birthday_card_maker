@@ -116,18 +116,21 @@ class CollaboratorsController extends AppController
             }
         }
 
-        $plan = $this->PlanSupport->findWithFromUser($this->Plan, $planId);
+        $plan = $this->Plan->findById($planId);
+//        $plan = $this->PlanSupport->findWithFromUser($this->Plan, $planId);
 
         if(empty($plan)){
             die('id not found');
             return;
         }
 
-        $access_token = $this->loginUser['User']['access_token'];
-        $target       = $this->PlanSupport->getToUser($access_token, $plan);
-        $this->set('name', $target->username);
-        $this->set('imageUrl', $target->picture->data->url);
-        $this->set('planId', $planId);
+//        $access_token = $this->loginUser['User']['access_token'];
+//        $target       = $this->PlanSupport->getToUser($access_token, $plan);
+//        $this->set('name', $target->username);
+//        $this->set('imageUrl', $target->picture->data->url);
+        $this->set('name',     $plan['Plan']['username']);
+        $this->set('imageUrl', $plan['Plan']['fb_picture']);
+        $this->set('planId',   $planId);
     }
 
     /**
