@@ -41,7 +41,7 @@ class PlanTable extends DataTable
         $(".send-btn").click ->
           index = $(".send-btn").index(@)
           plan =  self.data.Plans[index]
-          location.href = "/plan/#{plan.Plan.id}/post/confirm"
+          location.href = "/plan/#{plan.Plan.id}/post/confirm_friend_fb_timeline"
 
         $(".create_image button").click ->
           index = $(".create_image button").index(@)

@@ -67,7 +67,7 @@ class PostsController extends AppController
         $this->set('planId', $planId);
 
         $this->set('title_for_layout', '自分のタイムラインに投稿します。よろしいですか？');
-        $this->set('title_for_page', '自分のタイムラインに投稿します。よろしいですか？');
+        $this->set('title_for_page',   '自分のタイムラインに投稿します。よろしいですか？');
     }
 
     /**
@@ -97,36 +97,19 @@ class PostsController extends AppController
              return $poster->postToMe($callMessage);
         };
 
+        $this->set('title_for_layout', '自分のタイムラインに投稿完了しました！');
+        $this->set('title_for_page',   '自分のタイムラインに投稿完了しました！');
+
         $this->doPostFbTimeLine($process);
     }
 
     /**
-     * 確認 相手のタイムラインに投稿
+     * 確認 相手のタイムラインにバースデーカードのURLとメッセージを投稿
      *
      * @access public
      */
-/*
+//    public function confirm()
     public function confirmPostFriendFbTimeline()
-    {
-        $planId = $this->params['planId'];
-        if(empty($planId)){
-            die('planId required');
-            exit;
-        }
-
-        $this->set('planId', $planId);
-
-        $this->set('title_for_layout', '誕生日の相手のタイムラインに投稿します。よろしいですか？');
-        $this->set('title_for_page', '誕生日の相手のタイムラインに投稿します。よろしいですか？');
-    }
-*/
-
-    /**
-     * 確認 相手のタイムラインに投稿
-     *
-     * @access public
-     */
-    public function confirm()
     {
         $planId = $this->params['planId'];
         $plan = $this->Plan->findById($planId);
@@ -136,7 +119,9 @@ class PostsController extends AppController
             return $this->redirect('/mypage');
         }
         $this->set('planId', $planId);
-        $this->set('plan', $plan);
+        $this->set('plan',   $plan);
+        $this->set('title_for_layout', '誕生日の相手のタイムラインに投稿します。よろしいですか？');
+        $this->set('title_for_page',   '誕生日の相手のタイムラインに投稿します。よろしいですか？');
     }
 
     /**
@@ -163,6 +148,8 @@ class PostsController extends AppController
         };
 
         $this->set('plan', $plan);
+        $this->set('title_for_layout', '誕生日の相手のタイムラインに投稿完了しました！');
+        $this->set('title_for_page',   '誕生日の相手のタイムラインに投稿完了しました！');
         $this->doPostFbTimeLine($process);
     }
 
@@ -199,15 +186,4 @@ class PostsController extends AppController
 
         return new CakeResponse(array('body' => json_encode($response)));
     }
-
-    /**
-     * 誕生日の人のタイムラインに投稿完了
-     *
-     * @access public
-     */
-/*
-    public function cardPosted() 
-    {
-    }
-*/
 }
