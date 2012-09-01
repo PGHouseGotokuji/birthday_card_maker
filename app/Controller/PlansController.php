@@ -80,6 +80,17 @@ class PlansController extends AppController
     }
 
     /**
+     * 相手に贈る色紙をコーディネートする画面
+     *
+     * @access public
+     */
+    public function arrange()
+    {
+        $this->set('title_for_layout', TITLE . '｜' . 'バースデーカードを組み立てる');
+        $this->set('title_for_page',   TITLE . '｜' . 'バースデーカードを組み立てる');
+    }
+
+    /**
      * 画像保存
      *
      * @access public

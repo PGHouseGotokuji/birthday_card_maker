@@ -23,7 +23,7 @@ Class AppController extends Controller
     {
         $actions = func_get_args();
         if (!$this->Session->check('auth.user')) {
-            if (!empty($this->action) && in_array($this->action, $actions) || $actions[0] == '*') {
+            if (!empty($this->action) && in_array($this->action, $actions)) {
                 return true;
             } else {
                 $this->Session->setFlash('再度ログインしてください。', 'flash' . DS . 'success');
