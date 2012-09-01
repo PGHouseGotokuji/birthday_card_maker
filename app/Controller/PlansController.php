@@ -86,8 +86,8 @@ class PlansController extends AppController
      */
     public function arrange()
     {
-        $this->set('title_for_layout', TITLE . '｜' . 'バースデーカードを組み立てる');
-        $this->set('title_for_page',   TITLE . '｜' . 'バースデーカードを組み立てる');
+        $this->set('title_for_layout', 'バースデーカードを組み立てる');
+        $this->set('title_for_page',   'バースデーカードを組み立てる');
     }
 
     /**

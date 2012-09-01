@@ -51,7 +51,7 @@ PlanTable = (function(_super) {
       var index, plan;
       index = $(".send-btn").index(this);
       plan = self.data.Plans[index];
-      return location.href = "/plan/" + plan.Plan.id + "/post/confirm";
+      return location.href = "/plan/" + plan.Plan.id + "/post/confirm_friend_fb_timeline";
     });
     return $(".create_image button").click(function() {
       var index, plan;

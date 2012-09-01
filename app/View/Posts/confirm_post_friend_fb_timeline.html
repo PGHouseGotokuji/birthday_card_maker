@@ -1,11 +1,12 @@
-<div class="flow-title">
-    相手のタイムラインへ贈ります。よろしいですか？
+<div style="margin:auto;">
+    <img src="/img/plan-photo/<?=h($plan['Plan']['photo_id'])?>.png" class="preview" />
+    <p style="font-size:14px; text-align:center;margin-top:20px;">
+        上記の画像で送信します。<br />
+        よろしければ<br />
+       "相手のFacebookフィードへ送信"を<br />
+        押してください。
+    </p>
+    <div class="appeal-btn">
+        <a href="/plan/<?= h($planId) ?>/post/post_friend_fb_timeline">相手のFacebookフィード>へ送信</a>
+    </div>
 </div>
-<div class="flow-discription">
-    プレビュー
-</div>
-<!-- / .flow-discription -->
-<div class="appeal-btn">
-    <a href="/plan/<?= h($planId) ?>/post/post_friend_fb_timeline">xxさんのfacebookに投稿する</a>
-</div>
-post_friend_fb_timeline
