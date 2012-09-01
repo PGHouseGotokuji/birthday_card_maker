@@ -272,6 +272,9 @@ a:hover {
 }
 
 
+ul.plans{
+    margin: 0;
+}
 
 ul.plans li{
     position: relative;
