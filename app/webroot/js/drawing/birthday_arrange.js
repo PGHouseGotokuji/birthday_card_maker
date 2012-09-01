@@ -116,28 +116,31 @@ BirthdayArrange = (function(_super) {
       type: "GET",
       dataType: "json",
       success: function(res) {
-        var coll, element, uid, _i, _len, _results;
+        var c, element, _i, _len, _results;
         _results = [];
         for (_i = 0, _len = res.length; _i < _len; _i++) {
           element = res[_i];
-          coll = element.Collaborator;
-          uid = coll.uid;
-          collaboratorList.push(coll);
-          _results.push($.ajax({
-            url: '/user/' + uid,
-            type: "GET",
-            dataType: "json",
-            success: function(res) {
-              var furl, uurl;
-              coll.user = res.User;
-              uurl = '/facebook/' + coll.user.fb_id + '/picture';
-              $("<a href='javascript:void(0)'><img src='" + uurl + "' style='width: 120px'></a>").appendTo("#imageList").click(function() {
-                return self.inImage(uurl);
-              });
-              furl = self.fetchImage(coll.photo_id);
-              return $("#imageList").append("<a onclick='drawing.inImage(\"" + furl + "\")' href='javascript:void(0)'><img src='" + furl + "' style='width: 120px'></a>");
-            }
-          }));
+          c = element.Collaborator;
+          _results.push((function(coll) {
+            var uid;
+            uid = coll.uid;
+            collaboratorList.push(coll);
+            return $.ajax({
+              url: '/user/' + uid,
+              type: "GET",
+              dataType: "json",
+              success: function(res) {
+                var furl, uurl;
+                coll.user = res.User;
+                uurl = '/facebook/' + coll.user.fb_id + '/picture';
+                $("<a href='javascript:void(0)'><img src='" + uurl + "' style='width: 120px'></a>").appendTo("#imageList").click(function() {
+                  return self.inImage(uurl);
+                });
+                furl = self.fetchImage(coll.photo_id);
+                return $("#imageList").append("<a onclick='drawing.inImage(\"" + furl + "\")' href='javascript:void(0)'><img src='" + furl + "' style='width: 120px'></a>");
+              }
+            });
+          })(c));
         }
         return _results;
       }

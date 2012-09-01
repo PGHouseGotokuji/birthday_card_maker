@@ -99,24 +99,28 @@ class BirthdayArrange extends CanvasImages
             dataType: "json"
             success: (res) ->
                 for element in res
-                    coll = element.Collaborator;
-                    uid = coll.uid
-                    collaboratorList.push coll
+                    c = element.Collaborator;
 
-                    $.ajax {
+                    ((coll)->
+                      uid = coll.uid
+                      collaboratorList.push coll
+
+                      $.ajax {
                       url: '/user/' + uid
                       type: "GET"
                       dataType: "json"
                       success: (res) ->
-                          coll.user = res.User
-#                          uurl = coll.user.fb_picture;
-                          uurl = '/facebook/' + coll.user.fb_id + '/picture';
-                          $("<a href='javascript:void(0)'><img src='#{uurl}' style='width: 120px'></a>").appendTo("#imageList").click(->
-                            self.inImage(uurl)
-                          )
-                          furl = self.fetchImage(coll.photo_id)
-                          $("#imageList").append("<a onclick='drawing.inImage(\"#{furl}\")' href='javascript:void(0)'><img src='#{furl}' style='width: 120px'></a>")
-                    }
+                        coll.user = res.User
+                        #                          uurl = coll.user.fb_picture;
+                        uurl = '/facebook/' + coll.user.fb_id + '/picture';
+                        $("<a href='javascript:void(0)'><img src='#{uurl}' style='width: 120px'></a>").appendTo("#imageList").click(->
+                          self.inImage(uurl)
+                        )
+                        furl = self.fetchImage(coll.photo_id)
+                        $("#imageList").append("<a onclick='drawing.inImage(\"#{furl}\")' href='javascript:void(0)'><img src='#{furl}' style='width: 120px'></a>")
+
+                      })(c)
+
         }
 
 
