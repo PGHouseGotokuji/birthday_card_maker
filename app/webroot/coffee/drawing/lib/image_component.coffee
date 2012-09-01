@@ -29,7 +29,14 @@ class ImageComponent
             @outImage = @mouseoutImage
 
     rangeImageInCheck: (point, coords = @coords, size = @size) ->
-        if coords.left <= point.x <= coords.left + size.width
+#      console.log('point.x:' + point.x)
+#      console.log('point.y:' + point.y)
+#      console.log('coords.x:' + coords.left)
+#      console.log('coords.y:' + coords.top)
+#      console.log('size.width:' + size.width)
+#      console.log('size.height:' + size.height);
+
+      if coords.left <= point.x <= coords.left + size.width
             if coords.top <= point.y <= coords.top + size.height
                 return true
         return false

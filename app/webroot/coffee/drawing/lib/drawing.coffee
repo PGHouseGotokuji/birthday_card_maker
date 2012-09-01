@@ -28,12 +28,12 @@ class Drawing
         , false)
 
     drawTouchMove: (e) =>
-        coords = {x: e.screenX, y: e.screenY - 60}
+        coords = offsetOn($("#{@id}"), e)
         @canvas.fillLine(coords)
 
     drawTouchStart: (e) =>
         @clicking = true
-        coords = {x: e.screenX, y: e.screenY - 60}
+        coords = offsetOn($("#{@id}"), e)
         @canvas.fillLine(coords)
 
     drawTouchEnd: (e) =>

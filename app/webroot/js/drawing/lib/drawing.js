@@ -60,20 +60,14 @@ Drawing = (function() {
 
   Drawing.prototype.drawTouchMove = function(e) {
     var coords;
-    coords = {
-      x: e.screenX,
-      y: e.screenY - 60
-    };
+    coords = offsetOn($("" + this.id), e);
     return this.canvas.fillLine(coords);
   };
 
   Drawing.prototype.drawTouchStart = function(e) {
     var coords;
     this.clicking = true;
-    coords = {
-      x: e.screenX,
-      y: e.screenY - 60
-    };
+    coords = offsetOn($("" + this.id), e);
     return this.canvas.fillLine(coords);
   };
 

@@ -34,32 +34,41 @@ class CanvasImages extends _Canvas
                 @setEvents()
 
     setTouchEvent: (type, func) ->
-        $("#{@id}").on type, =>
-            #console.log('touch event: ' + type);
-            event.preventDefault()
+        $("##{@id}").on type, =>
             # func(event.targetTouches[0])
-            func(event.targetTouches[0])
+            func(event.targetTouches[0], event)
 
     setEvents: ->
         for key, func of @events
-            $("##{@id}").bind key, func
+            $("##{@id}").on key, func
 
-    touchstart: (e) =>
-        @mousedown(e)
+    touchstart: (e, ecore) =>
+        @mousedown(e, ecore)
 
-    touchmove: (e) =>
-        @mousemove(e)
+    touchmove: (e, ecore) =>
+        @mousemove(e, ecore)
 
-    touchend: (e) =>
-        @mouseup(e)
+    touchend: (e, ecore) =>
+        @mouseup(e, ecore)
 
-    mousedown: (event) =>
+    mousedown: (event, ecore = event) =>
         '''
             touch is image field or not
         '''
         for component ,index in @imageList
-            coords = eventExCoords(event)
-            i = component.rangeFocusInCheck(coords) 
+
+#            coords = eventExCoords(event)
+#            console.log('event.pageX' + event.pageX);
+#            console.log('event.pageY' + event.pageY);
+#            console.log('event.offsetX' + event.offsetX);
+#            console.log('event.offsetY' + event.offsetY);
+#            console.log('offset.left' + $("##{@id}").offset().left);
+#            console.log('offset.top' + $("##{@id}").offset().top);
+
+            coords = offsetOn($("##{@id}"), event)
+
+            i = component.rangeFocusInCheck(coords)
+#            console.dir(i);
             if i isnt false
                 @flag.focusClicking = true
 
@@ -69,8 +78,10 @@ class CanvasImages extends _Canvas
                     index: index
                     focusPoint: i
                 }
-                component.focus()
 
+#                console.log('focused');
+                component.focus()
+                ecore.preventDefault()
                 break
 
             else if component.rangeImageInCheck(coords)
@@ -82,24 +93,28 @@ class CanvasImages extends _Canvas
                     index: index
                 }
                 component.focus()
+                ecore.preventDefault()
                 break
 
         if @touchComponent is null
             @reDraw()
 
 
-    mousemove: (event) =>
+    mousemove: (event, ecore = event) =>
         if @flag.clicking
-            @rangeInAction(event)
+          ecore.preventDefault()
+          @rangeInAction(event)
 
         else if @flag.focusClicking
-            coords = eventExCoords(event)
+            ecore.preventDefault()
+            coords = offsetOn($("##{@id}"), event)
             component = @imageList[@touchComponent.index]
             @rangeFocusInAction(event)
 
         else if @flag.focus
+            #ecore.preventDefault()
             component = @imageList[@touchComponent.index]
-            coords = eventExCoords(event)
+            coords = offsetOn($("##{@id}"), event)
             index = component.rangeFocusInCheck(coords)
             if index isnt false
                 @focusCursorSet(index)
@@ -111,10 +126,10 @@ class CanvasImages extends _Canvas
             cursor: cursors[index]
         }
 
-    mouseout: (event) =>
+    mouseout: (event, ecore = event) =>
         @mouseup()
 
-    mouseup: (event) =>
+    mouseup: (event, ecore = event) =>
         @mouseupRoutine()
 
     mouseupRoutine: ->

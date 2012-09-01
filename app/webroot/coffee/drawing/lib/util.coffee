@@ -11,3 +11,9 @@ eventExCoords = (event) ->
         }
 
     return coords
+
+offsetOn = ($elm, event)->
+  coords = {};
+  coords.x = event.pageX - $elm.offset().left
+  coords.y = event.pageY - $elm.offset().top
+  return coords;

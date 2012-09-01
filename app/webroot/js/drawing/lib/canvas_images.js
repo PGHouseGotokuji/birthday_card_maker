@@ -63,9 +63,8 @@ CanvasImages = (function(_super) {
 
   CanvasImages.prototype.setTouchEvent = function(type, func) {
     var _this = this;
-    return $("" + this.id).on(type, function() {
-      event.preventDefault();
-      return func(event.targetTouches[0]);
+    return $("#" + this.id).on(type, function() {
+      return func(event.targetTouches[0], event);
     });
   };
 
@@ -75,31 +74,34 @@ CanvasImages = (function(_super) {
     _results = [];
     for (key in _ref) {
       func = _ref[key];
-      _results.push($("#" + this.id).bind(key, func));
+      _results.push($("#" + this.id).on(key, func));
     }
     return _results;
   };
 
-  CanvasImages.prototype.touchstart = function(e) {
-    return this.mousedown(e);
+  CanvasImages.prototype.touchstart = function(e, ecore) {
+    return this.mousedown(e, ecore);
   };
 
-  CanvasImages.prototype.touchmove = function(e) {
-    return this.mousemove(e);
+  CanvasImages.prototype.touchmove = function(e, ecore) {
+    return this.mousemove(e, ecore);
   };
 
-  CanvasImages.prototype.touchend = function(e) {
-    return this.mouseup(e);
+  CanvasImages.prototype.touchend = function(e, ecore) {
+    return this.mouseup(e, ecore);
   };
 
-  CanvasImages.prototype.mousedown = function(event) {
+  CanvasImages.prototype.mousedown = function(event, ecore) {
+    var component, coords, i, index, _i, _len, _ref;
+    if (ecore == null) {
+      ecore = event;
+    }
     'touch is image field or not';
 
-    var component, coords, i, index, _i, _len, _ref;
     _ref = this.imageList;
     for (index = _i = 0, _len = _ref.length; _i < _len; index = ++_i) {
       component = _ref[index];
-      coords = eventExCoords(event);
+      coords = offsetOn($("#" + this.id), event);
       i = component.rangeFocusInCheck(coords);
       if (i !== false) {
         this.flag.focusClicking = true;
@@ -110,6 +112,7 @@ CanvasImages = (function(_super) {
           focusPoint: i
         };
         component.focus();
+        ecore.preventDefault();
         break;
       } else if (component.rangeImageInCheck(coords)) {
         this.flag.clicking = true;
@@ -119,6 +122,7 @@ CanvasImages = (function(_super) {
           index: index
         };
         component.focus();
+        ecore.preventDefault();
         break;
       }
     }
@@ -127,17 +131,22 @@ CanvasImages = (function(_super) {
     }
   };
 
-  CanvasImages.prototype.mousemove = function(event) {
+  CanvasImages.prototype.mousemove = function(event, ecore) {
     var component, coords, index;
+    if (ecore == null) {
+      ecore = event;
+    }
     if (this.flag.clicking) {
+      ecore.preventDefault();
       return this.rangeInAction(event);
     } else if (this.flag.focusClicking) {
-      coords = eventExCoords(event);
+      ecore.preventDefault();
+      coords = offsetOn($("#" + this.id), event);
       component = this.imageList[this.touchComponent.index];
       return this.rangeFocusInAction(event);
     } else if (this.flag.focus) {
       component = this.imageList[this.touchComponent.index];
-      coords = eventExCoords(event);
+      coords = offsetOn($("#" + this.id), event);
       index = component.rangeFocusInCheck(coords);
       if (index !== false) {
         return this.focusCursorSet(index);
@@ -153,11 +162,17 @@ CanvasImages = (function(_super) {
     });
   };
 
-  CanvasImages.prototype.mouseout = function(event) {
+  CanvasImages.prototype.mouseout = function(event, ecore) {
+    if (ecore == null) {
+      ecore = event;
+    }
     return this.mouseup();
   };
 
-  CanvasImages.prototype.mouseup = function(event) {
+  CanvasImages.prototype.mouseup = function(event, ecore) {
+    if (ecore == null) {
+      ecore = event;
+    }
     return this.mouseupRoutine();
   };
 
