@@ -3,7 +3,7 @@ class CollaboratorsController extends AppController
 {
     public $name = 'Collaborators';
 
-    public $uses    = array('Plan', 'Collaborator');
+    public $uses    = array('Plan', 'Collaborator', 'User');
     var $components = array('PlanSupport');
 
     public function beforeFilter()
@@ -67,23 +67,18 @@ class CollaboratorsController extends AppController
             $this->Session->write('redirect', '/plan' . DS . $planId . DS . 'collaborator');
             return $this->redirect('/');
         }
-//        $plan = $this->PlanSupport->findWithFromUser($this->Plan, $planId);
         $plan = $this->Plan->findById($planId);
         if(empty($plan)){
             die('id not found');
             return;
         }
 
+        $planFromUser = $this->User->findById($plan['Plan']['from_id']);
+
+        $this->set('from_name', $planFromUser['User']['username']);
+        $this->set('to_name',   $plan['Plan']['username']);
+        $this->set('imageUrl',  $plan['Plan']['fb_picture']);
         $this->set(compact('planId'));
-
-        $this->set('from_name', $this->loginUser['User']['username']);
-
-//        $access_token = $this->loginUser['User']['access_token'];
-//        $target       = $this->PlanSupport->getToUser($access_token, $plan);
-//        $this->set('to_name', $target->username);
-//        $this->set('imageUrl', $target->picture->data->url);
-        $this->set('to_name',  $plan['Plan']['username']);
-        $this->set('imageUrl', $plan['Plan']['fb_picture']);
     }
 
     /**
