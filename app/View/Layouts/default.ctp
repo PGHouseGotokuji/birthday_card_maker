@@ -16,6 +16,7 @@
     <?= $this->Html->charset(); ?>
     <?= $this->Html->meta('icon'); ?>
     <?= $scripts_for_layout; ?>
+    <?= $this->Html->css('bootstrap.min'); ?>
     <?= $this->Html->css('style'); ?>
     <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
     <script type="text/javascript">
