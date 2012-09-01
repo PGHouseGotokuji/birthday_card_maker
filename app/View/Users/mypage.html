@@ -36,19 +36,8 @@
 <script type="text/template" id="cardTpl">
     <div class="card clearfix">
       <div class="card-left">
-        <ul>
-          <li class="target-img"></li>
-          <li class="target-name"></li>
-        </ul>
       </div>
       <div class="card-right">
-        <ul class="members">
-        </ul>
-        <!--
-        <div class="send-btn">
-            <button>カードを贈る</button>
-        </div>
-        -->
       </div>
     </div>
 </script>
@@ -61,23 +50,26 @@
 <script type="text/template" id="planTpl">
     <ul>
       <% _.each(Plans, function(plan) { %>
-      <li class="target-img"><img src="<%-plan.Plan.fb_picture%>" width="50" height="50" /></li>
-      <li class="target-name">
-        贈る相手：<br />
-        <%-plan.Plan.username%></a>さん
+
+      <li>
+          <div class="target-img"><img src="<%-plan.Plan.fb_picture%>" width="50" height="50" /></div>
+          <div class="target-name">
+              贈る相手：<br />
+              <%-plan.Plan.username%></a>さん
+          </div>
+          <div style="margin-bottom:20px;">
+              <a href="/plan/<%-plan.Plan.id%>/post/confirm_fb_timeline">皆に寄せ書きしてもらうように呼びかける</a>
+          </div>
+
+          <div class='create_image' style="margin-bottom:20px;">
+              <button class="btn btn-large">バースデーカードを<br />組み立てる</button>
+          </div>
+
+          <div class="send-btn" style="margin-bottom:20px;">
+              <button class="btn btn-large">バースデーカードを<br />送る</button>
+          </div>
+          <hr style="margin-bottom:20px;">
       </li>
-        <div style="margin-bottom:20px;">
-            <a href="/plan/<%-plan.Plan.id%>/post/confirm_fb_timeline">皆に寄せ書きしてもらうように呼びかける</a>
-        </div>
-
-        <div class='create_image' style="margin-bottom:20px;">
-          <button class="btn btn-large">バースデーカードを<br />組み立てる</button>
-        </div>
-
-        <div class="send-btn" style="margin-bottom:20px;">
-            <button class="btn btn-large">バースデーカードを<br />送る</button>
-        </div>
-        <hr style="margin-bottom:20px;">
 
       <% }); %>
     </ul>
