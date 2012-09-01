@@ -133,7 +133,7 @@ class CollaboratorsController extends AppController
 //        $this->set('imageUrl', $target->picture->data->url);
 //        $this->set('name',     $plan['Plan']['username']);
 //        $this->set('imageUrl', $plan['Plan']['fb_picture']);
-//        $this->set('planId',   $planId);
+        $this->set('planId', $plan['Plan']['id']);
     }
 
     /**
