@@ -10,7 +10,13 @@ class CollaboratorsController extends AppController
     {
         parent::beforeFilter();
 
-        $this->noLoginAction();
+        $planId = $this->params['planId'];
+        $plan   = $this->Plan->findById($planId);
+        if (!empty($plan)) {
+            $this->noLoginAction('joinCollaborator');
+        } else {
+            // ajax時と動作を分ける
+        }
     }
 
     /**
@@ -41,10 +47,6 @@ class CollaboratorsController extends AppController
     public function joinCollaborator() 
     {
         $planId = $this->params['planId'];
-        $plan   = $this->Plan->findById($planId);
-        if (empty($plan)) {
-            return $this->redirect('/');
-        }
         if (empty($this->loginUser)) {
             $this->Session->write('redirectUrl', '/plan/' . $planId .'/collaborator');
             return $this->redirect('/');
@@ -65,20 +67,23 @@ class CollaboratorsController extends AppController
             $this->Session->write('redirect', '/plan' . DS . $planId . DS . 'collaborator');
             return $this->redirect('/');
         }
-        $plan = $this->PlanSupport->findWithFromUser($this->Plan, $planId);
+//        $plan = $this->PlanSupport->findWithFromUser($this->Plan, $planId);
+        $plan = $this->Plan->findById($planId);
         if(empty($plan)){
             die('id not found');
             return;
         }
 
         $this->set(compact('planId'));
-        $this->set('from_name', $plan['User']['username']);
 
-        $access_token = $this->loginUser['User']['access_token'];
-        $target       = $this->PlanSupport->getToUser($access_token, $plan);
+        $this->set('from_name', $this->loginUser['User']['username']);
 
-        $this->set('to_name', $target->username);
-        $this->set('imageUrl', $target->picture->data->url);
+//        $access_token = $this->loginUser['User']['access_token'];
+//        $target       = $this->PlanSupport->getToUser($access_token, $plan);
+//        $this->set('to_name', $target->username);
+//        $this->set('imageUrl', $target->picture->data->url);
+        $this->set('to_name',  $plan['Plan']['username']);
+        $this->set('imageUrl', $plan['Plan']['fb_picture']);
     }
 
     /**
@@ -114,18 +119,21 @@ class CollaboratorsController extends AppController
             }
         }
 
-        $plan = $this->PlanSupport->findWithFromUser($this->Plan, $planId);
+        $plan = $this->Plan->findById($planId);
+//        $plan = $this->PlanSupport->findWithFromUser($this->Plan, $planId);
 
         if(empty($plan)){
             die('id not found');
             return;
         }
 
-        $access_token = $this->loginUser['User']['access_token'];
-        $target       = $this->PlanSupport->getToUser($access_token, $plan);
-        $this->set('name', $target->username);
-        $this->set('imageUrl', $target->picture->data->url);
-        $this->set('planId', $planId);
+//        $access_token = $this->loginUser['User']['access_token'];
+//        $target       = $this->PlanSupport->getToUser($access_token, $plan);
+//        $this->set('name', $target->username);
+//        $this->set('imageUrl', $target->picture->data->url);
+//        $this->set('name',     $plan['Plan']['username']);
+//        $this->set('imageUrl', $plan['Plan']['fb_picture']);
+        $this->set('planId', $plan['Plan']['id']);
     }
 
     /**
@@ -169,7 +177,7 @@ class CollaboratorsController extends AppController
                 $this->Session->setFlash('画像保存時に問題が発生しました。再度お試しください。', 'flash' . DS . 'error');
                 return new CakeResponse(array('body' => json_encode(false)));
             }
-            $this->Session->setFlash('プラン画像を保存しました。', 'flash' . DS . 'success');
+            $this->Session->setFlash('画像を提供していただきありがとうござました。', 'flash' . DS . 'success');
             return new CakeResponse(array('body' => json_encode(true)));
         }
 

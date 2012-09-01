@@ -6,24 +6,9 @@
 <canvas id="canvas"></canvas>
 <button onclick="drawing.upload()">保存</button>
 <button onclick="drawing.clear()">クリア</button>
-
 <script>
     $(function(){
-        drawing = new BirthDrawing("canvas", <?=$this->get('planId')?>);
+        drawing = new BirthDrawing("canvas", <?= $planId ?>);
     });
 </script>
 
-
-<!--
-
-<div 
-="flow-title">画像の提供ありがとうございました！</div>
-<div class="flow-discription">
-    あなたのプロフィール画像は<br />
-    <?= h($name) ?>さんに提供されました。</div>
-    <p class="profile-img"><img src="<?= h($imageUrl) ?>" width="100" /></p>
-    <p style="text-align:center;margin-top:30px;">
-        <a href="/mypage">マイページへ戻る</a>
-    </p>
-</div>
--->
