@@ -41,8 +41,7 @@ PlanTable = (function(_super) {
     if (debug.flag) {
       console.log(res);
     }
-    this.viewUpdate();
-    return this.saveLocation.collaborators = new CollaboratorTable(this.saveLocation);
+    return this.viewUpdate();
   };
 
   PlanTable.prototype.setEvents = function() {

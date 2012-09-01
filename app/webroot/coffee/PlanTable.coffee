@@ -32,7 +32,7 @@ class PlanTable extends DataTable
         console.log res if debug.flag
 
         @viewUpdate()
-        @saveLocation.collaborators = new CollaboratorTable(@saveLocation)
+        #@saveLocation.collaborators = new CollaboratorTable(@saveLocation)
     
     setEvents: ->
         self = @
