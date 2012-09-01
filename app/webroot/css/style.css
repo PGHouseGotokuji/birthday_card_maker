@@ -1,275 +1,264 @@
 @charset "utf-8";
 /* CSS Document */
 
-*{
-	margin:0;
-	padding:0;
-	
+* {
+    margin: 0;
+    padding: 0;
+
 }
 
-button{
+button {
     padding: .5em;
     font-size: 110%;
 }
 
-canvas#canvas{
+canvas#canvas {
     border: solid 1px lightgray;
-    display:block;
+    display: block;
     margin: 0 auto;
 }
 
-body{
-	background:url(../img/bg-gray.png);
-	font-family:"ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
-}
-li{
-	list-style:none;
+body {
+    background: url(../img/bg-gray.png);
+    font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
 }
 
-img{
-	box-shadow: 2px 2px 3px rgba(0,0,0,0.4);
-	-moz-box-shadow: 2px 2px 3px rgba(0,0,0,0.4);　/* Firefox用 */  
-	-webkit-box-shadow: 2px 2px 3px rgba(0,0,0,0.4);　/* Safari,Google Chrome用 */ 
+li {
+    list-style: none;
 }
 
-
-.clearfix{
-overflow: hidden;
+img {
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
 }
+
+.clearfix {
+    overflow: hidden;
+}
+
 .clearfix:after {
-content: "";
-display: block;
-clear: both;
-height: 1px;
-overflow: hidden;
+    content: "";
+    display: block;
+    clear: both;
+    height: 1px;
+    overflow: hidden;
 }
 
-#wrapper{
-}
-#header{
-	height:20px;
-	background:url(../img/header-bg.png);
-	color:#FFF;
-	padding:2px 10px 10px 10px;
-	font-size:12px;
+#wrapper {
 }
 
-#header a{
-	color:#FFF;
+#header {
+    height: 20px;
+    background: url(../img/header-bg.png);
+    color: #FFF;
+    padding: 2px 10px 10px 10px;
+    font-size: 12px;
 }
 
-.logo{
+#header a {
+    color: #FFF;
+}
+
+.logo {
     margin-top: 5px;
-	float:left;
-}
-.logo a{
-	font-size:20px;
+    float: left;
 }
 
-.setting{
-	float:right;
-	padding-top:5px;
+.logo a {
+    font-size: 20px;
 }
 
+.setting {
+    float: right;
+    padding-top: 5px;
+}
 
 /*content*/
 
-.content,#footer{
-	padding:10px;
+.content, #footer {
+    padding: 10px;
 }
 
-.content,.card,.card-sample{
-	clear:both;
+.content, .card, .card-sample {
+    clear: both;
 }
-
 
 /*owner*/
-.owner-left{
-	float:left;
+.owner-left {
+    float: left;
 }
 
-
-
-.owner-right{
-	float:right;
-	padding-top:50px;
-	padding-right:70px;
+.owner-right {
+    float: right;
+    padding-top: 50px;
 }
 
-.owner-name,.target-name{
+.owner-name, .target-name {
 }
 
-.target-img{
-	width:50px;
-	height:50px;
-	
+.target-img {
+    width: 50px;
+    height: 50px;
+
 }
-
-
 
 /*card*/
 
-.card{
-	margin-top:20px;
-	border-top:1px solid #999;
-	padding:10px 0;
+.card {
+    margin-top: 20px;
+    border-top: 1px solid #999;
+    padding: 10px 0;
 }
 
-.card-left{
+.card-left {
 }
 
-.card-right{
-	float:right;
-	width:150px;
-	margin-left:20px;
+.card-right {
+    float: right;
+    width: 150px;
+    margin-left: 20px;
 }
 
-
-
-
-.card-right li{
-	display:inline;
-	font-size:11px;
+.card-right li {
+    display: inline;
+    font-size: 11px;
 }
-
-
-
 
 /*card-sample*/
 
-.card-sample{
-	margin-top:20px;
-	font-size:12px;
+.card-sample {
+    margin-top: 20px;
+    font-size: 12px;
 }
 
-.card-sample img{
-	width:300px;
+.card-sample img {
+    width: 300px;
 }
 
 /*#footer*/
 
-#footer{
+#footer {
     text-align: center;
-	background:url(../img/header-bg.png);
-	color:#FFF;
-	padding:4px 10px;
-	font-size:12px;
+    background: url(../img/header-bg.png);
+    color: #FFF;
+    padding: 4px 10px;
+    font-size: 12px;
 }
 
-#footer a{
-	color:#FFF;
+#footer a {
+    color: #FFF;
 }
-
-
 
 /*ここからターゲット*/
 
-.friend-info{
-	width:100px;
-	float:left;
-	margin-bottom:10px;
-	font-size:12px;
+.friend-info {
+    width: 100px;
+    float: left;
+    margin-bottom: 10px;
+    font-size: 12px;
 }
 
-.friend-img{
-	height:70px;
+.friend-img {
+    height: 70px;
 }
 
-.friend-info img{
-	width:70px;
-	height:70px;
+.friend-info img {
+    width: 70px;
+    height: 70px;
 }
 
-.serch-box{
-	margin-bottom:10px;
+.serch-box {
+    margin-bottom: 10px;
 }
 
-.serch-box input{
-	height:20px;
+.serch-box input {
+    height: 20px;
 }
 
-.flow-discription{
-	font-size:12px;
-	margin-top:10px;
+.flow-discription {
+    font-size: 12px;
+    margin-top: 10px;
 }
 
+.appeal-btn {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
 
-.appeal-btn{
-	text-align:center;
-	margin-bottom:20px;
-	margin-top:20px;
-	
 }
 
-.flow-discription img{
-	-moz-box-shadow: 1px 1px 3px #000;　/* Firefox用 */  
-	-webkit-box-shadow: 1px 1px 3px #000;　/* Safari,Google Chrome用 */ 
-	}
-	
-	
-	/*sent*/
-	
-	
-.back-mypage{
-	text-align:center;
-	margin-bottom:20px;
-	margin-top:20px;
-	
+.flow-discription img {
+    -moz-box-shadow: 1px 1px 3px #000;
+    　 /* Firefox用 */ -webkit-box-shadow: 1px 1px 3px #000;
+    　 /* Safari,Google Chrome用 */
 }
 
-.profile-img{
-	text-align:center;
-	margin-top:30px;
+/*sent*/
+
+.back-mypage {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+
 }
 
+.profile-img {
+    text-align: center;
+    margin-top: 30px;
+}
 
-.thanks-content{
-	height:400px;
+.thanks-content {
+    height: 400px;
 }
 
 a {
-    text-decoration : none;
+    text-decoration: none;
 }
 
 a:hover {
-    color : #0000ff;
+    color: #0000ff;
 }
 
 .flash-message {
-        width:320px;
-        height:30px;
-        background:#D5FFDF;
+    width: 320px;
+    height: 30px;
+    background: #D5FFDF;
 }
 
 .fm-success-icon {
-        background : url(../img/success_01.png) no-repeat;
-        width      : 35px;
-        height     : 35px;
-        float      : left;
-}
-.fm-error-icon {
-        background : url(../img/error.png) no-repeat;
-        width      : 35px;
-        height     : 35px;
-        float      : left;
-}
-.flash-message-text {
-    height      : 20px;
-    margin-top  : 5px;
-    font-weight : bold;
-    color       : #FFFF00;
-}
-.success {
-    color : #009900;
-    font-size : 14px;
-}
-.error {
-    color : #ef005b;
-    font-size : 9px;
-    padding-top : 7px;
+    background: url(../img/success_01.png) no-repeat;
+    width: 35px;
+    height: 35px;
+    float: left;
 }
 
-.tool{
+.fm-error-icon {
+    background: url(../img/error.png) no-repeat;
+    width: 35px;
+    height: 35px;
+    float: left;
+}
+
+.flash-message-text {
+    height: 20px;
+    margin-top: 5px;
+    font-weight: bold;
+    color: #FFFF00;
+}
+
+.success {
+    color: #009900;
+    font-size: 14px;
+}
+
+.error {
+    color: #ef005b;
+    font-size: 9px;
+    padding-top: 7px;
+}
+
+.tool {
     margin: .5em;
     text-align: center;
 }
