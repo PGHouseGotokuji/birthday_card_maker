@@ -10,7 +10,13 @@ class CollaboratorsController extends AppController
     {
         parent::beforeFilter();
 
-        $this->noLoginAction();
+        $planId = $this->params['planId'];
+        $plan   = $this->Plan->findById($planId);
+        if (!empty($plan)) {
+            $this->noLoginAction('joinCollaborator');
+        } else {
+            // ajax時と動作を分ける
+        }
     }
 
     /**
@@ -41,10 +47,6 @@ class CollaboratorsController extends AppController
     public function joinCollaborator() 
     {
         $planId = $this->params['planId'];
-        $plan   = $this->Plan->findById($planId);
-        if (empty($plan)) {
-            return $this->redirect('/');
-        }
         if (empty($this->loginUser)) {
             $this->Session->write('redirectUrl', '/plan/' . $planId .'/collaborator');
             return $this->redirect('/');
