@@ -177,7 +177,7 @@ class CollaboratorsController extends AppController
                 $this->Session->setFlash('画像保存時に問題が発生しました。再度お試しください。', 'flash' . DS . 'error');
                 return new CakeResponse(array('body' => json_encode(false)));
             }
-            $this->Session->setFlash('プラン画像を保存しました。', 'flash' . DS . 'success');
+            $this->Session->setFlash('画像を提供していただきありがとうござました。', 'flash' . DS . 'success');
             return new CakeResponse(array('body' => json_encode(true)));
         }
 
