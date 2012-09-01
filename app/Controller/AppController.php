@@ -40,7 +40,7 @@ Class AppController extends Controller
     public function error()
     {
        $this->set('title_for_layout', 'エラー ' . TITLE);
-       $this->set('title_for_page', 'エラー ' . TITLE);
+       $this->set('title_for_page',   'エラー ' . TITLE);
        $this->render('/Errors/error');
     }
 }

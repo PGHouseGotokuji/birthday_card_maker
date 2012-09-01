@@ -23,6 +23,5 @@ Class PagesController extends AppController
 
     public function arrange()
     {
-
     }
 }

@@ -3,6 +3,9 @@
  * dev環境用の設定
  */
 
+/** 環境毎にデバッグモード書き換え **/
+Configure::write('debug', 2);
+
 /** 開発環境URL **/
 define('SITE_URL', 'http://dev.birthday-card-maker.com');
 
