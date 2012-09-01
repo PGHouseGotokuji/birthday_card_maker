@@ -84,13 +84,21 @@ img {
     clear: both;
 }
 
+.owner{
+    position: relative;
+}
+
 /*owner*/
 .owner-left {
-    float: left;
+
 }
 
 .owner-right {
-    float: right;
+    position: absolute;
+    top:0;
+    left: 130px;
+    right: 0;
+    height: 100px;
     padding-top: 50px;
 }
 
@@ -262,4 +270,43 @@ a:hover {
     margin: .5em;
     text-align: center;
 }
+
+
+
+ul.plans li{
+    position: relative;
+
+    padding: 10px;
+    width: 300px;
+    float: left;
+}
+
+ul.plans .target-img{
+
+    margin-bottom: 10px;
+}
+
+ul.plans .target-name{
+
+    position: absolute;
+    left: 80px;
+    top: 20px;
+    right: 0;
+    font-size: 110%;
+}
+
+
+img.preview{
+    max-width:100%;
+    display: block;
+    margin: 0 auto;
+}
+
+
+/* mypage*/
+.tools button.btn{
+    width: 280px;
+}
+
+
 

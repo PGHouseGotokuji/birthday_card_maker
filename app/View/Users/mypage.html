@@ -48,27 +48,29 @@
         </div>-->
 
 <script type="text/template" id="planTpl">
-    <ul>
+    <ul class="plans clearfix">
       <% _.each(Plans, function(plan) { %>
 
       <li>
           <div class="target-img"><img src="<%-plan.Plan.fb_picture%>" width="50" height="50" /></div>
           <div class="target-name">
-              贈る相手：<br />
-              <%-plan.Plan.username%></a>さん
-          </div>
-          <div style="margin-bottom:20px;">
-              <a href="/plan/<%-plan.Plan.id%>/post/confirm_fb_timeline">皆に寄せ書きしてもらうように呼びかける</a>
+              <strong>贈る相手<br><%-plan.Plan.username%></a>さん</strong>
           </div>
 
-          <div class='create_image' style="margin-bottom:20px;">
-              <button class="btn btn-large">バースデーカードを<br />組み立てる</button>
+          <div class="tools">
+              <div style="margin-bottom:10px;">
+                  <button class="btn btn-large" onclick="javascript:location.href='/plan/<%-plan.Plan.id%>/post/confirm_fb_timeline'">皆に寄せ書きを呼びかける</button>
+              </div>
+
+              <div class='create_image' style="margin-bottom:10px;">
+                  <button class="btn btn-large">カードを組み立てる</button>
+              </div>
+
+              <div class="send-btn" style="margin-bottom:10px;">
+                  <button class="btn btn-large">カードを贈る</button>
+              </div>
           </div>
 
-          <div class="send-btn" style="margin-bottom:20px;">
-              <button class="btn btn-large">バースデーカードを<br />送る</button>
-          </div>
-          <hr style="margin-bottom:20px;">
       </li>
 
       <% }); %>
@@ -77,7 +79,7 @@
 
 
 <script type="text/template" id="memberTpl">
-  <li class='collaboratorPeople'><%-length%>人が協力しています</li>
+  <!--<li class='collaboratorPeople'><%-length%>人が協力しています</li>-->
 </script>
 
 <script type="text/template" id="selectFriendTpl">
