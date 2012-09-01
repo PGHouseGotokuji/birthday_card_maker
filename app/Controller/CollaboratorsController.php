@@ -10,23 +10,6 @@ class CollaboratorsController extends AppController
     {
         parent::beforeFilter();
 
-/*
-        $planId = $this->params['planId'];
-        $plan   = $this->Plan->findById($planId);
-        if (empty($plan)) {
-            if ($this->request->is('ajax')) {
-                return new CakeResponse(array('body' => json_encode(false)));
-            } else {
-                return $this->redirect('/');
-            }
-        }
-*/
-
-        if (empty($this->loginUser)) {
-            $this->Session->write('redirectUrl', '/plan/' . $planId .'/collaborator');
-            return $this->redirect('/');
-        }
-
         $this->noLoginAction();
     }
 
@@ -58,9 +41,13 @@ class CollaboratorsController extends AppController
     public function joinCollaborator() 
     {
         $planId = $this->params['planId'];
+        $plan   = $this->Plan->findById($planId);
+        if (empty($plan)) {
+            return $this->redirect('/');
+        }
         if (empty($this->loginUser)) {
             $this->Session->write('redirectUrl', '/plan/' . $planId .'/collaborator');
-            $this->redirect('/');
+            return $this->redirect('/');
         }
         return $this->redirect('/plan/' . $planId . '/collaborator/confirm');
     }
