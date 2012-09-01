@@ -52,11 +52,6 @@
     Router::connect('/plan/:planId/post/confirm_fb_timeline',     array('controller' => 'Posts', 'action' => 'confirmPostFbTimeline'), array(array('planId' => '[0-9]+')));
     Router::connect('/plan/:planId/post/post_fb_timeline',        array('controller' => 'Posts', 'action' => 'postFbTimeline'), array(array('planId' => '[0-9]+')));
     
-    // 相手のタイムラインへ投稿
-//    Router::connect('/plan/:planId/post/confirm_friend_fb_timeline', array('controller' => 'Posts', 'action' => 'confirmPostFriendFbTimeline'), array(array('planId' => '[0-9]+')));
-    Router::connect('/plan/:planId/post/confirm',                 array('controller' => 'Posts', 'action' => 'confirm'));
-    Router::connect('/plan/:planId/post/post_friend_fb_timeline', array('controller' => 'Posts', 'action' => 'postFriendFbTimeline'));
-    
     // コラボレータがログインして誕生日プランに参加
     Router::connect('/plan/:planId/collaborator',         array('controller' => 'Collaborators', 'action' => 'joinCollaborator'), array(array('planId' => '[0-9]+')));
     Router::connect('/plan/:planId/collaborator/confirm', array('controller' => 'Collaborators', 'action' => 'confirm'), array(array('planId' => '[0-9]+')));
@@ -64,7 +59,14 @@
     
     // 画像を生成
     Router::connect('/plan/:planId/card', array('controller' => 'Posts', 'action' => 'postCard'));
-    
+
+    // 色紙を組み立てる
+    Router::connect('/arrange/:planId',   array('controller' => 'Plans', 'action' => 'arrange'), array(array('planId' => '[0-9]+')));
+
+    // 相手のタイムラインへ投稿
+    Router::connect('/plan/:planId/post/confirm',                 array('controller' => 'Posts', 'action' => 'confirm'));
+    Router::connect('/plan/:planId/post/post_friend_fb_timeline', array('controller' => 'Posts', 'action' => 'postFriendFbTimeline'));
+        
     // ログアウト
     Router::connect('/logout',            array('controller' => 'auths', 'action' => 'userLogout'));
     
@@ -78,11 +80,6 @@
     // 画像アップロード
     Router::connect('/plan/:planId/photo',                              array('controller' => 'Plans', 'action' => 'uploadPhoto'), array(array('planId' => '[0-9]+')));
     Router::connect('/plan/:planId/collaborator/:collaboratorId/photo', array('controller' => 'Collaborators', 'action' => 'uploadPhoto'), array(array('planId' => '[0-9]+', 'collaboratorId' => '[0-9]+')));
-
-
-    //画像編集
-    Router::connect('/arrange/:planId',   array('controller' => 'Pages', 'action' => 'arrange'), array(array('planId' => '[0-9]+')));
-
 
 /**
  * Load all plugin routes.  See the CakePlugin documentation on 
