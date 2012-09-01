@@ -85,7 +85,6 @@ CanvasImages = (function(_super) {
   };
 
   CanvasImages.prototype.touchmove = function(e) {
-    e.preventDefault();
     return this.mousemove(e);
   };
 

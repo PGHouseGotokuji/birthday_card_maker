@@ -35,6 +35,7 @@ class CanvasImages extends _Canvas
 
     setTouchEvent: (type, func) ->
         $("#{@id}").on type, =>
+            #console.log('touch event: ' + type);
             event.preventDefault()
             # func(event.targetTouches[0])
             func(event.targetTouches[0])
@@ -47,7 +48,6 @@ class CanvasImages extends _Canvas
         @mousedown(e)
 
     touchmove: (e) =>
-        e.preventDefault();
         @mousemove(e)
 
     touchend: (e) =>
