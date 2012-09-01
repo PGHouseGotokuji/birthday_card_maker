@@ -130,10 +130,13 @@ class PostsController extends AppController
     {
         $planId = $this->params['planId'];
         $plan = $this->Plan->findById($planId);
-        if ($plan['Plan']['photo_id'] == 0) {
+
+        if (empty($plan['Plan']['photo_id'])) {
+            $this->Session->setFlash('カードを組み立ててから贈りましょう', 'flash' . DS . 'success');
             return $this->redirect('/mypage');
         }
         $this->set('planId', $planId);
+        $this->set('plan', $plan);
     }
 
     /**
