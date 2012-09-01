@@ -162,6 +162,7 @@ class PostsController extends AppController
              return $poster->postTo($target->id, $celebrateMessage);
         };
 
+        $this->set('plan', $plan);
         $this->doPostFbTimeLine($process);
     }
 

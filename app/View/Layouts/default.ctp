@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title><?= h($title_for_layout); ?><?= ($this->name != 'Pages' && $this->action != 'index') ? '｜' . TITLE : '' ; ?></title>
-    <? if (($this->name == 'Pages' && $this->action == 'arrange') || ($this->name == 'Collaborators' && $this->action == 'accept')) { ?>
+    <? if (($this->name == 'Plans' && $this->action == 'arrange') || ($this->name == 'Collaborators' && $this->action == 'accept')) { ?>
     <? } else { ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
     <? } ?>
