@@ -50,7 +50,7 @@
     
     // 自分のタイムラインへ投稿して呼びかけ
     Router::connect('/plan/:planId/post/confirm_fb_timeline', array('controller' => 'Posts', 'action' => 'confirmPostFbTimeline'), array(array('planId' => '[0-9]+')));
-    Router::connect('/plan/:planId/post/post_fb_timeline',    array('controller' => 'Posts', 'action' => 'postFbTimeline'), array(array('planId' => '[0-9]+')));
+    Router::connect('/post/post_fb_timeline',                 array('controller' => 'Posts', 'action' => 'postFbTimeline'), array(array('planId' => '[0-9]+')));
     
     // コラボレータがログインして誕生日プランに参加
     Router::connect('/plan/:planId/collaborator',         array('controller' => 'Collaborators', 'action' => 'joinCollaborator'), array(array('planId' => '[0-9]+')));

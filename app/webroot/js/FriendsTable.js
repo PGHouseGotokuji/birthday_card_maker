@@ -56,7 +56,7 @@ FriendsTable = (function(_super) {
   FriendsTable.prototype.postSuccess = function(res) {
     var _this = this;
     if (res.Success === "true") {
-      this.AjaxPost({}, "/post_fb_timeline", function() {
+      this.AjaxPost({}, "/post/post_fb_timeline", function() {
         return alert("成功");
       });
       return location.href = '/mypage';

@@ -84,12 +84,6 @@ class PostsController extends AppController
         if (empty($user)) {
             return $this->redirect('/');
         }
-        $planId = $this->params['planId'];
-        $plan = $this->Plan->findById($planId);
-        if (empty($plan)) {
-            $this->Session->setFlash('プランを作成してください。', 'flash' . DS . 'error');
-            return $this->redirect('/mypage');
-        }
 
         $process = function($poster, $planInfo, $target) {
              $url         = SITE_URL . '/plan/' . $planInfo['Plan']['id'] . '/collaborator';

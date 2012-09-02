@@ -42,7 +42,7 @@ class FriendsTable extends DataTable
 
     postSuccess: (res) =>
         if res.Success is "true"
-            @AjaxPost {}, "/post_fb_timeline", =>
+            @AjaxPost {}, "/post/post_fb_timeline", =>
                 alert "成功"
 
             location.href = '/mypage'
