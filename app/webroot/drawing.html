@@ -10,11 +10,26 @@
 </head>
 <body>
     <canvas id="canvas"></canvas>
-    <BUTTON onclick="drawing.upload()">save</BUTTON>
+    <div id="tools">
+        <!-- <a href="#" id="drawing_bold">太さ</a>
+        <a href="#" id="drawing_color">色</a> -->
+        <ul id="drawing_bold" style="list-style-type: none;"></ul>
+        <ul id="drawing_color" style="list-style-type: none;"></ul>
+        
+        <a href="#" onclick="drawing.clear();">全消去</a>
+        <a href="#" onclick="drawing.upload();">セーブ</a>
+    </div>
+
+    <!-- <BUTTON onclick="drawing.upload()">save</BUTTON> -->
 
     <script>
+        // main function
         $(function(){
+            // global variable
             drawing = new BirthDrawing("canvas");
+
+            // create color and bold button
+            drawing.create_tools()
         });
     </script>
 </body>

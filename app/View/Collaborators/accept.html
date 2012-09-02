@@ -5,11 +5,22 @@
 <script type="text/javascript" src="/js/drawing/birthday_drawing.js"></script>
 <div>この下のボックスはタッチしたり、クリックしたりすると絵や文章を描いて贈る事ができます。</div>
 <canvas id="canvas"></canvas>
-<button onclick="drawing.upload()">保存</button>
-<button onclick="drawing.clear()">クリア</button>
+
+<div id="tools">
+    <ul id="drawing_bold"></ul>
+    <ul id="drawing_color"></ul>
+    
+    <button onclick="drawing.upload()">保存</button>
+    <button onclick="drawing.clear()">クリア</button>
+</div>
+
 <script>
     $(function(){
         drawing = new BirthDrawing("canvas", <?= $planId ?>);
+
+        // create color and bold button
+        drawing.create_tools()
+
     });
 </script>
 
