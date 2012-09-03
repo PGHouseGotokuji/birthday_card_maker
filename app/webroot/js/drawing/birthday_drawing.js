@@ -7,34 +7,25 @@ BirthDrawing = (function(_super) {
 
   __extends(BirthDrawing, _super);
 
-  function BirthDrawing() {
-    return BirthDrawing.__super__.constructor.apply(this, arguments);
+  function BirthDrawing(canvas, planId) {
+    BirthDrawing.__super__.constructor.call(this, canvas);
+    this.planId = planId;
   }
 
   BirthDrawing.prototype.makeUrl = function() {
-    var collaboratorId, planId,
+    var collaboratorId,
       _this = this;
-    planId = "";
     collaboratorId = "";
-    $.ajax({
-      url: "/get_plan",
-      method: "GET",
-      dataType: "json",
-      async: false,
-      success: function(res) {
-        return planId = res.Plan.id;
-      }
-    });
     $.ajax({
       url: "/get_user",
       method: "GET",
-      dataType: "json",
       async: false,
+      dataType: "json",
       success: function(res) {
         return collaboratorId = res.User.id;
       }
     });
-    return "/plan/" + planId + "/collaborator/" + collaboratorId + "/photo";
+    return "/plan/" + this.planId + "/collaborator/" + collaboratorId + "/photo";
   };
 
   BirthDrawing.prototype.create_tools = function() {
