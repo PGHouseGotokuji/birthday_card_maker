@@ -1,7 +1,8 @@
 <?php
+App::uses('Util', 'Lib');
 Class AppController extends Controller
 {
-    var $ext = '.html';
+    public $ext = '.html';
 
     public $loginUser = null;
 
