@@ -87,6 +87,7 @@ class LinksController extends AppController
             // ログインユーザー情報をセッションに突っ込む
             $loginUser['User']['id']              = $user['User']['id'];
             $loginUser['User']['username']        = $user['User']['username'];
+            $loginUser['User']['fb_id']           = $user['User']['fb_id'];
             $loginUser['User']['fb_picture']      = $user['User']['fb_picture'];
             $loginUser['User']['access_token']    = $access_token;
             $this->Session->write('auth.user', $loginUser);

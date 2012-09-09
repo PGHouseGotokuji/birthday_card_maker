@@ -1,10 +1,11 @@
 <?php
 class CollaboratorsController extends AppController 
 {
-    public $name = 'Collaborators';
+    public $name       = 'Collaborators';
+    public $uses       = array('Plan', 'Collaborator', 'User');
+    public $components = array('PlanSupport');
 
-    public $uses    = array('Plan', 'Collaborator', 'User');
-    var $components = array('PlanSupport');
+    public $plan       = array();
 
     public function beforeFilter()
     {
@@ -13,6 +14,7 @@ class CollaboratorsController extends AppController
         $planId = $this->params['planId'];
         $plan   = $this->Plan->findById($planId);
         if (!empty($plan)) {
+            $this->plan = $plan;
             $this->noLoginAction('joinCollaborator');
         } else {
             // ajax時と動作を分ける
@@ -20,18 +22,17 @@ class CollaboratorsController extends AppController
     }
 
     /**
-     * 誕生日に参加してくれる人たちの情報取得
+     * 指定のプランのコラボレータ情報を全件取得
      *
      * @access public
      */
     public function getCollaborators() 
     {
-        $plan          = $this->Plan->findById($this->params['planId']);
         $collaborators = array();
-        if (!empty($plan)) {
+        if (!empty($this->plan)) {
             $collaborators = $this->Collaborator->find('all', array(
                 'conditions' => array(
-                    'plan_id' => $plan['Plan']['id']
+                    'plan_id' => $this->plan['Plan']['id']
                 )
             ));
         }
@@ -46,12 +47,11 @@ class CollaboratorsController extends AppController
      */
     public function joinCollaborator() 
     {
-        $planId = $this->params['planId'];
         if (empty($this->loginUser)) {
-            $this->Session->write('redirectUrl', '/plan/' . $planId .'/collaborator');
+            $this->Session->write('redirectUrl', '/plan/' . $this->plan['Plan']['id'] . '/collaborator');
             return $this->redirect('/');
         }
-        return $this->redirect('/plan/' . $planId . '/collaborator/confirm');
+        return $this->redirect('/plan/' . $this->plan['Plan']['id'] . '/collaborator/confirm');
     }
 
 
@@ -62,23 +62,21 @@ class CollaboratorsController extends AppController
      */
     public function confirm()
     {
-        $planId = $this->params['planId'];
-        if (empty($this->loginUser)) {
-            $this->Session->write('redirect', '/plan' . DS . $planId . DS . 'collaborator');
-            return $this->redirect('/');
-        }
-        $plan = $this->Plan->findById($planId);
-        if(empty($plan)){
+        if(empty($this->plan)){
             die('id not found');
             return;
         }
+        // plans.to_idがログインユーザのfb_idと一致していたらトップへ戻す
+        if ($this->loginUser['User']['fb_id'] == $this->plan['Plan']['to_id']) {
+            $this->Session->setFlash('申し訳ございません、この誕生日企画には参加できません。', 'flash' . DS . 'error');
+            return $this->redirect('/');
+        }
 
-        $planFromUser = $this->User->findById($plan['Plan']['from_id']);
-
+        $planFromUser = $this->User->findById($this->plan['Plan']['from_id']);
         $this->set('from_name', $planFromUser['User']['username']);
-        $this->set('to_name',   $plan['Plan']['username']);
-        $this->set('imageUrl',  $plan['Plan']['fb_picture']);
-        $this->set(compact('planId'));
+        $this->set('to_name',   $this->plan['Plan']['username']);
+        $this->set('imageUrl',  $this->plan['Plan']['fb_picture']);
+        $this->set('planId',    $this->plan['Plan']['id']);
     }
 
     /**
@@ -88,23 +86,27 @@ class CollaboratorsController extends AppController
      */
     public function accept()
     {
-        $planId = $this->params['planId'];
-        if (empty($this->loginUser)) {
-            $this->Session->write('redirect', '/plan' . DS . $planId . DS . 'collaborator');
+        if (empty($this->plan)) {
+            die('id not found');
+            return;
+        }
+        // plans.to_idがログインユーザのfb_idと一致していたらトップへ戻す
+        if ($this->loginUser['User']['fb_id'] == $this->plan['Plan']['to_id']) {
+            $this->Session->setFlash('申し訳ございません、この誕生日企画には参加できません。', 'flash' . DS . 'error');
             return $this->redirect('/');
         }
 
         $collaborator = $this->Collaborator->find('first', array(
             'conditions' => array(
                 'uid' => $this->loginUser['User']['id'],
-                'plan_id' => $planId
+                'plan_id' => $this->plan['Plan']['id']
             )
         ));
         // 未登録の場合のみ、登録
         if (empty($collaborator)) {
             $data = array();
             $data['Collaborator'] = array();
-            $data['Collaborator']['plan_id'] = $planId;
+            $data['Collaborator']['plan_id'] = $this->plan['Plan']['id'];
             $data['Collaborator']['uid'] = $this->loginUser['User']['id'];
     
             $this->Collaborator->create();
@@ -114,21 +116,13 @@ class CollaboratorsController extends AppController
             }
         }
 
-        $plan = $this->Plan->findById($planId);
-//        $plan = $this->PlanSupport->findWithFromUser($this->Plan, $planId);
-
-        if(empty($plan)){
-            die('id not found');
-            return;
-        }
-
 //        $access_token = $this->loginUser['User']['access_token'];
 //        $target       = $this->PlanSupport->getToUser($access_token, $plan);
 //        $this->set('name', $target->username);
 //        $this->set('imageUrl', $target->picture->data->url);
 //        $this->set('name',     $plan['Plan']['username']);
 //        $this->set('imageUrl', $plan['Plan']['fb_picture']);
-        $this->set('planId', $plan['Plan']['id']);
+        $this->set('planId', $this->plan['Plan']['id']);
     }
 
     /**
@@ -138,16 +132,25 @@ class CollaboratorsController extends AppController
      */
     public function uploadPhoto()
     {
-        $planId = $this->params['planId'];
-        $uid    = $this->params['collaboratorId'];
+        if (empty($this->plan)) {
+            die('id not found');
+            return;
+        }
+        // plans.to_idがログインユーザのfb_idと一致していたらトップへ戻す
+        if ($this->loginUser['User']['fb_id'] == $this->plan['Plan']['to_id']) {
+            $this->Session->setFlash('申し訳ございません、この誕生日企画には参加できません。', 'flash' . DS . 'error');
+            return $this->redirect('/');
+        }
+
+        $uid          = $this->params['collaboratorId'];
         $collaborator = $this->Collaborator->find('first', array(
             'conditions' => array(
-                'plan_id' => $planId,
+                'plan_id' => $this->plan['Plan']['id'],
                 'uid'     => $uid
             )
         ));
         if (empty($collaborator)) {
-            $this->log('存在しないプランID, もしくはコラボレータIDを叩かれました。planId: ' . $planId . ', collaboratorId: ' . $collaboratorId . ', ' . $this->name . ', ' . $this->action . ', ' . __LINE__, 'warn');
+            $this->log('存在しないプランID, もしくはコラボレータIDを叩かれました。planId: ' . $this->plan['Plan']['id'] . ', collaboratorId: ' . $collaboratorId . ', ' . $this->name . ', ' . $this->action . ', ' . __LINE__, 'warn');
             $this->Session->setFlash('誕生日プランを作成してください。', 'flash' . DS . 'error');
             return new CakeResponse(array('body' => json_encode(false)));
         }

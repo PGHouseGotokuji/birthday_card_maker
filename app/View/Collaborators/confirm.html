@@ -3,7 +3,8 @@
     <?= h($from_name); ?>さんが<?= h($to_name); ?>さんへ
     贈る色紙をつくるため、画像の提供を求めています。あなたのfacebookプロフィール画像の提供を許可しますか？<br />
     <br />
-    色紙完成イメージ<?= $this->Html->image('card.jpg', array('width'=>'300')); ?></div>
+    色紙完成イメージ:<br />
+    <?= $this->Html->image('card.jpg', array('width'=>'300')); ?></div>
 </div>
 <div class="appeal-btn">
     <a href="/plan/<?= h($planId) ?>/collaborator/accept">許可する</a>
