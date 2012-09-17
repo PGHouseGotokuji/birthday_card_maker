@@ -48,7 +48,10 @@
     Router::connect('/get_friends',       array('controller' => 'Users', 'action' => 'getFriends'));
     
     // 誕生日ユーザーを登録するapi
-    Router::connect('/insert_plan',       array('controller' => 'Plans', 'action' => 'insertPlan'));
+    Router::connect('/insert_plan',         array('controller' => 'Plans', 'action' => 'insertPlan'));
+
+    // 誕生日プランを削除するapi
+    Router::connect('/plan/:planId/delete', array('controller' => 'Plans', 'action' => 'delete'));
     
     // 自分のタイムラインへ投稿して呼びかけ
     Router::connect('/plan/:planId/post/confirm_fb_timeline', array('controller' => 'Posts', 'action' => 'confirmPostFbTimeline'), array(array('planId' => '[0-9]+')));
