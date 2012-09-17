@@ -8,10 +8,12 @@
     <img src="img/card.jpg" width="300" />
 </div>
 <div class="appeal-btn">
+    <button>
     <? if (empty($loginUser)) { ?>
         <a href="/fblogin">facebookでログイン</a>
     <? } else { ?>
         <a href="/mypage">マイページへ</a>
     <? } ?>
+    </button>
 </div>
 

@@ -65,11 +65,11 @@
     Router::connect('/plan/:planId/photo', array('controller' => 'Plans', 'action' => 'uploadPhoto'), array(array('planId' => '[0-9]+')));
 
     // 相手のタイムラインへ投稿
-    Router::connect('/plan/:planId/post/confirm_friend_fb_timeline', array('controller' => 'Posts', 'action' => 'confirmPostFriendFbTimeline'));
-    Router::connect('/plan/:planId/post/post_friend_fb_timeline',    array('controller' => 'Posts', 'action' => 'postFriendFbTimeline'));
+    Router::connect('/plan/:planId/post/confirm_friend_fb_timeline',    array('controller' => 'Posts', 'action' => 'confirmPostFriendFbTimeline'));
+    Router::connect('/plan/:planId/post/post_friend_fb_timeline',       array('controller' => 'Posts', 'action' => 'postFriendFbTimeline'));
     
     // 画像を生成
-    Router::connect('/plan/:planId/card', array('controller' => 'Posts', 'action' => 'postCard'));
+    Router::connect('/plan/:planId/card',  array('controller' => 'Posts', 'action' => 'postCard'));
 
 /**
  * Load all plugin routes.  See the CakePlugin documentation on 

@@ -84,8 +84,13 @@ class PostsController extends AppController
         if (empty($user)) {
             return $this->redirect('/');
         }
-        $planId = $this->params['PlanId'];
-        $plan = $this->Plan->findById($planId);
+        $planId  = $this->params['planId'];
+        $plan    = $this->Plan->findById($planId);
+        $this->Plan->id = $plan['Plan']['id'];
+        // プランステータス変更
+        if (!$this->Plan->saveField('plan_status', Plan::BEFORE_JOIN_COLLABORATOR, false)) {
+            $this->flashAndRedirect('投稿時に問題が発生しました。再度お試しください。', $this->referer());
+        }
 
         $process = function($poster, $planInfo, $target) {
              $url         = SITE_URL . '/plan/' . $planInfo['Plan']['id'] . '/collaborator';
@@ -104,7 +109,6 @@ class PostsController extends AppController
      *
      * @access public
      */
-//    public function confirm()
     public function confirmPostFriendFbTimeline()
     {
         $planId = $this->params['planId'];
@@ -135,7 +139,7 @@ class PostsController extends AppController
 
         $this->Plan->id = $planId;
         $this->Plan->saveField('photo_id', $planId, false);
-        $this->Plan->saveField('post_photo_status', Plan::POST_PHOTO_STATUS_DONE, false);
+        $this->Plan->saveField('plan_status', Plan::PLAN_STATUS_DONE, false);
 
         $process = function($poster, $planInfo, $target){
              $photoUrl         = SITE_URL . '/img/plan-photo/' . $planInfo['Plan']['id'] . '.png';

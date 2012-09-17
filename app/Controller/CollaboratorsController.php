@@ -169,6 +169,11 @@ class CollaboratorsController extends AppController
                 if (!$this->Collaborator->savePhoto($photoId, COLLABO_PHOTO_DIR, $data['img_file'])) {   
                     throw new Exception();
                 }
+                // Plan.plan_status 増井TODO ここがどうやらうまく動いていないっぽい
+                $this->Plan->id = $this->plan['Plan']['id'];
+                if (!$this->Plan->saveField('plan_status', Plan::BEFORE_MAKE_CARD, false)) {
+                    throw new Exception();
+                }
                 $this->Collaborator->commit(); /*** トランザクション終了 ***/
             } catch (Exception $e) {
                 $this->Collaborator->rollback();

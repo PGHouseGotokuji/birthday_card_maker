@@ -34,6 +34,21 @@ Class AppController extends Controller
     }
 
     /**
+     * setFlashとredirectをまとめて行なう
+     *
+     * @access public
+     * @params string $msg      setFlashに表示させるメッセージ
+     * @params string $redirect リダイレクト先を指定
+     * @params string $type     success or error
+     */
+    public function flashAndRedirect($msg = null, $redirect = '/', $type = 'error')
+    {
+        $this->Session->setFlash($msg, 'flash' . DS . $type);
+        return $this->redirect($redirect);
+    }
+
+
+    /**
      * エラー画面
      *
      * @access public

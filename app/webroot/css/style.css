@@ -229,45 +229,51 @@ a:hover {
 }
 
 .flash-message {
-    width: 320px;
+    width:  320px;
     height: 30px;
+}
+
+.success-bg {
     background: #D5FFDF;
+}
+
+.error-bg {
+    background: #ffdbe4;
 }
 
 .fm-success-icon {
     background: url(../img/success_01.png) no-repeat;
-    width: 35px;
-    height: 35px;
-    float: left;
+    width:      35px;
+    height:     35px;
+    float:      left;
 }
 
 .fm-error-icon {
     background: url(../img/error.png) no-repeat;
-    width: 35px;
-    height: 35px;
-    float: left;
+    width:      35px;
+    height:     35px;
+    float:      left;
 }
 
 .flash-message-text {
-    height: 20px;
-    margin-top: 5px;
+    height:      20px;
     font-weight: bold;
-    color: #FFFF00;
 }
 
-.success {
-    color: #009900;
-    font-size: 14px;
+.success-text {
+    color:       #009900;
+    font-size:   10px;
+    padding-top: 7px;
 }
 
-.error {
-    color: #ef005b;
-    font-size: 9px;
+.error-text {
+    color:       #ef005b;
+    font-size:   9px;
     padding-top: 7px;
 }
 
 .tool {
-    margin: .5em;
+    margin:     .5em;
     text-align: center;
 }
 

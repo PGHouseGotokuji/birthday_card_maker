@@ -4,10 +4,13 @@ class Plan extends AppModel {
 
     var $name = 'Plan';
 
-    // post_photo_status
-    const POST_PHOTO_STATUS_YET   = 0;
-    const POST_PHOTO_STATUS_DONE  = 1;
-    const POST_PHOTO_STATUS_ERROR = 9;
+    // plan_status
+    const BEFORE_POST_FBTIMELINE   = 0;
+    const BEFORE_JOIN_COLLABORATOR = 1;
+    const BEFORE_MAKE_CARD         = 2; // 今ここの実装中
+    const BEFORE_POST_CARD         = 3;
+    const COMPLETE                 = 4;
+    const PLAN_STATUS_ERROR        = 9;
 
     public $validate = array(
     );
