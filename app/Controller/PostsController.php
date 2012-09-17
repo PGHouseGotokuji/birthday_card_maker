@@ -87,7 +87,7 @@ class PostsController extends AppController
         $planId  = $this->params['planId'];
         $plan    = $this->Plan->findById($planId);
         $this->Plan->id = $plan['Plan']['id'];
-        // プランステータス変更
+        // Plan.plan_status
         if (!$this->Plan->saveField('plan_status', Plan::BEFORE_JOIN_COLLABORATOR, false)) {
             $this->flashAndRedirect('投稿時に問題が発生しました。再度お試しください。', $this->referer());
         }
@@ -137,11 +137,23 @@ class PostsController extends AppController
             return $this->redirect('/mypage');
         }
 
-        $this->Plan->id = $planId;
-        $this->Plan->saveField('photo_id', $planId, false);
-        $this->Plan->saveField('plan_status', Plan::PLAN_STATUS_DONE, false);
+        try {
+            $this->Plan->begin();  /*** トランザクション開始 ***/
+            $this->Plan->id = $planId;
+            if (!$this->Plan->saveField('photo_id', $planId, false)) {
+                throw new Exception();
+            }
+            // Plan.plan_status
+            if (!$this->Plan->saveField('plan_status', Plan::BEFORE_JOIN_COLLABORATOR, false)) {
+                throw new Exception();
+            }
+            $this->Plan->commit();  /*** トランザクション終了 ***/
+        } catch (Exception $e) {
+            $this->Plan->rollback();
+            $this->flashAndRedirect('投稿時に問題が発生しました。再度お試しください。', $this->referer());
+        }
 
-        $process = function($poster, $planInfo, $target){
+        $process = function($poster, $planInfo, $target) {
              $photoUrl         = SITE_URL . '/img/plan-photo/' . $planInfo['Plan']['id'] . '.png';
              $celebrateMessage = $planInfo['Plan']['username'] . 'さん誕生日おめでとうございます！' . $planInfo['User']['username'] . 'さんと友人の皆さんがあなたに誕生日のお祝いカードを作成しましたので、' . $photoUrl .  ' へアクセスして確認してみてください！';
              return $poster->postTo($target->id, $celebrateMessage);

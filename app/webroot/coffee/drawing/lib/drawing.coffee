@@ -75,7 +75,10 @@ class Drawing
                 "img_file": saveData
             }
             success: (res) ->
-                location.href = "/mypage"
+                if (res)
+                    location.href = "/mypage"
+                else
+                    location.href = "/"
         }
 
     makeUrl: ->

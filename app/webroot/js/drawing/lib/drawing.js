@@ -126,7 +126,11 @@ Drawing = (function() {
         "img_file": saveData
       },
       success: function(res) {
-        return location.href = "/mypage";
+        if (res) {
+          return location.href = "/mypage";
+        } else {
+          return location.href = "/";
+        }
       }
     });
   };

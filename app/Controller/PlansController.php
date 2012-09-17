@@ -118,6 +118,11 @@ class PlansController extends AppController
                 if (!$this->Plan->savePhoto($planId, PLAN_PHOTO_DIR, $data['img_file'])) {
                     throw new Exception();
                 }
+                // Plan.plan_status
+                if (!$this->Plan->saveField('plan_status', Plan::BEFORE_POST_CARD, false)) {
+                    throw new Exception();
+                }
+
                 $this->Plan->commit(); /*** トランザクション終了 ***/
             } catch (Exception $e) {
                 $this->Plan->rollback();
