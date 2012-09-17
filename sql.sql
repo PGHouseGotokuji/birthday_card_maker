@@ -28,7 +28,7 @@ CREATE TABLE `plans` (
   `to_id` bigint(20) unsigned DEFAULT NULL,
   `username` varchar(50) NOT NULL,
   `fb_picture` varchar(400) DEFAULT NULL,
-  `post_photo_status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `plan_status` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `photo_id` varchar(100) DEFAULT NULL,
   `memo` varchar(200) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
