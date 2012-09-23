@@ -321,4 +321,25 @@ img.preview{
     display:none;
 }
 
+ul.plans .actions{
+    position: absolute;
+    right: 10px;
+    top: 0;
+}
+
+.loading
+{
+    background-color: rgba(0,0,0,0.5);
+    text-align: center;
+    position: relative;
+}
+
+.loading img{
+    display: block;
+    margin-top: -12px;
+    position: absolute;
+    top: 50%;
+}
+
+
 

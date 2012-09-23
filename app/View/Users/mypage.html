@@ -51,6 +51,9 @@
       <% _.each(Plans, function(plan) { %>
 
       <li>
+          <div class="actions">
+              <a href="javascript:deletePlan('<%-plan.Plan.id%>')" class="deleteButton">×</a>
+          </div>
           <div class="target-img"><img src="<%-plan.Plan.fb_picture%>" width="50" height="50" /></div>
           <div class="target-name">
               <strong>贈る相手<br><%-plan.Plan.username%></a>さん</strong>
