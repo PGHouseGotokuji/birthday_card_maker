@@ -18,15 +18,10 @@ canvas#canvas {
     margin: 0 auto;
 }
 
-/*body {
-    background: url(../img/bg.jpg);
-    font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
-}*/
-
 body {
     background: url(../img/bg.jpg);
     font-family:museo-sans-rounded,"Helvetica Neue",Verdana,sans-serif;
-	text-shadow: 0 1px 0 #FFFFFF;
+    text-shadow: 0 1px 0 #FFFFFF;
 }
 
 
@@ -34,11 +29,6 @@ li {
     list-style: none;
 }
 
-/*img {
-    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
-    -moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
-    -webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
-}*/
 img {
 box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);    
 -moz-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
@@ -61,30 +51,17 @@ box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 #wrapper {
 }
 
-/*#header {
-    height: 20px;
-    background: url(../img/header-bg.png);
-    color: #FFF;
-    padding: 2px 10px 10px 10px;
-    font-size: 12px;
-}
-#header a {
-    color: #FFF;
-}
-
-*/
 #header {
     height: 30px;
-    background: url(../img/header-bg.png);
     color: #FFF;
     margin: 10px;
-	padding:0 0 10px;
+    padding:0 0 10px;
     font-size: 12px;
-	border-bottom:1px dashed #999;
-	
+    border-bottom:1px dashed #999;
+    
 }
 #header a {
-	color:#666;
+    color:#666;
 }
 
 
@@ -94,7 +71,7 @@ box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 .logo {
     margin-top: 5px;
     float: left;
-	font-size:22px;/*追加20120924*/
+    font-size:22px;/*追加20120924*/
 }
 
 .logo a {
@@ -124,9 +101,9 @@ box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 .owner-left {
 
 }
-/*追加20120924*/
+
 .owner-img img,.target-img img {
-	border:1px solid #999;
+    border:1px solid #999;
 
 }
 
@@ -142,7 +119,7 @@ box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 .owner-left ul {
     margin-left:10px !important;
 }
-/*追加20120924*/
+
 .owner-name, .target-name {
 }
 
@@ -156,7 +133,6 @@ box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 
 .card {
     margin-top: 20px;
-    /*border-top: 1px solid #999;*/
     border-top: 1px dashde #999;
     padding: 10px 0;
 }
@@ -186,32 +162,17 @@ box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
     width: 300px;
 }
 
-/*#footer*/
-
-/*#footer {
-    text-align: center;
-    background: url(../img/header-bg.png);
-    color: #FFF;
-    padding: 4px 10px;
-    font-size: 12px;
-}
-
-#footer a {
-    color: #FFF;
-}*/
-
 #footer {
     text-align: center;
-    background: url(../img/header-bg.png);
-	color:#666;
+    color:#666;
     padding: 10px;
     font-size: 12px;
-	border-top:1px dashed #999;
-	margin:10px;
+    border-top:1px dashed #999;
+    margin:10px;
 }
 
 #footer a {
-	color:#666;
+    color:#666;
 }
 
 
@@ -246,13 +207,13 @@ box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 /*20120924追加*/
 .flow-title{
-	text-align:center;
+    text-align:center;
 }
 
 .flow-discription {
     font-size: 12px;
     margin-top: 10px;
-	text-align:center;/*20120924追加*/
+    text-align:center;/*20120924追加*/
 
 }
 
