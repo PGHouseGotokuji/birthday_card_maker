@@ -18,20 +18,33 @@ canvas#canvas {
     margin: 0 auto;
 }
 
-body {
-    background: url(../img/bg-gray.png);
+/*body {
+    background: url(../img/bg.jpg);
     font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+}*/
+
+body {
+    background: url(../img/bg.jpg);
+    font-family:museo-sans-rounded,"Helvetica Neue",Verdana,sans-serif;
+	text-shadow: 0 1px 0 #FFFFFF;
 }
+
 
 li {
     list-style: none;
 }
 
-img {
+/*img {
     box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
     -moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
     -webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
+}*/
+img {
+box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);    
+-moz-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
+
 
 .clearfix {
     overflow: hidden;
@@ -48,21 +61,40 @@ img {
 #wrapper {
 }
 
-#header {
+/*#header {
     height: 20px;
     background: url(../img/header-bg.png);
     color: #FFF;
     padding: 2px 10px 10px 10px;
     font-size: 12px;
 }
-
 #header a {
     color: #FFF;
 }
 
+*/
+#header {
+    height: 30px;
+    background: url(../img/header-bg.png);
+    color: #FFF;
+    margin: 10px;
+	padding:0 0 10px;
+    font-size: 12px;
+	border-bottom:1px dashed #999;
+	
+}
+#header a {
+	color:#666;
+}
+
+
+
+
+
 .logo {
     margin-top: 5px;
     float: left;
+	font-size:22px;/*追加20120924*/
 }
 
 .logo a {
@@ -76,7 +108,7 @@ img {
 
 /*content*/
 
-.content, #footer {
+.content/*, #footer*/ {
     padding: 10px;
 }
 
@@ -92,6 +124,11 @@ img {
 .owner-left {
 
 }
+/*追加20120924*/
+.owner-img img,.target-img img {
+	border:1px solid #999;
+
+}
 
 .owner-right {
     position: absolute;
@@ -102,6 +139,10 @@ img {
     padding-top: 50px;
 }
 
+.owner-left ul {
+    margin-left:10px !important;
+}
+/*追加20120924*/
 .owner-name, .target-name {
 }
 
@@ -115,7 +156,8 @@ img {
 
 .card {
     margin-top: 20px;
-    border-top: 1px solid #999;
+    /*border-top: 1px solid #999;*/
+    border-top: 1px dashde #999;
     padding: 10px 0;
 }
 
@@ -146,7 +188,7 @@ img {
 
 /*#footer*/
 
-#footer {
+/*#footer {
     text-align: center;
     background: url(../img/header-bg.png);
     color: #FFF;
@@ -156,7 +198,22 @@ img {
 
 #footer a {
     color: #FFF;
+}*/
+
+#footer {
+    text-align: center;
+    background: url(../img/header-bg.png);
+	color:#666;
+    padding: 10px;
+    font-size: 12px;
+	border-top:1px dashed #999;
+	margin:10px;
 }
+
+#footer a {
+	color:#666;
+}
+
 
 /*ここからターゲット*/
 
@@ -171,6 +228,10 @@ img {
     height: 70px;
 }
 
+.friend-img img{
+    border:1px solid #999;
+}
+/*20120924追加*/
 .friend-info img {
     width: 70px;
     height: 70px;
@@ -183,10 +244,16 @@ img {
 .serch-box input {
     height: 20px;
 }
+/*20120924追加*/
+.flow-title{
+	text-align:center;
+}
 
 .flow-discription {
     font-size: 12px;
     margin-top: 10px;
+	text-align:center;/*20120924追加*/
+
 }
 
 .appeal-btn {
