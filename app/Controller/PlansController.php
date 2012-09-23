@@ -104,7 +104,7 @@ class PlansController extends AppController
             if (!$this->Plan->delete()) {
                 throw new Exception();
             }
-            $this->Session->setFlash('プランを削除しました。', 'flash' . DS . 'success');
+            $this->Session->setFlash('カード作成プランを削除しました。', 'flash' . DS . 'success');
             $response['Success'] = 'true';
         } catch (exception $e) {
             $this->Session->setFlash('削除時に問題が発生しました。再度お試しください。', 'flash' . DS . 'error');
