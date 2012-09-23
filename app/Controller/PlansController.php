@@ -80,6 +80,40 @@ class PlansController extends AppController
     }
 
     /**
+     * プラン削除
+     *
+     * @access public
+     */
+    public function delete() 
+    {
+        try {
+            if (!$this->request->is('post')) {
+                throw new Exception();
+            }
+            $user = $this->loginUser;
+            $response['Success'] = 'false';
+            $planId = $this->params['planId'];
+            $this->Plan->id = $planId;
+            if (!$this->Plan->exists()) {
+                throw new Exception();
+            }
+            $fromId = $this->Plan->field('from_id', array('id' => $planId));
+            if ($fromId != $user['User']['id']) {
+                throw new Exception();
+            }
+            if (!$this->Plan->delete()) {
+                throw new Exception();
+            }
+            $this->Session->setFlash('プランを削除しました。', 'flash' . DS . 'success');
+            $response['Success'] = 'true';
+        } catch (exception $e) {
+            $this->Session->setFlash('削除時に問題が発生しました。再度お試しください。', 'flash' . DS . 'error');
+        }
+
+        return new CakeResponse(array('body' => json_encode($response)));
+    }
+
+    /**
      * 相手に贈る色紙をコーディネートする画面
      *
      * @access public
