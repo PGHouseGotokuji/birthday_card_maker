@@ -49,7 +49,7 @@ PlanTable = (function(_super) {
         if (!confirm('カード作成プランを削除します。削除すると戻せませんが、よろしいですか？')) {
           return;
         }
-        rem = putLoading('ul.plans');
+        rem = putLoading($planItem);
         return $.ajax({
           type: "POST",
           url: '/plan/' + planId + '/delete',

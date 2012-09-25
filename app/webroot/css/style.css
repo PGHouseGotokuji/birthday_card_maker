@@ -360,16 +360,22 @@ ul.plans .actions{
 
 .loading
 {
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     text-align: center;
-    position: relative;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
 }
 
 .loading img{
     display: block;
-    margin-top: -12px;
     position: absolute;
+    left: 50%;
     top: 50%;
+    margin-left: -12px;
+    margin-top: -12px;
 }
 
 

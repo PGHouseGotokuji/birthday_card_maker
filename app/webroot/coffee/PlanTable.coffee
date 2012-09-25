@@ -1,4 +1,4 @@
-
+#この処理は共通化できるはず。相談の上対応。
 LOADING_ELEMENT='<div class="loading"><img src="/img/loading.gif"/></div>';
 putLoading = (target)->
   $elm = $(LOADING_ELEMENT).appendTo(target);
@@ -64,7 +64,7 @@ class PlanTable extends DataTable
             if !confirm('カード作成プランを削除します。削除すると戻せませんが、よろしいですか？')
               return
 
-            rem = putLoading('ul.plans');
+            rem = putLoading($planItem);
             $.ajax {
             type: "POST"
             url: '/plan/' + planId + '/delete'
