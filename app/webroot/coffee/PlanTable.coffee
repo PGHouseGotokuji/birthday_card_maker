@@ -1,20 +1,3 @@
-deletePlan = (planId)->
-  if !confirm('カード作成プランを削除します。削除すると戻せませんが、よろしいですか？')
-    return
-
-  rem = putLoading('ul.plans');
-  $.ajax {
-  type: "POST"
-  url: '/plan/' + planId + '/delete'
-  dataType: "json"
-  success: (data, type)->
-    alert('削除成功しました')
-    #この後UIから削除
-    rem();
-  error: (xhr, status, err)->
-    alert('削除失敗' + status + '/' + err)
-    rem()
-  }
 
 LOADING_ELEMENT='<div class="loading"><img src="/img/loading.gif"/></div>';
 putLoading = (target)->
@@ -69,11 +52,32 @@ class PlanTable extends DataTable
         _.each(res, (plan)->
           $planItem = $(planItemTpl(plan)).appendTo($plan);
 
-          $planItem.find('.send-btn').click ->
+          $planItem.find('.send-btn button').click ->
             location.href = "/plan/#{plan.Plan.id}/post/confirm_friend_fb_timeline"
 
           $planItem.find('.create_image button').click ->
             location.href = "/arrange/#{plan.Plan.id}"
+
+          $planItem.find('.deleteButton').click ->
+            planId = plan.Plan.id
+
+            if !confirm('カード作成プランを削除します。削除すると戻せませんが、よろしいですか？')
+              return
+
+            rem = putLoading('ul.plans');
+            $.ajax {
+            type: "POST"
+            url: '/plan/' + planId + '/delete'
+            dataType: "json"
+            success: (data, type)->
+              alert('削除成功しました')
+              rem();
+              location.href='/mypage';
+
+            error: (xhr, status, err)->
+              alert('削除失敗' + status + '/' + err)
+              rem()
+            }
         );
 
     setEvents: ->
