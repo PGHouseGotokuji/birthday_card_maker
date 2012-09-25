@@ -9,6 +9,8 @@ BirthDrawing = (function(_super) {
 
   function BirthDrawing(canvas, planId) {
     BirthDrawing.__super__.constructor.call(this, canvas);
+    this.canvas.canvas.height = 300;
+    this.canvas.canvas.width = 300;
     this.planId = planId;
   }
 

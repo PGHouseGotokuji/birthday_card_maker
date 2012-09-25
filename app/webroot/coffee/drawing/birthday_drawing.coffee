@@ -1,6 +1,8 @@
 class BirthDrawing extends Drawing
     constructor: (canvas, planId)->
       super(canvas)
+      @canvas.canvas.height = 300;
+      @canvas.canvas.width = 300;
       @planId = planId
 
     makeUrl: ->
