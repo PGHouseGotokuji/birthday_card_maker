@@ -72,11 +72,24 @@ class UsersController extends AppController
     public function getFriends() 
     {
         $user = $this->loginUser;
+        $debug = Configure::read('debug');
+        if ($debug > 0) {
+            $url = 'https://graph.facebook.com/me/friends?access_token=' . $user['User']['access_token'];
+            $fbFriendsJson = file_get_contents($url);
+        } else {
+            $url = 'https://graph.facebook.com/fql?q=' . urlencode('SELECT substr(birthday_date, 0, 2), uid, name, birthday_date FROM user WHERE uid in (SELECT uid2 FROM friend WHERE uid1=me()) AND (substr(birthday_date, 0, 2) == "' . date('m') . '" OR substr(birthday_date, 0, 2) == "' . date('m', strtotime('+1 month')) . '")') . '&access_token=' . $user['User']['access_token'];
+            $fbFriendsJson = file_get_contents($url);
+            // そのままjson_decodeするとfb_idが整数型で扱えないので、あらかじめ文字列に
+            $fbFriendsJson = preg_replace('/"uid":([0-9]+)/', '"uid":"${1}"', $fbFriendsJson);
+        }
 
-        $url = 'https://graph.facebook.com/me/friends?access_token=' . $user['User']['access_token'];
-        $fbFriends = json_decode(file_get_contents($url));
-
+        $fbFriends = json_decode($fbFriendsJson);
+        // 整形
         foreach ($fbFriends->data as $key => $friend) {
+            if ($debug == 0) {
+                $friend->id = $friend->uid;
+                unset($friend->uid);
+            }
             $friend->fb_picture = 'https://graph.facebook.com/' . $friend->id . DS . 'picture';
             $friends['Friend'][] = $friend;
         }
