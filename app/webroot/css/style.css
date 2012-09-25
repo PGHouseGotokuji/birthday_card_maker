@@ -358,6 +358,12 @@ ul.plans .actions{
     z-index: 1;
 }
 
+/*20120926天野*/
+ul.plans .actions img{
+	box-shadow:none;
+}
+
+
 .loading
 {
     background-color: rgba(0, 0, 0, 0.5);
