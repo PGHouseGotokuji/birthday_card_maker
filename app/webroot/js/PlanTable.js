@@ -55,7 +55,6 @@ PlanTable = (function(_super) {
           url: '/plan/' + planId + '/delete',
           dataType: "json",
           success: function(data, type) {
-            alert('削除成功しました');
             rem();
             return location.href = '/mypage';
           },

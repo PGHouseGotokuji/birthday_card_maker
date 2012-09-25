@@ -70,7 +70,6 @@ class PlanTable extends DataTable
             url: '/plan/' + planId + '/delete'
             dataType: "json"
             success: (data, type)->
-              alert('削除成功しました')
               rem();
               location.href='/mypage';
 
