@@ -144,7 +144,7 @@ class PostsController extends AppController
                 throw new Exception();
             }
             // Plan.plan_status
-            if (!$this->Plan->saveField('plan_status', Plan::BEFORE_JOIN_COLLABORATOR, false)) {
+            if (!$this->Plan->saveField('plan_status', Plan::COMPLETE, false)) {
                 throw new Exception();
             }
             $this->Plan->commit();  /*** トランザクション終了 ***/
