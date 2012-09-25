@@ -47,51 +47,27 @@ PlanTable = (function(_super) {
   }
 
   PlanTable.prototype.getSuccess = function(res) {
+    var $plan, planItemTpl;
     this.data = {
       "Plans": res
     };
     console.log("data");
     console.log(this.data);
-    this.viewParams = [
-      {
-        tplSelector: "#cardTpl",
-        appendSelector: '.main_contents',
-        method: "appendTo"
-      }, {
-        tplSelector: "#planTpl",
-        appendSelector: '.main_contents .card-left',
-        method: "appendTo",
-        data: this.data
-      }
-    ];
-    if (debug.alertflag) {
-      alert("processing");
-    }
-    if (debug.flag) {
-      console.log("in owner");
-    }
-    if (debug.flag) {
-      console.log(res);
-    }
-    return this.viewUpdate();
+    $plan = $(_.template($('#planTpl').html(), {})).appendTo('.main_contents');
+    planItemTpl = _.template($('#planItemTpl').html());
+    return _.each(res, function(plan) {
+      var $planItem;
+      $planItem = $(planItemTpl(plan)).appendTo($plan);
+      $planItem.find('.send-btn').click(function() {
+        return location.href = "/plan/" + plan.Plan.id + "/post/confirm_friend_fb_timeline";
+      });
+      return $planItem.find('.create_image button').click(function() {
+        return location.href = "/arrange/" + plan.Plan.id;
+      });
+    });
   };
 
-  PlanTable.prototype.setEvents = function() {
-    var self;
-    self = this;
-    $(".send-btn").click(function() {
-      var index, plan;
-      index = $(".send-btn").index(this);
-      plan = self.data.Plans[index];
-      return location.href = "/plan/" + plan.Plan.id + "/post/confirm_friend_fb_timeline";
-    });
-    return $(".create_image button").click(function() {
-      var index, plan;
-      index = $(".create_image button").index(this);
-      plan = self.data.Plans[index];
-      return location.href = "/arrange/" + plan.Plan.id;
-    });
-  };
+  PlanTable.prototype.setEvents = function() {};
 
   return PlanTable;
 

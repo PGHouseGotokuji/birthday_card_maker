@@ -35,41 +35,45 @@ class PlanTable extends DataTable
         console.log "data"
         console.log @data
 
-        @viewParams = [
-            {
-                tplSelector: "#cardTpl"
-                # appendSelector: '.content'
-                appendSelector: '.main_contents'
-                method: "appendTo"
-            }
-            {
-                tplSelector: "#planTpl"
-                # appendSelector: '.content .card-left'
-                appendSelector: '.main_contents .card-left'
-                method:"appendTo"
-                data: @data
-            }
-        ]
+        # ビュー作成の論理が違うようなので、 @viewUpdate()を利用しない実装に差し替え。
+        # 後で要調整
 
-        alert "processing" if debug.alertflag
+#        @viewParams = [
+#            {
+#                tplSelector: "#cardTpl"
+#                # appendSelector: '.content'
+#                appendSelector: '.main_contents'
+#                method: "appendTo"
+#            }
+#            {
+#                tplSelector: "#planTpl"
+#                # appendSelector: '.content .card-left'
+#                appendSelector: '.main_contents .card-left'
+#                method:"appendTo"
+#                data: @data
+#            }
+#        ]
+#
+#        alert "processing" if debug.alertflag
+#
+#        console.log "in owner" if debug.flag
+#        console.log res if debug.flag
+#
+#        @viewUpdate()
 
-        console.log "in owner" if debug.flag
-        console.log res if debug.flag
-
-        @viewUpdate()
         #@saveLocation.collaborators = new CollaboratorTable(@saveLocation)
-    
+
+
+        $plan = $(_.template($('#planTpl').html(), {})).appendTo('.main_contents');
+        planItemTpl = _.template($('#planItemTpl').html());
+        _.each(res, (plan)->
+          $planItem = $(planItemTpl(plan)).appendTo($plan);
+
+          $planItem.find('.send-btn').click ->
+            location.href = "/plan/#{plan.Plan.id}/post/confirm_friend_fb_timeline"
+
+          $planItem.find('.create_image button').click ->
+            location.href = "/arrange/#{plan.Plan.id}"
+        );
+
     setEvents: ->
-        self = @
-
-
-        $(".send-btn").click ->
-          index = $(".send-btn").index(@)
-          plan =  self.data.Plans[index]
-          location.href = "/plan/#{plan.Plan.id}/post/confirm_friend_fb_timeline"
-
-        $(".create_image button").click ->
-          index = $(".create_image button").index(@)
-          plan =  self.data.Plans[index]
-          location.href = "/arrange/#{plan.Plan.id}"
-
