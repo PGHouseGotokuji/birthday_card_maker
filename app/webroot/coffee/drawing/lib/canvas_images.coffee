@@ -15,7 +15,6 @@ class CanvasImages extends _Canvas
         super(@id, flag)
         @imageList = []
         @touchComponent = null
-
         @flag = {
             focusClicking: false
             clicking: false
@@ -188,9 +187,14 @@ class CanvasImages extends _Canvas
         imgComponent = new ImageComponent(src)
         @pushImage(imgComponent)
 
+    gouseiImage: (srcList) ->
+        srcList = ['/img/hukidashi.jpeg', '/img/ken.jpg']
+        gouseiComponent = new GouseiComponent(srcList)
+        # @pushComponent(gouseiComponent)
+
     pushImage: (imgComponent) ->
       self = this;
-      img = imgComponent.getImage()
+      img  = imgComponent.getImage()
 
       if img.complete
         self.pushComponent(imgComponent)
@@ -199,8 +203,8 @@ class CanvasImages extends _Canvas
           self.pushComponent(imgComponent)
 
     pushComponent: (cmp)->
-      @componentDraw(cmp)
-      @imageList.push cmp
+        @componentDraw(cmp)
+        @imageList.push cmp
 
     reDraw: (withDot = true)->
         @clear()

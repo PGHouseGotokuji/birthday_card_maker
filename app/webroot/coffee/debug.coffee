@@ -1,6 +1,6 @@
 debug = 
-    flag: false
-    alertflag: false
+    flag      : true
+    alertflag : false
 
     data:
         user: { 

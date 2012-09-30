@@ -238,6 +238,12 @@ CanvasImages = (function(_super) {
     return this.pushImage(imgComponent);
   };
 
+  CanvasImages.prototype.gouseiImage = function(srcList) {
+    var gouseiComponent;
+    srcList = ['/img/hukidashi.jpeg', '/img/ken.jpg'];
+    return gouseiComponent = new GouseiComponent(srcList);
+  };
+
   CanvasImages.prototype.pushImage = function(imgComponent) {
     var img, self,
       _this = this;

@@ -5,24 +5,28 @@ class _Canvas
         with use drawing class
         (modify schedule as soon as)
     '''
-    constructor: (@id = "canvas", flag=false) ->
+    @defaultParams: {
+        width  : 500
+        height : 500
+    }
+
+    constructor: (@id = "canvas", flag=false, params=_Canvas.defaultParams) ->
         '''
             if flag is true -> new canvas (add container)
         '''
+
         if flag
-            # $(".canvas_space").append("<canvas id='#{@id}'></canvas>")
-            $("##{id}").css {
-                "position": "absolute"
-                "top": 50
-                "left": 50
-            }
+            $("body").append("<canvas id='#{@id}'></canvas>")
+            # $("##{id}").css {
+            #     # "position": "absolute"
+            #     "top" : 50
+            #     "left": 50
+            # }
         @canvas = $("##{@id}").get(0)
+        @canvas.height = params.height
+        @canvas.width  = params.width
 
-        @canvas.height = 500
-        @canvas.width = 500
-
-        # @canvas.height = 500
-        @ctx = @canvas.getContext('2d')
+        @ctx  = @canvas.getContext('2d')
         @data = {}
 
         @setSize("1")
@@ -92,4 +96,12 @@ class _Canvas
 
     lineRound: ->
         @ctx.lineJoin = "round"
-        @ctx.lineCap = "round"
+        @ctx.lineCap  = "round"
+
+    drawImage: (img, coords={x: 0, y: 0}, size={width: 100, height: 100}) ->
+        @ctx.drawImage(img, coords.x, coords.y, size.width, size.height)
+
+    getImageData: (type="png")->
+        type = "image/#{type}"
+        data = @canvas.toDataURL(type)
+        data

@@ -21,15 +21,6 @@ ImageComponent = (function() {
     this.flag = {
       focus: false
     };
-    if (type === "touch") {
-      this.inImage = this.touchInImage;
-      this.onImage = this.touchOnImage;
-      this.outImage = this.touchoutImage;
-    } else if (type === "mouse") {
-      this.inImage = this.mouseInImage;
-      this.onImage = this.mouseOnImage;
-      this.outImage = this.mouseoutImage;
-    }
   }
 
   ImageComponent.prototype.rangeImageInCheck = function(point, coords, size) {
