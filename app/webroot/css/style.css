@@ -384,4 +384,25 @@ ul.plans .actions img{
     margin-top: -12px;
 }
 
+.drawCanvas{
+    position:relative;
+}
+
+#tools{
+    position: absolute;
+    bottom: 0;
+    width: 45px;
+}
+
+
+#drawing_color li{
+    width: 43px;
+    line-height: 40px;
+}
+
+#drawing_color .colorBox{
+    width: 43px;
+}
+
+
 
