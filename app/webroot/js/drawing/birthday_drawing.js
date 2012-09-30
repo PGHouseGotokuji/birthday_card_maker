@@ -33,7 +33,7 @@ BirthDrawing = (function(_super) {
   BirthDrawing.prototype.create_tools = function() {
     var boldList, boldTmpl, colorList, colorTmpl, ele, key, text, tmp, value, _i, _len;
     colorList = ["red", "pink", "yellow", "black", "white"];
-    colorTmpl = "<li style='background-color: %s'><ahref='#' onclick='drawing.setColor(\"%s\");return false'><div class='colorBox'>&nbsp;</div></a></li>";
+    colorTmpl = "<li style='background-color: %s'><a href='#' onclick='drawing.setColor(\"%s\");return false'><div class='colorBox'>&nbsp;</div></a></li>";
     text = "";
     for (_i = 0, _len = colorList.length; _i < _len; _i++) {
       ele = colorList[_i];
