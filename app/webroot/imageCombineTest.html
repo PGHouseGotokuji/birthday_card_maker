@@ -1,0 +1,126 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>バースデーカードを組み立てる｜Birthday Card Maker</title>
+    <meta property="og:title" content="Birthday Card Maker" />
+    <meta property="og:site_name" content="Birthday Card Maker｜友人の誕生日にオリジナルの色紙を贈ろう！" />
+    <meta property="og:url" content="http://192.168.0.2:8888" />
+    <meta property="og:image" content="http://192.168.0.2:8888/img/card.jpg" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta name="keywords" content="Birthday Card Maker, 誕生日, 色紙">
+    <meta name="description" content="Birthday Card Makerは友人の誕生日にオリジナルの色紙を贈ることができるアプリです。">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />    <link href="/favicon.ico" type="image/x-icon" rel="icon" /><link href="/favicon.ico" type="image/x-icon" rel="shortcut icon" />        <link rel="stylesheet" href="/css/bootstrap.min.css?1341145116" />
+    <link rel="stylesheet" href="/css/style.css?1348990487" />
+    <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('#flash-message-success').fadeIn(1000).delay(3000).fadeOut(1000);
+            if (window.location.hash == '#_=_') {
+                window.location.hash = '';
+            }
+        });
+    </script>
+</head>
+<body>
+
+
+<div id="wrapper">
+    <div id="header">
+        <div class="logo">
+            <a href="/mypage">Birthday Card Maker</a>
+        </div>
+        <div class="setting"><a href="/logout">ログアウト</a></div>
+    </div>
+    <div class="content clearfix">
+        <script type="text/javascript" src="/js/vendor/jquery.js?1346339002"></script>
+        <script type="text/javascript" src="/js/drawing/lib/util.js?1348961426"></script>
+        <script type="text/javascript" src="/js/drawing/lib/_canvas.js?1348990487"></script>
+        <script type="text/javascript" src="/js/drawing/lib/drawing.js?1348961426"></script>
+        <script type="text/javascript" src="/js/drawing/lib/image_component.js?1348990487"></script>
+        <script type="text/javascript" src="/js/drawing/lib/text_component.js?1348961426"></script>
+        <script type="text/javascript" src="/js/drawing/lib/canvas_images.js?1348990487"></script>
+        <script type="text/javascript" src="/js/drawing/birthday_deco.js?1348961426"></script>
+        <script type="text/javascript" src="/js/drawing/birthday_arrange.js?1348961426"></script>
+        <script type="text/javascript">
+
+            function loadImage(url){
+
+                var d = $.Deferred();
+                var img = new Image();
+                img.onload = function(){
+                    d.resolve(img);
+
+                    url = null;
+                    d = null;
+                    img = null;
+                }
+
+                img.onerror = function(err){
+                    d.reject(err);
+                    url = null;
+                    d = null;
+                    img = null;
+                }
+
+                img.src = url;
+                return d;
+            }
+
+
+            $(function() {
+                var planid, url,
+                        _this = this;
+                url = location.href;
+                planid = url.substr(url.lastIndexOf('/') + 1);
+                var canvas = new _Canvas("canvas", false, {
+                    width: 100,
+                    height: 100
+                });
+
+                window.drawing = canvas;
+
+                $.when(loadImage('/img/del-btn.png'), loadImage('/img/error.png')).then(function(img1, img2){
+
+                    canvas.drawImage(img1, {
+                        x: 10, y: 10
+                    }, {
+                        width: img1.width,
+                        height: img1.height
+                    });
+
+                    canvas.drawImage(img2, {
+                        x: 30, y: 10
+                    }, {
+                        width: img2.width,
+                        height: img2.height
+                    });
+
+                    var dataUrl = canvas.canvas.toDataURL("png");
+                    $('#result').get(0).src = dataUrl;
+                });
+
+                return $("#add").bind("click", function() {
+                    return drawing.inImage("static/img/test.png");
+                });
+            });
+        </script>
+        <style>
+            #wrapper{
+                width: auto;
+            }
+        </style>
+
+        <canvas id="canvas"></canvas>
+
+        <div id="debug">
+            <img id="result">
+        </div>
+
+    </div>
+    <div id="footer">
+        Copyright &copy; 2012 <strong><a href="http://pgh-gotokuji.net/" target="_blank">PGHouse-Gotokuji</a></strong><br />
+        all rights reserved.
+    </div>
+    <hr>
+</div>
+</body>
+</html>
