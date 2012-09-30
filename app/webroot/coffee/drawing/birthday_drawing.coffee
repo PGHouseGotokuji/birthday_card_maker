@@ -21,17 +21,17 @@ class BirthDrawing extends Drawing
 
     create_tools: ->
       colorList = ["red", "pink", "yellow", "black", "white"]
-      colorTmpl = "<li><a href='#' onclick='drawing.setColor(\"%s\");return false'>%s</a></li>"
+      colorTmpl = "<li style='background-color: %s'><ahref='#' onclick='drawing.setColor(\"%s\");return false'><div class='colorBox'>&nbsp;</div></a></li>"
       text = ""
       for ele in colorList
         text += colorTmpl.replace(/%s/g, ele);
       $("#drawing_color").append(text);
 
       boldList = {"細い": 1, "普通": 2, "太い": 3, "超太い": 10}
-      boldTmpl = "<li><a href='#' onclick='drawing.setBold(%d);return false'>%s</a></li>"
+      boldTmpl = "<li><a href='#' onclick='drawing.setBold(%d);return false'><img src='/img/width%d.png' alt='%s'/></a></li>"
 
       text = ""
       for key, value of boldList
-        tmp = boldTmpl.replace("%d", value);
-        text += tmp.replace("%s", key);
+        tmp = boldTmpl.replace(/%d/g, value);
+        text += tmp.replace(/%s/g, key);
       $("#drawing_bold").append(text);

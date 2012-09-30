@@ -384,4 +384,45 @@ ul.plans .actions img{
     margin-top: -12px;
 }
 
+.drawCanvas{
+    position:relative;
+}
+
+#tools{
+    display:none;
+    margin: 0 auto;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 100;
+}
+
+#tools .closeBtn{
+    text-align: right;
+}
+
+#drawing_bold li{
+    float: left;
+}
+
+#drawing_color{
+    margin: 5px;
+}
+
+#drawing_color li{
+    float: left;
+    width: 43px;
+    line-height: 40px;
+}
+
+#drawing_color .colorBox{
+    width: 43px;
+}
+
+
+
+
 
