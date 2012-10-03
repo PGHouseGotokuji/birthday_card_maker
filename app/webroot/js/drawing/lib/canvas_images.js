@@ -241,7 +241,8 @@ CanvasImages = (function(_super) {
   CanvasImages.prototype.gouseiImage = function(srcList) {
     var gouseiComponent;
     srcList = ['/img/hukidashi.jpeg', '/img/ken.jpg'];
-    return gouseiComponent = new GouseiComponent(srcList);
+    gouseiComponent = new GouseiComponent(srcList);
+    return this.pushImage(gouseiComponent);
   };
 
   CanvasImages.prototype.pushImage = function(imgComponent) {

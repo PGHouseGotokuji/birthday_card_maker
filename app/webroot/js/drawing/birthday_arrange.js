@@ -130,14 +130,16 @@ BirthdayArrange = (function(_super) {
               type: "GET",
               dataType: "json",
               success: function(res) {
-                var furl, uurl;
+                var $link, furl, ic, uurl;
                 coll.user = res.User;
                 uurl = '/facebook/' + coll.user.fb_id + '/picture';
-                $("<a href='javascript:void(0)'><img src='" + uurl + "' style='width: 120px'></a>").appendTo("#imageList").click(function() {
-                  return self.inImage(uurl);
-                });
                 furl = self.fetchImage(coll.photo_id);
-                return $("#imageList").append("<a onclick='drawing.inImage(\"" + furl + "\")' href='javascript:void(0)'><img src='" + furl + "' style='width: 120px'></a>");
+                ic = new GouseiComponent([uurl, furl]);
+                $link = $("<a href='javascript:void(0)'></a>").appendTo("#imageList");
+                $(ic.img).appendTo($link);
+                return $link.click(function() {
+                  return self.pushImage(ic);
+                });
               }
             });
           })(c));

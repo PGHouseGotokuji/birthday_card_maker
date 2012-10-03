@@ -111,13 +111,15 @@ class BirthdayArrange extends CanvasImages
                       dataType: "json"
                       success: (res) ->
                         coll.user = res.User
-                        #                          uurl = coll.user.fb_picture;
+
                         uurl = '/facebook/' + coll.user.fb_id + '/picture';
-                        $("<a href='javascript:void(0)'><img src='#{uurl}' style='width: 120px'></a>").appendTo("#imageList").click(->
-                          self.inImage(uurl)
-                        )
                         furl = self.fetchImage(coll.photo_id)
-                        $("#imageList").append("<a onclick='drawing.inImage(\"#{furl}\")' href='javascript:void(0)'><img src='#{furl}' style='width: 120px'></a>")
+
+                        ic = new GouseiComponent([uurl, furl]);
+                        $link = $("<a href='javascript:void(0)'></a>").appendTo("#imageList");
+                        $(ic.img).appendTo($link);
+                        $link.click ->
+                          self.pushImage(ic);
 
                       })(c)
 

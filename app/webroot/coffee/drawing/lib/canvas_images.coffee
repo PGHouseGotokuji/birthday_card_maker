@@ -190,7 +190,7 @@ class CanvasImages extends _Canvas
     gouseiImage: (srcList) ->
         srcList = ['/img/hukidashi.jpeg', '/img/ken.jpg']
         gouseiComponent = new GouseiComponent(srcList)
-        # @pushComponent(gouseiComponent)
+        @pushImage(gouseiComponent)
 
     pushImage: (imgComponent) ->
       self = this;

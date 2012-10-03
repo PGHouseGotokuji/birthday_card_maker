@@ -34,6 +34,16 @@ GouseiComponent = (function(_super) {
           y: 100
         },
         priority: 20
+      }, {
+        size: {
+          width: 300,
+          height: 300
+        },
+        coords: {
+          x: 100,
+          y: 50
+        },
+        priority: 20
       }
     ]
   };
@@ -65,8 +75,9 @@ GouseiComponent = (function(_super) {
 
   GouseiComponent.prototype.generate_image = function(srcList) {
     var _this = this;
-    return $.when(this.onload(srcList[0]), this.onload(srcList[1])).then(function(img1, img2) {
+    return $.when(this.onload(srcList[0]), this.onload(srcList[1]), this.onload('/img/hukidashi.jpeg')).then(function(img1, img2, balloon) {
       _this.canvas.drawImage(img1, _this.params.img[0].coords);
+      _this.canvas.drawImage(balloon, _this.params.img[2].coords);
       _this.canvas.drawImage(img2, _this.params.img[1].coords);
       _this.img.src = _this.canvas.getImageData();
       return console.log(_this.img);
