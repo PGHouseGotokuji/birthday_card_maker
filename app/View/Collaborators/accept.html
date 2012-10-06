@@ -3,7 +3,18 @@
 <script type="text/javascript" src="<?= Util::getAssetTimestampUrl('/js/drawing/lib/util.js'); ?>"></script>
 <script type="text/javascript" src="<?= Util::getAssetTimestampUrl('/js/drawing/lib/drawing.js'); ?>"></script>
 <script type="text/javascript" src="<?= Util::getAssetTimestampUrl('/js/drawing/birthday_drawing.js'); ?>"></script>
-<div>この下のボックスはタッチしたり、クリックしたりすると絵や文章を描いて贈る事ができます。</div>
+
+<div class="toolInfoForPC">
+    <div>この下のボックスはタッチしたり、クリックしたりすると絵や文章を描いて贈る事ができます。</div>
+</div>
+
+<div class="toolInfoForMobile">
+    <div>この下のボタンを押して出て来る描画ツールはタッチしたり、クリックしたりすると絵や文章を描いて贈る事ができます。</div>
+    <div class="action">
+        <button class="showToolButton" onclick="$('.drawCanvas').fadeIn('fast')">キャンバスを表示する</button>
+    </div>
+</div>
+
 <div class="drawCanvas">
     <canvas id="canvas"></canvas>
 

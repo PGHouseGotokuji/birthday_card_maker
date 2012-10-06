@@ -384,10 +384,6 @@ ul.plans .actions img{
     margin-top: -12px;
 }
 
-.drawCanvas{
-    position:relative;
-}
-
 #tools{
     display:none;
     margin: 0 auto;
@@ -423,6 +419,40 @@ ul.plans .actions img{
 }
 
 
+/*
+ * for mibile
+ */
+@media screen and (max-width: 480px) {
 
+    .toolInfoForPC{
+        display:none;
+    }
 
+    .drawCanvas{
+        display:none;
+        position:absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+
+        background: url(../img/bg.jpg);
+    }
+
+}
+
+/**
+ * for pc
+ */
+@media screen and (min-width: 481px) {
+
+    .toolInfoForMobile{
+        display:none;
+    }
+
+    .drawCanvas{
+        position:relative;
+    }
+
+}
 
