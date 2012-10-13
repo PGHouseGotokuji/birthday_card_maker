@@ -1,28 +1,22 @@
 class _Canvas
-    '''
-        this class canvas javascript
-
-        with use drawing class
-        (modify schedule as soon as)
-    '''
+    ###*
+    # this class canvas javascript
+    # with use drawing class
+    # (modify schedule as soon as)
+    ###
     @defaultParams: {
         width  : 500
         height : 500
     }
 
     constructor: (@id = "canvas", flag=false, params=_Canvas.defaultParams) ->
-        '''
-            if flag is true -> new canvas (add container)
-        '''
-
+        ###*
+        #    if flag is true -> new canvas (add body)
+        ###
         if flag
             $("body").append("<canvas id='#{@id}'></canvas>")
-            # $("##{id}").css {
-            #     # "position": "absolute"
-            #     "top" : 50
-            #     "left": 50
-            # }
-        @canvas = $("##{@id}").get(0)
+            
+        @canvas        = $("##{@id}").get(0)
         @canvas.height = params.height
         @canvas.width  = params.width
 
@@ -87,9 +81,7 @@ class _Canvas
         delete @data.preCoords 
 
     save: ->
-        # img = new Image()
         type = "image/png"
-        # img.src = @canvas.toDataURL(type)
         data = @canvas.toDataURL(type)
         data = data.replace('data:image/png;base64,', '')
         return data

@@ -11,13 +11,17 @@ GouseiComponent = (function(_super) {
   GouseiComponent.index = 0;
 
   GouseiComponent.defaultParams = {
-    width: 300,
-    height: 300,
+    width: 250,
+    height: 250,
+    coords: {
+      top: 0,
+      left: 0
+    },
     img: [
       {
         size: {
-          width: 300,
-          height: 300
+          width: 250,
+          height: 250
         },
         coords: {
           x: 0,
@@ -26,8 +30,8 @@ GouseiComponent = (function(_super) {
         priority: 1
       }, {
         size: {
-          width: 300,
-          height: 300
+          width: 250,
+          height: 250
         },
         coords: {
           x: 100,
@@ -36,8 +40,8 @@ GouseiComponent = (function(_super) {
         priority: 20
       }, {
         size: {
-          width: 300,
-          height: 300
+          width: 250,
+          height: 250
         },
         coords: {
           x: 100,
@@ -52,14 +56,6 @@ GouseiComponent = (function(_super) {
     this.params = params != null ? params : GouseiComponent.defaultParams;
     this.onload = __bind(this.onload, this);
 
-    this.coords = {
-      top: 0,
-      left: 0
-    };
-    this.size = {
-      width: 100,
-      height: 100
-    };
     this.focusSize = {
       width: 20,
       height: 20
@@ -68,7 +64,7 @@ GouseiComponent = (function(_super) {
       focus: false
     };
     this.img = new Image();
-    this.canvas = new _Canvas("canvas_" + GouseiComponent.index, true, params);
+    this.canvas = new _Canvas("canvas_gousei_" + GouseiComponent.index, true, this.params);
     GouseiComponent.index += 1;
     this.generate_image(srcList);
   }
