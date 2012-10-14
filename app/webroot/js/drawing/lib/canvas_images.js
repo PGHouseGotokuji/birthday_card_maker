@@ -243,11 +243,12 @@ CanvasImages = (function(_super) {
       _this = this;
     self = this;
     img = imgComponent.getImage();
+    this.imageList.push(imgComponent);
     if (img.complete) {
-      return self.pushComponent(imgComponent);
+      return self.reDraw();
     } else {
       return img.onload = function() {
-        return self.pushComponent(imgComponent);
+        return self.reDraw();
       };
     }
   };
