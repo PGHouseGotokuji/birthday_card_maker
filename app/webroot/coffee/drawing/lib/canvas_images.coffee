@@ -192,11 +192,15 @@ class CanvasImages extends _Canvas
       self = this;
       img = imgComponent.getImage()
 
+      @imageList.push imgComponent
+
       if img.complete
-        self.pushComponent(imgComponent)
+        #self.pushComponent(imgComponent)
+        self.reDraw()
       else
         img.onload = =>
-          self.pushComponent(imgComponent)
+          #self.pushComponent(imgComponent)
+          self.reDraw()
 
     pushComponent: (cmp)->
       @componentDraw(cmp)

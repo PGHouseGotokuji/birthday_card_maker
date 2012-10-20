@@ -21,19 +21,18 @@ class BirthdayArrange extends CanvasImages
                     location.href = "/mypage"
             }
 
-    setBackgroundImages: ->
-        df = $.Deferred()
+    promiseImage: (src)->
+      df = $.Deferred()
 
-        src = "/img/card-bg.png"
-        img = new Image()
-        img.src = src
-        img.onload = =>
-            #@ctx.drawImage(img, 0, 0, @canvas.width, @canvas.height)
-            df.resolve(img)
-        img.onerror = (err)->
-          df.reject(err)
+      img = new Image()
+      img.src = src
+      img.onload = =>
+        df.resolve(img)
+      img.onerror = (err)->
+        df.reject(err)
 
-        return df.promise()
+      return df.promise()
+
 
     createFixedImageComponent: (src)->
       #完全に固定になっている画像
@@ -52,31 +51,39 @@ class BirthdayArrange extends CanvasImages
 
     setImages: ->
         self = this
-        @setBackgroundImages().then (img)-> #ここのimgは単なるダミー扱い。あとで見直す
+
+        bdeco = new BirthdayDeco(self.planId);
+        $.when(@promiseImage("/img/card-bg.png"), @promiseImage("/img/cover.png"), bdeco.load()).then (img, covImg, decoImg)-> #ここのimgは単なるダミー扱い。あとで見直す
           ic = self.createFixedImageComponent(img.src)
           ic.size.width = self.canvas.width
           ic.size.height = self.canvas.height
 
           self.pushImage(ic)
 
-          bdeco = new BirthdayDeco(self.planId);
-          bdeco.load().then ->
-            imageUrl = bdeco.profileImage.src
-            profileIC = self.createFixedImageComponent(imageUrl);
-            profileIC.size.width = 100;
-            profileIC.size.height = 100;
-            profileIC.coords.left = (self.canvas.width - profileIC.size.width) * 0.5;
-            profileIC.coords.top = (self.canvas.height - profileIC.size.height) * 0.5;
-            self.pushImage(profileIC);
+          imageUrl = bdeco.profileImage.src
+          profileIC = self.createFixedImageComponent(imageUrl);
+          profileIC.size.width = 100;
+          profileIC.size.height = 100;
+          profileIC.coords.left = (self.canvas.width - profileIC.size.width) * 0.5;
+          profileIC.coords.top = (self.canvas.height - profileIC.size.height) * 0.5;
+          self.pushImage(profileIC);
 
-            textC = new TextComponent(bdeco.username);
-            width = textC.getWidth(self.ctx);
-            textC.left = self.canvas.width * 0.5 - width * 0.5;
-            textC.top = self.canvas.height * 0.5 + profileIC.size.height * 0.5 + 20;
-            self.pushComponent(textC)
+          ic = self.createFixedImageComponent(covImg.src)
+          ic.size.width = 200
+          ic.size.height = 200
+          ic.coords.top = 140;
+          ic.coords.left = 150;
+          self.pushImage(ic)
+
+          textC = new TextComponent(bdeco.username, "bold 12px sans-serif");
+          width = textC.getWidth(self.ctx);
+          textC.left = self.canvas.width * 0.5 - width * 0.5;
+          textC.top = self.canvas.height * 0.5 + profileIC.size.height * 0.5 + 28;
+          self.pushComponent(textC)
 
 
-          self.getImages()
+        self.getImages()
+
 
     getImageData: ->
         @reDraw(false)

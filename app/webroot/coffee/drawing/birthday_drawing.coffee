@@ -4,6 +4,7 @@ class BirthDrawing extends Drawing
       @canvas.canvas.height = 300;
       @canvas.canvas.width = 300;
       @planId = planId
+      @setBold(3)
 
     makeUrl: ->
         collaboratorId = ""
@@ -20,14 +21,14 @@ class BirthDrawing extends Drawing
         return "/plan/" + @planId + "/collaborator/" + collaboratorId + "/photo"
 
     create_tools: ->
-      colorList = ["red", "pink", "yellow", "black", "white"]
+      colorList = ["red", "pink", "yellow", "deepskyblue", "lime"]
       colorTmpl = "<li style='background-color: %s'><ahref='#' onclick='drawing.setColor(\"%s\");return false'><div class='colorBox'>&nbsp;</div></a></li>"
       text = ""
       for ele in colorList
         text += colorTmpl.replace(/%s/g, ele);
       $("#drawing_color").append(text);
 
-      boldList = {"細い": 1, "普通": 2, "太い": 3, "超太い": 10}
+      boldList = {"細い": 1, "普通": 3, "太い": 5, "超太い": 10}
       boldTmpl = "<li><a href='#' onclick='drawing.setBold(%d);return false'><img src='/img/width%d.png' alt='%s'/></a></li>"
 
       text = ""

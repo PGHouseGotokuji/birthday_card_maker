@@ -5,7 +5,7 @@
 <script type="text/javascript" src="<?= Util::getAssetTimestampUrl('/js/drawing/birthday_drawing.js'); ?>"></script>
 
 <div class="toolInfoForPC">
-    <div>この下のボックスはタッチしたり、クリックしたりすると絵や文章を描いて贈る事ができます。</div>
+    <div>この下のボックスをタッチしたり、クリックしたりして絵や文章を描いて贈りましょう。</div>
 </div>
 
 <div class="toolInfoForMobile">
@@ -19,16 +19,22 @@
     <canvas id="canvas"></canvas>
 
     <div id="tools">
-        <div class="closeBtn">
-            <a href="javascript:$('#tools').fadeOut()"><img src="/img/del-btn.png"></a>
+        <div class="frame">
+            <div class="closeBtn">
+                <a href="javascript:$('#tools').fadeOut()"><img src="/img/del-btn.png"></a>
+            </div>
+            <h3>太さ</h3>
+            <ul id="drawing_bold" class="clearfix"></ul>
+            <h3>色</h3>
+            <ul id="drawing_color" class="clearfix"></ul>
         </div>
-        <ul id="drawing_bold" class="clearfix"></ul>
-        <ul id="drawing_color" class="clearfix"></ul>
     </div>
 
-    <button onclick="$('#tools').fadeIn()">ツール</button>
-    <button onclick="drawing.upload()">保存</button>
-    <button onclick="drawing.clear()">クリア</button>
+    <div class="buttons">
+        <button class="btn" onclick="$('#tools').fadeIn()">ツール</button>
+        <button class="btn" onclick="drawing.upload()">完了</button>
+        <button class="btn" onclick="drawing.clear()">クリア</button>
+    </div>
 </div>
 
 <script>

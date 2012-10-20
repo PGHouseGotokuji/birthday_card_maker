@@ -24,7 +24,7 @@ class UserTable extends DataTable
 
         @viewUpdate()
 
-        $(".owner-right").bind 'click', =>
+        $(".owner-right button").bind 'click', =>
             console.log "call getFriends" if debug.flag
             @createFriends()
 

@@ -32,11 +32,10 @@ BirthdayArrange = (function(_super) {
     });
   };
 
-  BirthdayArrange.prototype.setBackgroundImages = function() {
-    var df, img, src,
+  BirthdayArrange.prototype.promiseImage = function(src) {
+    var df, img,
       _this = this;
     df = $.Deferred();
-    src = "/img/card-bg.png";
     img = new Image();
     img.src = src;
     img.onload = function() {
@@ -69,32 +68,35 @@ BirthdayArrange = (function(_super) {
   };
 
   BirthdayArrange.prototype.setImages = function() {
-    var self;
+    var bdeco, self;
     self = this;
-    return this.setBackgroundImages().then(function(img) {
-      var bdeco, ic;
+    bdeco = new BirthdayDeco(self.planId);
+    $.when(this.promiseImage("/img/card-bg.png"), this.promiseImage("/img/cover.png"), bdeco.load()).then(function(img, covImg, decoImg) {
+      var ic, imageUrl, profileIC, textC, width;
       ic = self.createFixedImageComponent(img.src);
       ic.size.width = self.canvas.width;
       ic.size.height = self.canvas.height;
       self.pushImage(ic);
-      bdeco = new BirthdayDeco(self.planId);
-      bdeco.load().then(function() {
-        var imageUrl, profileIC, textC, width;
-        imageUrl = bdeco.profileImage.src;
-        profileIC = self.createFixedImageComponent(imageUrl);
-        profileIC.size.width = 100;
-        profileIC.size.height = 100;
-        profileIC.coords.left = (self.canvas.width - profileIC.size.width) * 0.5;
-        profileIC.coords.top = (self.canvas.height - profileIC.size.height) * 0.5;
-        self.pushImage(profileIC);
-        textC = new TextComponent(bdeco.username);
-        width = textC.getWidth(self.ctx);
-        textC.left = self.canvas.width * 0.5 - width * 0.5;
-        textC.top = self.canvas.height * 0.5 + profileIC.size.height * 0.5 + 20;
-        return self.pushComponent(textC);
-      });
-      return self.getImages();
+      imageUrl = bdeco.profileImage.src;
+      profileIC = self.createFixedImageComponent(imageUrl);
+      profileIC.size.width = 100;
+      profileIC.size.height = 100;
+      profileIC.coords.left = (self.canvas.width - profileIC.size.width) * 0.5;
+      profileIC.coords.top = (self.canvas.height - profileIC.size.height) * 0.5;
+      self.pushImage(profileIC);
+      ic = self.createFixedImageComponent(covImg.src);
+      ic.size.width = 200;
+      ic.size.height = 200;
+      ic.coords.top = 140;
+      ic.coords.left = 150;
+      self.pushImage(ic);
+      textC = new TextComponent(bdeco.username, "bold 12px sans-serif");
+      width = textC.getWidth(self.ctx);
+      textC.left = self.canvas.width * 0.5 - width * 0.5;
+      textC.top = self.canvas.height * 0.5 + profileIC.size.height * 0.5 + 28;
+      return self.pushComponent(textC);
     });
+    return self.getImages();
   };
 
   BirthdayArrange.prototype.getImageData = function() {
