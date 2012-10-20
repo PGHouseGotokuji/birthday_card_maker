@@ -35,7 +35,7 @@ UserTable = (function(_super) {
       console.log(res);
     }
     this.viewUpdate();
-    return $(".owner-right").bind('click', function() {
+    return $(".owner-right button").bind('click', function() {
       if (debug.flag) {
         console.log("call getFriends");
       }
