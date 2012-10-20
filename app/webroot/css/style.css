@@ -15,7 +15,7 @@ button {
 canvas#canvas {
     border: solid 1px lightgray;
     display: block;
-    margin: 0 auto;
+    margin: 10px auto;
 }
 
 body {
@@ -394,14 +394,32 @@ ul.plans .actions img{
     top: 0;
     background-color: rgba(0,0,0,0.5);
     z-index: 100;
+
+    padding: 1em;
+}
+
+#tools .frame{
+    width: 240px;
+    margin: 0 auto;
+}
+
+#tools img{
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
 }
 
 #tools .closeBtn{
-    text-align: right;
+    position: absolute;
+    right: 0px;
+    top: 0px;
 }
 
 #drawing_bold li{
     float: left;
+    background-color:white;
+    margin-right: 1em;
+    padding: .5em;
 }
 
 #drawing_color{
@@ -416,6 +434,10 @@ ul.plans .actions img{
 
 #drawing_color .colorBox{
     width: 43px;
+}
+
+.drawCanvas .buttons{
+    text-align:center;
 }
 
 
@@ -455,4 +477,5 @@ ul.plans .actions img{
     }
 
 }
+
 
