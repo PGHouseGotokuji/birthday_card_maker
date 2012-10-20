@@ -87,13 +87,13 @@ BirthdayArrange = (function(_super) {
       ic = self.createFixedImageComponent(covImg.src);
       ic.size.width = 200;
       ic.size.height = 200;
-      ic.coords.top = 250;
-      ic.coords.left = 250;
+      ic.coords.top = 140;
+      ic.coords.left = 150;
       self.pushImage(ic);
-      textC = new TextComponent(bdeco.username);
+      textC = new TextComponent(bdeco.username, "bold 12px sans-serif");
       width = textC.getWidth(self.ctx);
       textC.left = self.canvas.width * 0.5 - width * 0.5;
-      textC.top = self.canvas.height * 0.5 + profileIC.size.height * 0.5 + 20;
+      textC.top = self.canvas.height * 0.5 + profileIC.size.height * 0.5 + 28;
       return self.pushComponent(textC);
     });
     return self.getImages();
