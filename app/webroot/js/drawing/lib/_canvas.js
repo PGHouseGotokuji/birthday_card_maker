@@ -4,23 +4,27 @@ var _Canvas;
 _Canvas = (function() {
   'this class canvas javascript\n\nwith use drawing class\n(modify schedule as soon as)';
 
-  function _Canvas(id, flag) {
+  _Canvas.defaultParams = {
+    width: 500,
+    height: 500
+  };
+
+  function _Canvas(id, flag, params) {
     this.id = id != null ? id : "canvas";
     if (flag == null) {
       flag = false;
     }
+    if (params == null) {
+      params = _Canvas.defaultParams;
+    }
     'if flag is true -> new canvas (add container)';
 
     if (flag) {
-      $("#" + id).css({
-        "position": "absolute",
-        "top": 50,
-        "left": 50
-      });
+      $("body").append("<canvas id='" + this.id + "'></canvas>");
     }
     this.canvas = $("#" + this.id).get(0);
-    this.canvas.height = 500;
-    this.canvas.width = 500;
+    this.canvas.height = params.height;
+    this.canvas.width = params.width;
     this.ctx = this.canvas.getContext('2d');
     this.data = {};
     this.setSize("1");
@@ -105,6 +109,32 @@ _Canvas = (function() {
   _Canvas.prototype.lineRound = function() {
     this.ctx.lineJoin = "round";
     return this.ctx.lineCap = "round";
+  };
+
+  _Canvas.prototype.drawImage = function(img, coords, size) {
+    if (coords == null) {
+      coords = {
+        x: 0,
+        y: 0
+      };
+    }
+    if (size == null) {
+      size = {
+        width: 100,
+        height: 100
+      };
+    }
+    return this.ctx.drawImage(img, coords.x, coords.y, size.width, size.height);
+  };
+
+  _Canvas.prototype.getImageData = function(type) {
+    var data;
+    if (type == null) {
+      type = "png";
+    }
+    type = "image/" + type;
+    data = this.canvas.toDataURL(type);
+    return data;
   };
 
   return _Canvas;

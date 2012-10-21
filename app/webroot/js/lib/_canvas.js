@@ -4,8 +4,16 @@ var _Canvas;
 _Canvas = (function() {
   'this class canvas javascript\n\nwith use drawing class\n(modify schedule as soon as)';
 
-  function _Canvas(id, flag) {
+  _Canvas.defaultParams = {
+    width: 500,
+    height: 500
+  };
+
+  function _Canvas(id, params, flag) {
     this.id = id != null ? id : "canvas";
+    if (params == null) {
+      params = _Canvas.defaultParams;
+    }
     if (flag == null) {
       flag = false;
     }
@@ -19,8 +27,8 @@ _Canvas = (function() {
       });
     }
     this.canvas = $("#" + this.id).get(0);
-    this.canvas.height = 500;
-    this.canvas.width = 500;
+    this.canvas.height = params.height;
+    this.canvas.width = params.width;
     this.ctx = this.canvas.getContext('2d');
     this.data = {};
     this.setSize("1");
