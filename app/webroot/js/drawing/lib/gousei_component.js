@@ -56,6 +56,14 @@ GouseiComponent = (function(_super) {
     this.params = params != null ? params : GouseiComponent.defaultParams;
     this.onload = __bind(this.onload, this);
 
+    this.coords = {
+      top: 0,
+      left: 0
+    };
+    this.size = {
+      width: 100,
+      height: 100
+    };
     this.focusSize = {
       width: 20,
       height: 20

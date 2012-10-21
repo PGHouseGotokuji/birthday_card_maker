@@ -2,7 +2,11 @@
 var _Canvas;
 
 _Canvas = (function() {
-  'this class canvas javascript\n\nwith use drawing class\n(modify schedule as soon as)';
+  /**
+  # this class canvas javascript
+  # with use drawing class
+  # (modify schedule as soon as)
+  */
 
   _Canvas.defaultParams = {
     width: 500,
@@ -17,7 +21,9 @@ _Canvas = (function() {
     if (params == null) {
       params = _Canvas.defaultParams;
     }
-    'if flag is true -> new canvas (add container)';
+    /**
+    #    if flag is true -> new canvas (add body)
+    */
 
     if (flag) {
       $("body").append("<canvas id='" + this.id + "'></canvas>");
