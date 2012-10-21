@@ -194,4 +194,14 @@ class PostsController extends AppController
 
         return new CakeResponse(array('body' => json_encode($response)));
     }
+
+    /**
+     * 投稿完了
+     *
+     * @access public
+     */
+    public function posted()
+    {
+        return $this->flashAndRedirect('Facebookへ投稿完了しました。', '/mypage', 'success');
+    }
 }

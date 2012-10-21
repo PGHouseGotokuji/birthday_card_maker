@@ -37,7 +37,7 @@ class FacebookFeedPoster
     function postToFriendFbTimeline($fromId, $toId, $photoUrl, $description)
     {
         $token = $this->token;
-        $url   = 'https://www.facebook.com/dialog/feed?app_id=' . APP_ID . '&access_token=' . urlencode($token) . '&from=' . $fromId . '&to=' . $toId . '&picture=' . urlencode($photoUrl) . '&redirect_uri=' . urlencode(SITE_URL . '/mypage') . '&description=' . $description;
+        $url   = 'https://www.facebook.com/dialog/feed?app_id=' . APP_ID . '&access_token=' . urlencode($token) . '&from=' . $fromId . '&to=' . $toId . '&picture=' . urlencode($photoUrl) . '&redirect_uri=' . urlencode(SITE_URL . '/posted') . '&description=' . $description;
         header('Location:' . $url);
         exit;
     }
