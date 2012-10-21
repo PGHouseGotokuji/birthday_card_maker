@@ -8,18 +8,13 @@ class FacebookFeedPoster
         $this->token = $token;
     }
 
-    function postToMe($msg)
-    {
-        return $this->postTo('me', $msg);
-    }
-
-    function postTo($id, $msg)
+    function postToMyTimeline($target, $msg)
     {
         $token   = $this->token;
         $ch      = curl_init();
         $params  = 'access_token=' . urlencode($token);
         $params .= '&message=' .urlencode($msg);
-        curl_setopt($ch, CURLOPT_URL, 'https://graph.facebook.com/' . $id . '/feed');
+        curl_setopt($ch, CURLOPT_URL, 'https://graph.facebook.com/' . $target . '/feed');
         curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -37,6 +32,14 @@ class FacebookFeedPoster
                 return FALSE;
             }
         }
+    }
+
+    function postToFriendFbTimeline($fromId, $toId, $photoUrl, $description)
+    {
+        $token = $this->token;
+        $url   = 'https://www.facebook.com/dialog/feed?app_id=' . APP_ID . '&access_token=' . urlencode($token) . '&from=' . $fromId . '&to=' . $toId . '&picture=' . urlencode($photoUrl) . '&redirect_uri=' . urlencode(SITE_URL . '/mypage') . '&description=' . $description;
+        header('Location:' . $url);
+        exit;
     }
 }
 
