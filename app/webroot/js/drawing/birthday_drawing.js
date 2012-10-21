@@ -12,6 +12,7 @@ BirthDrawing = (function(_super) {
     this.canvas.canvas.height = 300;
     this.canvas.canvas.width = 300;
     this.planId = planId;
+    this.setBold(3);
   }
 
   BirthDrawing.prototype.makeUrl = function() {
@@ -32,8 +33,8 @@ BirthDrawing = (function(_super) {
 
   BirthDrawing.prototype.create_tools = function() {
     var boldList, boldTmpl, colorList, colorTmpl, ele, key, text, tmp, value, _i, _len;
-    colorList = ["red", "pink", "yellow", "black", "white"];
-    colorTmpl = "<li style='background-color: %s'><a href='#' onclick='drawing.setColor(\"%s\");return false'><div class='colorBox'>&nbsp;</div></a></li>";
+    colorList = ["red", "pink", "yellow", "deepskyblue", "lime"];
+    colorTmpl = "<li style='background-color: %s'><ahref='#' onclick='drawing.setColor(\"%s\");return false'><div class='colorBox'>&nbsp;</div></a></li>";
     text = "";
     for (_i = 0, _len = colorList.length; _i < _len; _i++) {
       ele = colorList[_i];
@@ -42,8 +43,8 @@ BirthDrawing = (function(_super) {
     $("#drawing_color").append(text);
     boldList = {
       "細い": 1,
-      "普通": 2,
-      "太い": 3,
+      "普通": 3,
+      "太い": 5,
       "超太い": 10
     };
     boldTmpl = "<li><a href='#' onclick='drawing.setBold(%d);return false'><img src='/img/width%d.png' alt='%s'/></a></li>";

@@ -1,5 +1,5 @@
 class ImageComponent
-    constructor: (src, type) ->
+    constructor: (src) ->
         @img = new Image()
         @img.src = src
         @coords = {
@@ -18,15 +18,6 @@ class ImageComponent
         @flag = {
             focus: false
         }
-
-        if type is "touch"
-            @inImage = @touchInImage
-            @onImage = @touchOnImage
-            @outImage = @touchoutImage
-        else if type is "mouse"
-            @inImage = @mouseInImage
-            @onImage = @mouseOnImage
-            @outImage = @mouseoutImage
 
     rangeImageInCheck: (point, coords = @coords, size = @size) ->
         if coords.left <= point.x <= coords.left + size.width
@@ -75,7 +66,7 @@ class ImageComponent
 
     addCoords: (diff) ->
         @coords.left += diff.x
-        @coords.top += diff.y
+        @coords.top  += diff.y
 
     addSize: (diff) ->
         console.log "diff"

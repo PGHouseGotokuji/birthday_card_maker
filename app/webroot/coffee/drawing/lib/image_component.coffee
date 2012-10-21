@@ -19,15 +19,6 @@ class ImageComponent
             focus: false
         }
 
-        if type is "touch"
-            @inImage = @touchInImage
-            @onImage = @touchOnImage
-            @outImage = @touchoutImage
-        else if type is "mouse"
-            @inImage = @mouseInImage
-            @onImage = @mouseOnImage
-            @outImage = @mouseoutImage
-
     rangeImageInCheck: (point, coords = @coords, size = @size) ->
 #      console.log('point.x:' + point.x)
 #      console.log('point.y:' + point.y)
@@ -122,5 +113,5 @@ class ImageComponent
         @flag.focus = true
 
     draw: (ctx)->
-      ctx.drawImage(@img, 0, 0, @img.width, @img.height, @coords.left, @coords.top, @size.width, @size.height)
+        ctx.drawImage(@img, 0, 0, @img.width, @img.height, @coords.left, @coords.top, @size.width, @size.height)
 

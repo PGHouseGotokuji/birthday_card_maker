@@ -5,7 +5,13 @@ class _Canvas
         with use drawing class
         (modify schedule as soon as)
     '''
-    constructor: (@id = "canvas", flag=false) ->
+
+    @defaultParams = {
+        width  : 500
+        height : 500
+    }
+
+    constructor: (@id = "canvas", params=_Canvas.defaultParams, flag=false) ->
         '''
             if flag is true -> new canvas (add container)
         '''
@@ -13,16 +19,14 @@ class _Canvas
             $(".canvas_space").append("<canvas id='#{@id}'></canvas>")
             $("##{id}").css {
                 # "position": "absolute"
-                "top": 50
+                "top" : 50
                 "left": 50
             }
         @canvas = $("##{@id}").get(0)
+        @canvas.height = params.height
+        @canvas.width  = params.width
 
-        @canvas.height = 500
-        @canvas.width = 500
-
-        # @canvas.height = 500
-        @ctx = @canvas.getContext('2d')
+        @ctx  = @canvas.getContext('2d')
         @data = {}
 
         @setSize("1")

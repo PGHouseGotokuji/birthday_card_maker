@@ -1,28 +1,26 @@
 class _Canvas
-    '''
-        this class canvas javascript
+    ###*
+    # this class canvas javascript
+    # with use drawing class
+    # (modify schedule as soon as)
+    ###
+    @defaultParams: {
+        width  : 500
+        height : 500
+    }
 
-        with use drawing class
-        (modify schedule as soon as)
-    '''
-    constructor: (@id = "canvas", flag=false) ->
-        '''
-            if flag is true -> new canvas (add container)
-        '''
+    constructor: (@id = "canvas", flag=false, params=_Canvas.defaultParams) ->
+        ###*
+        #    if flag is true -> new canvas (add body)
+        ###
         if flag
-            # $(".canvas_space").append("<canvas id='#{@id}'></canvas>")
-            $("##{id}").css {
-                "position": "absolute"
-                "top": 50
-                "left": 50
-            }
-        @canvas = $("##{@id}").get(0)
+            $("body").append("<canvas id='#{@id}'></canvas>")
+            
+        @canvas        = $("##{@id}").get(0)
+        @canvas.height = params.height
+        @canvas.width  = params.width
 
-        @canvas.height = 500
-        @canvas.width = 500
-
-        # @canvas.height = 500
-        @ctx = @canvas.getContext('2d')
+        @ctx  = @canvas.getContext('2d')
         @data = {}
 
         @setSize("1")
@@ -83,13 +81,19 @@ class _Canvas
         delete @data.preCoords 
 
     save: ->
-        # img = new Image()
         type = "image/png"
-        # img.src = @canvas.toDataURL(type)
         data = @canvas.toDataURL(type)
         data = data.replace('data:image/png;base64,', '')
         return data
 
     lineRound: ->
         @ctx.lineJoin = "round"
-        @ctx.lineCap = "round"
+        @ctx.lineCap  = "round"
+
+    drawImage: (img, coords={x: 0, y: 0}, size={width: 100, height: 100}) ->
+        @ctx.drawImage(img, coords.x, coords.y, size.width, size.height)
+
+    getImageData: (type="png")->
+        type = "image/#{type}"
+        data = @canvas.toDataURL(type)
+        data

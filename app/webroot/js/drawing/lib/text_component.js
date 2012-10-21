@@ -3,9 +3,10 @@ var TextComponent;
 
 TextComponent = (function() {
 
-  function TextComponent(text, font) {
+  function TextComponent(text, font, color) {
     this.text = text;
     this.font = font != null ? font : "bold 16px sans-serif";
+    this.color = color != null ? color : "rgb(255,255,255)";
   }
 
   TextComponent.prototype.rangeImageInCheck = function(point, coords, size) {
@@ -32,8 +33,12 @@ TextComponent = (function() {
   };
 
   TextComponent.prototype.draw = function(ctx) {
+    var tmpFill;
     ctx.font = this.font;
-    return ctx.fillText(this.text, this.left, this.top);
+    tmpFill = ctx.fillStyle;
+    ctx.fillStyle = this.color;
+    ctx.fillText(this.text, this.left, this.top);
+    return ctx.fillStyle = tmpFill;
   };
 
   return TextComponent;
