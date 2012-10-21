@@ -11,7 +11,7 @@ GouseiComponent = (function(_super) {
   GouseiComponent.index = 0;
 
   GouseiComponent.defaultParams = {
-    width: 250,
+    width: 300,
     height: 250,
     coords: {
       top: 0,
@@ -20,32 +20,32 @@ GouseiComponent = (function(_super) {
     img: [
       {
         size: {
-          width: 250,
-          height: 250
+          width: 80,
+          height: 80
         },
         coords: {
           x: 0,
-          y: 0
+          y: 25
         },
         priority: 1
       }, {
         size: {
-          width: 250,
+          width: 230,
           height: 250
         },
         coords: {
-          x: 100,
-          y: 100
+          x: 80,
+          y: 0
         },
         priority: 20
       }, {
         size: {
-          width: 250,
+          width: 230,
           height: 250
         },
         coords: {
-          x: 100,
-          y: 50
+          x: 80,
+          y: 0
         },
         priority: 20
       }
@@ -78,11 +78,17 @@ GouseiComponent = (function(_super) {
   }
 
   GouseiComponent.prototype.generate_image = function(srcList) {
-    var _this = this;
+
+      var _this = this;
+    function drawImage(img, dat){
+        _this.canvas.drawImage(img, dat.coords, dat.size);
+    }
+
     return $.when(this.onload(srcList[0]), this.onload(srcList[1]), this.onload('/img/hukidashi.jpeg')).then(function(img1, img2, balloon) {
-      _this.canvas.drawImage(img1, _this.params.img[0].coords);
-      _this.canvas.drawImage(balloon, _this.params.img[2].coords);
-      _this.canvas.drawImage(img2, _this.params.img[1].coords);
+
+        drawImage(img1, _this.params.img[0]);
+        drawImage(balloon, _this.params.img[2]);
+        drawImage(img2, _this.params.img[1]);
       _this.img.src = _this.canvas.getImageData();
       return console.log(_this.img);
     });
