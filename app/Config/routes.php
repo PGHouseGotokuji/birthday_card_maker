@@ -74,6 +74,9 @@
     // 画像を生成
     Router::connect('/plan/:planId/card',  array('controller' => 'Posts', 'action' => 'postCard'));
 
+    // fb投稿完了
+    Router::connect('/posted',  array('controller' => 'Posts', 'action' => 'posted'));
+
 /**
  * Load all plugin routes.  See the CakePlugin documentation on 
  * how to customize the loading of plugin routes.

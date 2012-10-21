@@ -95,12 +95,11 @@ class PostsController extends AppController
         $process = function($poster, $planInfo, $target) {
              $url         = SITE_URL . '/plan/' . $planInfo['Plan']['id'] . '/collaborator';
              $callMessage = $planInfo['User']['username'] . 'さんが' . $planInfo['Plan']['username'] . 'さんへ誕生日のお祝いカードを作ろうとしています。' . $url .  ' へアクセスして、みんなで一緒にお祝いカードを作りましょう！';
-             return $poster->postToMe($callMessage);
+             return $poster->postToMyTimeline('me', $callMessage);
         };
 
         $this->set('title_for_layout', '自分のタイムラインに投稿完了しました！');
         $this->set('title_for_page',   '自分のタイムラインに投稿完了しました！');
-
         $this->doPostFbTimeLine($process);
     }
 
@@ -153,15 +152,13 @@ class PostsController extends AppController
             $this->flashAndRedirect('投稿時に問題が発生しました。再度お試しください。', $this->referer());
         }
 
-        $process = function($poster, $planInfo, $target) {
-             $photoUrl         = SITE_URL . '/img/plan-photo/' . $planInfo['Plan']['id'] . '.png';
-             $celebrateMessage = $planInfo['Plan']['username'] . 'さん誕生日おめでとうございます！' . $planInfo['User']['username'] . 'さんと友人の皆さんがあなたに誕生日のお祝いカードを作成しましたので、' . $photoUrl .  ' へアクセスして確認してみてください！';
-             return $poster->postTo($target->id, $celebrateMessage);
+        $process = function($poster, $planInfo, $target, $fromId) {
+             $photoUrl    = SITE_URL . '/img/plan-photo/' . $planInfo['Plan']['id'] . '.png';
+             $description = $planInfo['Plan']['username'] . 'さん誕生日おめでとうございます！' . $planInfo['User']['username'] . 'さんと友人の皆さんがあなたに誕生日のお祝いカードを作成しましたので、' . $photoUrl .  ' へアクセスして確認してみてください！';
+             return $poster->postToFriendFbTimeline($fromId, $target->id, $photoUrl, $description);
         };
 
         $this->set('plan', $plan);
-        $this->set('title_for_layout', '誕生日の相手のタイムラインに投稿完了しました！');
-        $this->set('title_for_page',   '誕生日の相手のタイムラインに投稿完了しました！');
         $this->doPostFbTimeLine($process);
     }
 
@@ -190,12 +187,21 @@ class PostsController extends AppController
         }
 
         $target = $this->PlanSupport->getToUser($token, $plan);
-        $id     = $postProcess($poster, $plan, $target);
-
+        $id = $postProcess($poster, $plan, $target, $this->loginUser['User']['fb_id']);
         if (!empty($id)) {
             $response['Success'] = 'true';
         }
 
         return new CakeResponse(array('body' => json_encode($response)));
+    }
+
+    /**
+     * 投稿完了
+     *
+     * @access public
+     */
+    public function posted()
+    {
+        return $this->flashAndRedirect('Facebookへ投稿完了しました。', '/mypage', 'success');
     }
 }
